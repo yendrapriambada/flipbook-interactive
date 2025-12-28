@@ -1,13 +1,13 @@
 import { forwardRef, useEffect, useState } from 'react'
 import { useAnswers } from '../../context/AnswersContext'
 
-const DigitalResourceQuestionPage = forwardRef(function DigitalResourceQuestionPage(props, ref) {
+const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(props, ref) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isCompleted, setIsCompleted] = useState(false)
   const fullText =
-    '"Mahasiswa diminta mengidentifikasi media digital yang tepat berdasarkan wacana yang telah disajikan sebelumnya."'
+    '"Mahasiswa diminta menjawab pertanyaan berdasarkan wacana Classroom Newsletter yang telah disajikan diatas."'
   const [displayedText, setDisplayedText] = useState('')
-  const { answers, setQ7Answer, setQ8Features, setQ9Benefits } = useAnswers()
+  const { answers, setS7A1, setS7A2 } = useAnswers()
 
   const handlePlayClick = () => {
     if (!isPlaying) {
@@ -39,16 +39,30 @@ const DigitalResourceQuestionPage = forwardRef(function DigitalResourceQuestionP
   return (
     <div className="page" ref={ref}>
       <div className="page-content answer-form-page">
+        <div className="speech-bubble answer-speech">
+          <p>{displayedText || 'Klik ▶ Play untuk memutar teks'}</p>
+        </div>
+        {!isCompleted && (
+          <button
+            type="button"
+            className={`student-play-button ${isPlaying ? 'student-play-button-active' : ''}`}
+            onClick={handlePlayClick}
+            disabled={isPlaying}
+          >
+            {isPlaying ? 'Listening...' : '▶ Play'}
+          </button>
+        )}
+
         <div className="evaluation-question-card">
           <h3 className="evaluation-question">
-            Berdasarkan informasi dari Newspaper di atas, bagaimana anda akan mendesain alat tersebut agar
-            lebih mudah digunakan oleh pedagang di pasar tradisional!
+            Jika tujuan guru adalah memberikan pengalaman pembelajaran interaktif dan visual, media digital mana
+            yang paling tepat untuk digunakan? Jelaskan alasannya.
           </h3>
           <div className="evaluation-input-wrapper">
             <textarea
               placeholder="Jawaban Anda..."
-              value={answers.q7.answer}
-              onChange={(e) => setQ7Answer(e.target.value)}
+              value={answers.s7.a1}
+              onChange={(e) => setS7A1(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}
               onMouseDownCapture={stopFlipPropagation}
               onTouchStartCapture={stopFlipPropagation}
@@ -58,30 +72,14 @@ const DigitalResourceQuestionPage = forwardRef(function DigitalResourceQuestionP
 
         <div className="evaluation-question-card">
           <h3 className="evaluation-question">
-            Sebutkan fitur tambahan yang perlu ditambahkan pada alat tersebut lebih efektif, praktis, dan ramah
-            pengguna!
+            Jika siswa diminta untuk mempelajari boraks secara mendalam dan menulis laporan ilmiah, media mana
+            yang paling tepat digunakan? Jelaskan mengapa?
           </h3>
           <div className="evaluation-input-wrapper">
             <textarea
               placeholder="Jawaban Anda..."
-              value={answers.q8.features}
-              onChange={(e) => setQ8Features(e.target.value)}
-              onPointerDownCapture={stopFlipPropagation}
-              onMouseDownCapture={stopFlipPropagation}
-              onTouchStartCapture={stopFlipPropagation}
-            />
-          </div>
-        </div>
-
-        <div className="evaluation-question-card">
-          <h3 className="evaluation-question">
-            Jelaskan manfaat dari desain alatmu untuk membantu menyelesaikan masalah yang dihadapi para pedagang!
-          </h3>
-          <div className="evaluation-input-wrapper">
-            <textarea
-              placeholder="Jawaban Anda..."
-              value={answers.q9.benefits}
-              onChange={(e) => setQ9Benefits(e.target.value)}
+              value={answers.s7.a2}
+              onChange={(e) => setS7A2(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}
               onMouseDownCapture={stopFlipPropagation}
               onTouchStartCapture={stopFlipPropagation}
@@ -95,4 +93,4 @@ const DigitalResourceQuestionPage = forwardRef(function DigitalResourceQuestionP
   )
 })
 
-export default DigitalResourceQuestionPage
+export default HamkaSpeechQuestionPage

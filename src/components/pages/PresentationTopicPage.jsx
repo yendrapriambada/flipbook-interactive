@@ -1,10 +1,11 @@
 import { forwardRef, useEffect, useState } from 'react'
+import emailImage from '../../assets/email.png'
 
 const PresentationTopicPage = forwardRef(function PresentationTopicPage(props, ref) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isCompleted, setIsCompleted] = useState(false)
   const fullText =
-    '"Mahasiswa diminta untuk membuat sebuah presentasi multimedia dengan topik: \"Desain Irigasi Hemat Energi: Solusi untuk Daerah dengan Keterbatasan Sumber Daya\"."'
+    '"Mahasiswa diminta untuk mengerjakan tugas berdasarkan pesan teks email dari dosen"'
   const [displayedText, setDisplayedText] = useState('')
 
   const handlePlayClick = () => {
@@ -37,6 +38,13 @@ const PresentationTopicPage = forwardRef(function PresentationTopicPage(props, r
       <div className="page-content page-hero-right">
         <div className="speech-bubble">
           <p>{displayedText || 'Klik ▶ Play untuk memutar teks'}</p>
+        </div>
+        <div className="hero-image-frame" style={{ width: '100%' }}>
+          <img
+            src={emailImage}
+            alt="Email tugas kelompok"
+            className="hero-image hero-image-contain"
+          />
         </div>
         {!isCompleted && (
           <button

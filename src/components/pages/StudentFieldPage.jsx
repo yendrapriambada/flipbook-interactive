@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useState } from 'react'
-import studentImage from '../../assets/mahasiswapenelitian.png'
+import studentImage from '../../assets/penelitian.png'
 
 const StudentFieldPage = forwardRef(function StudentFieldPage(props, ref) {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -7,9 +7,9 @@ const StudentFieldPage = forwardRef(function StudentFieldPage(props, ref) {
   const [displayedText, setDisplayedText] = useState('Klik play untuk memutar teks...')
 
   const fullText =
-    'Pada mata kuliah Pendidikan IPA Terpadu, mahasiswa diminta untuk mengerjakan tugas dengan tema Teknologi Ramah Lingkungan untuk Irigasi.\n\n' +
-    'Setelah disepakati bersama, konteks yang akan dibahas terkait tema tersebut adalah Sistem Irigasi Pertanian.\n\n' +
-    'Secara spesifik akan membahas tentang bagaimana kondisi sistem irigasi di lingkungan Kota X dalam mengatasi ketersediaan air yang semakin terbatas.'
+    'Program Studi Pendidikan IPA mengadakan sebuah pameran edukatif bertema "Inovasi teknologi mendeteksi makanan berbahaya".\n\n' +
+    'Pameran ini bertujuan untuk meningkatkan kesadaran masyarakat mengenai bahaya penggunaan boraks dalam makanan, terutama dalam konteks kesehatan. Mahasiswa prodi Pendidikan IPA menampilkan berbagai poster, eksperimen ilmiah, serta simulasi sederhana yang memperlihatkan cara mendeteksi kandungan boraks dalam makanan.\n\n' +
+    'Selain itu, pengunjung diberikan informasi tentang dampak negatif konsumsi boraks dan diajarkan cara memilih produk makanan yang aman.'
 
   const handlePlayClick = () => {
     if (!isPlaying) {

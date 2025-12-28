@@ -2,15 +2,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import HTMLFlipBook from 'react-pageflip'
 import CoverPage from './pages/CoverPage'
 import AnnouncementPage from './pages/AnnouncementPage'
+import ProcessDragPage from './pages/ProcessDragPage'
 import StudentFieldPage from './pages/StudentFieldPage'
 import TeacherTaskPage from './pages/TeacherTaskPage'
 import ContextPage from './pages/ContextPage'
-import SpeechTextPage from './pages/SpeechTextPage'
-import SolutionEvaluationPage from './pages/SolutionEvaluationPage'
-import TechnologyImpactPage from './pages/TechnologyImpactPage'
-import ObservationSpeechPage from './pages/ObservationSpeechPage'
-import GroupDataPage from './pages/GroupDataPage'
-import GraphAnalysisPage from './pages/GraphAnalysisPage'
+import VideoDiscoveryPage from './pages/VideoDiscoveryPage'
+ 
 import VideoGalleryPage from './pages/VideoGalleryPage'
 import ExpertOpinionPage from './pages/ExpertOpinionPage'
 import ExpertSelectionPage from './pages/ExpertSelectionPage'
@@ -18,20 +15,23 @@ import IntroImagePage from './pages/IntroImagePage'
 import ExperiencePage from './pages/ExperiencePage'
 import QuestionPage from './pages/QuestionPage'
 import PresentationTopicPage from './pages/PresentationTopicPage'
-import AnswerFormPage from './pages/AnswerFormPage'
-import PresentationInstructionLeftPage from './pages/PresentationInstructionLeftPage'
-import PresentationInstructionRightPage from './pages/PresentationInstructionRightPage'
+ 
+import PresentationSlidesLayoutPage from './pages/PresentationSlidesLayoutPage'
 import JournalPortraitPage from './pages/JournalPortraitPage'
-  import MediaIdentificationSpeechPage from './pages/MediaIdentificationSpeechPage'
+  
 import BreakingNewsPage from './pages/BreakingNewsPage'
+import NewsletterPage from './pages/NewsletterPage'
 import DigitalResourcePage from './pages/DigitalResourcePage'
 import DigitalResourceLeftPage from './pages/DigitalResourceLeftPage'
 import DigitalResourceRightPage from './pages/DigitalResourceRightPage'
 import DigitalResourceQuestionPage from './pages/DigitalResourceQuestionPage'
+import HamkaSpeechQuestionPage from './pages/HamkaSpeechQuestionPage'
 import PosterAppsLeftPage from './pages/PosterAppsLeftPage'
 import PosterTaskRightPage from './pages/PosterTaskRightPage'
 import AnswerReportPage from './pages/AnswerReportPage'
 import BackCoverPage from './pages/BackCoverPage'
+import BoraksSamplesPage from './pages/BoraksSamplesPage'
+import BoraksQuestionsPage from './pages/BoraksQuestionsPage'
 import { AnswersProvider } from '../context/AnswersContext'
 
 function Book() {
@@ -146,7 +146,7 @@ function Book() {
           showCover
           showPageCorners
           mobileScrollSupport
-          disableFlipByClick={false}
+          disableFlipByClick={true}
           swipeDistance={80}
         useMouseEvents={true}
         className="flipbook-book"
@@ -162,28 +162,21 @@ function Book() {
           <StudentFieldPage />
           <TeacherTaskPage />
           <ContextPage />
-          <BreakingNewsPage />
-          
-          {/* <IntroImagePage /> */}
-          {/* <ExperiencePage story={story} onStoryChange={handleStoryChange} /> */}
-          <AnswerFormPage />
-          <SpeechTextPage />
-          <SolutionEvaluationPage />
-          <ObservationSpeechPage />
-          <GroupDataPage />
-          <GraphAnalysisPage />
+          <VideoDiscoveryPage />
           <VideoGalleryPage />
-          <TechnologyImpactPage />
-          <AnnouncementPage />
+          <BreakingNewsPage />
           <ExpertOpinionPage />
           <ExpertSelectionPage />
-          
           <PresentationTopicPage />
-          <PresentationInstructionLeftPage />
-          <PresentationInstructionRightPage />
-          <MediaIdentificationSpeechPage />
+          <PresentationSlidesLayoutPage />
+          <AnnouncementPage />
+          <ProcessDragPage />
           <JournalPortraitPage />
           <DigitalResourceQuestionPage />
+          <BoraksSamplesPage />
+          <BoraksQuestionsPage />
+          <NewsletterPage />
+          <HamkaSpeechQuestionPage />
           <DigitalResourceLeftPage />
           <DigitalResourceRightPage />
           <PosterAppsLeftPage />

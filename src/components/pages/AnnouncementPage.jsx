@@ -31,7 +31,6 @@ const AnnouncementPage = forwardRef((props, ref) => {
                 }}
             />
         </div>
-        <div className="page-number" style={{ textAlign: 'center', flexShrink: 0 }}>— Pengumuman —</div>
       </div>
     </div>
   );

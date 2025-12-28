@@ -7,29 +7,28 @@ const ExpertOpinionPage = forwardRef((props, ref) => {
 
   const experts = [
     {
-      name: "Prof. Patel",
-      title: "Ahli Teknologi Lingkungan",
-      quote: "Penggunaan teknologi pompa air tenaga surya dapat menjadi solusi yang berkelanjutan untuk mengatasi kekurangan air dalam irigasi pertanian, terutama di wilayah dengan paparan sinar matahari yang cukup tinggi.",
-      // Using a placeholder image that looks like a professor
-      img: "https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=150" 
+      name: "",
+      title: "Pakar Teknologi Pangan",
+      quote: "Untuk mengatasi masalah borak dalam makanan, saya percaya bahwa penggunaan teknologi pengawet berbahan kimia yang lebih kuat adalah solusi yang tepat.",
+      img: "https://i.pravatar.cc/150?img=68"
     },
     {
-      name: "Dr. Lopez",
-      title: "Ahli Hidrologi",
-      quote: "Pembangunan bendungan besar dapat membantu dalam mengatasi masalah kekurangan air dengan mengumpulkan dan menyimpan air hujan.",
-      img: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150"
+      name: "",
+      title: "Pakar Keamanan Pangan",
+      quote: "Menurut saya, solusi terbaik adalah dengan meningkatkan pendidikan dan pelatihan bagi para produsen makanan tentang bahaya borak dan pentingnya memilih bahan-bahan alami yang aman.",
+      img: "https://i.pravatar.cc/150?img=12"
     },
     {
-      name: "Prof. Wang",
-      title: "Ahli Sumber Daya Air",
-      quote: "Sistem irigasi permukaan tradisional seringkali efektif dalam menyediakan air bagi lahan pertanian, terutama di daerah dengan akses yang mudah ke sumber air seperti sungai atau danau.",
-      img: "https://images.pexels.com/photos/2128807/pexels-photo-2128807.jpeg?auto=compress&cs=tinysrgb&w=150"
+      name: "",
+      title: "Pakar Teknologi Deteksi Pangan",
+      quote: "Saya berpendapat bahwa solusi terbaik adalah pengembangan alat deteksi borak berbasis elektrokimia.",
+      img: "https://i.pravatar.cc/150?img=23"
     },
     {
-      name: "Dr. Tanaka",
-      title: "Ahli Pertanian",
-      quote: "Penggunaan Sistem Intensifikasi Beras (SRI), sistem ini dapat meningkatkan keseimbangan ekologi tanah. Tanaman padi SRI ditanam dengan jarak yang lebih lebar dan kedalaman yang lebih dangkal.",
-      img: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=150"
+      name: "",
+      title: "Pakar Bioteknologi",
+      quote: "Solusi jangka panjang untuk masalah borak dalam makanan adalah mengembangkan makanan yang lebih tahan lama melalui modifikasi genetik.",
+      img: "https://i.pravatar.cc/150?img=45"
     }
   ];
 
@@ -104,7 +103,7 @@ const ExpertOpinionPage = forwardRef((props, ref) => {
         {/* Header / Intro Text */}
         <div className="expert-intro-box">
           <p>
-            Setelah membaca teks pemberitahuan tersebut, seorang mahasiswa Prodi Pendidikan IPA berusaha membantu mencarikan solusi dari permasalahan yang ada pada pemberitahuan tersebut. Beberapa rencana solusi yang mungkin dilakukan setelah membaca beberapa artikel dari empat orang pakar di bidangnya sebagai berikut:
+            Setelah membaca teks pemberitahuan tersebut, seorang mahasiswa UGM berusaha membantu mencarikan solusi dari permasalahan yang ada pada pengumuman tersebut. Kemudian menemui para pakar untuk dimintakan pendapat solusi terkait permasalahan tersebut. Beberapa rencana solusi yang mungkin dilakukan dari empat orang pakar di bidangnya sebagai berikut:
           </p>
         </div>
 
@@ -117,7 +116,8 @@ const ExpertOpinionPage = forwardRef((props, ref) => {
               </div>
               <div className="expert-content">
                 <h3 className="expert-name">
-                  {expert.name}, <span className="expert-title">{expert.title}</span>
+                  {expert.name ? `${expert.name}${expert.title ? ', ' : ''}` : ''}
+                  {expert.title && <span className="expert-title">{expert.title}</span>}
                 </h3>
                 <p className="expert-quote">
                   {revealed.includes(index)

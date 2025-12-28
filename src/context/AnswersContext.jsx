@@ -11,8 +11,13 @@ export function AnswersProvider({ children }) {
     q5: { choice: '', reason: '' },
     q6: { willDelegate: null, reason: '', workLink: '' },
     q7: { answer: '' },
-    q8: { link: '', summary: '' },
-    q9: { posterLink: '', needDiscussion: null, reason: '' },
+    q8: { link: '', summary: '', features: '' },
+    q9: { posterLink: '', needDiscussion: null, reason: '', benefits: '' },
+    q10: { involvement: '', tableInfo: '' },
+    s1: { answer: '' },
+    s3: { left: '', slides: Array(5).fill('') },
+    s4: { order: Array(6).fill(null), entries: Array(6).fill('') },
+    s7: { a1: '', a2: '' },
   })
   const [userId, setUserId] = useState('')
 
@@ -73,6 +78,9 @@ export function AnswersProvider({ children }) {
       setQ8Summary(val) {
         setAnswers((prev) => ({ ...prev, q8: { ...prev.q8, summary: val } }))
       },
+      setQ8Features(val) {
+        setAnswers((prev) => ({ ...prev, q8: { ...prev.q8, features: val } }))
+      },
       setQ9PosterLink(val) {
         setAnswers((prev) => ({ ...prev, q9: { ...prev.q9, posterLink: val } }))
       },
@@ -82,35 +90,83 @@ export function AnswersProvider({ children }) {
       setQ9Reason(val) {
         setAnswers((prev) => ({ ...prev, q9: { ...prev.q9, reason: val } }))
       },
+      setQ9Benefits(val) {
+        setAnswers((prev) => ({ ...prev, q9: { ...prev.q9, benefits: val } }))
+      },
+      setQ10Involvement(val) {
+        setAnswers((prev) => ({ ...prev, q10: { ...prev.q10, involvement: val } }))
+      },
+      setQ10TableInfo(val) {
+        setAnswers((prev) => ({ ...prev, q10: { ...prev.q10, tableInfo: val } }))
+      },
+      setS1Answer(val) {
+        setAnswers((prev) => ({ ...prev, s1: { ...prev.s1, answer: val } }))
+      },
+      setS3Left(val) {
+        setAnswers((prev) => ({ ...prev, s3: { ...prev.s3, left: val } }))
+      },
+      setS3SlideAt(index, val) {
+        setAnswers((prev) => {
+          const nextSlides = [...prev.s3.slides]
+          nextSlides[index] = val
+          return { ...prev, s3: { ...prev.s3, slides: nextSlides } }
+        })
+      },
+      setS4OrderAt(index, id) {
+        setAnswers((prev) => {
+          const nextOrder = [...prev.s4.order]
+          nextOrder[index] = id
+          return { ...prev, s4: { ...prev.s4, order: nextOrder } }
+        })
+      },
+      setS4OrderAll(orderArr) {
+        setAnswers((prev) => ({ ...prev, s4: { ...prev.s4, order: orderArr } }))
+      },
+      setS4EntryAt(index, val) {
+        setAnswers((prev) => {
+          const nextEntries = [...prev.s4.entries]
+          nextEntries[index] = val
+          return { ...prev, s4: { ...prev.s4, entries: nextEntries } }
+        })
+      },
+      setS7A1(val) {
+        setAnswers((prev) => ({ ...prev, s7: { ...prev.s7, a1: val } }))
+      },
+      setS7A2(val) {
+        setAnswers((prev) => ({ ...prev, s7: { ...prev.s7, a2: val } }))
+      },
       getReportLines() {
         const toLabel = (val) =>
           val === null ? '' : val === true ? 'Ya' : val === false ? 'Tidak' : ''
-        const line1 = answers.q1.map((s) => s && s.trim()).filter(Boolean).join(', ')
-        const line2 = [toLabel(answers.q2.choice), answers.q2.reason].filter(Boolean).join(', ')
-        const line3 = [answers.q3.link, answers.q3.analysis, answers.q3.peerReview]
-          .map((s) => s && s.trim())
+        const joinPipe = (arr) =>
+          arr
+            .map((s) => (typeof s === 'string' ? s.trim() : s))
+            .filter((s) => !!s)
+            .join(' || ')
+        const line1 = joinPipe([answers.s1.answer])
+        const line2 = joinPipe([answers.q5.choice, answers.q5.reason])
+        const slidesParts = answers.s3.slides
+          .map((s, i) => (s && s.trim() ? `Slide ${i + 1} = ${s.trim()}` : ''))
           .filter(Boolean)
-          .join(', ')
-        const line4 = [answers.q4.tech, answers.q4.reason].map((s) => s && s.trim()).filter(Boolean).join(', ')
-        const line5 = [answers.q5.choice, answers.q5.reason].map((s) => s && s.trim()).filter(Boolean).join(', ')
-        const line6 = [
-          toLabel(answers.q6.willDelegate),
-          answers.q6.reason,
-          answers.q6.workLink,
-        ]
-          .map((s) => s && s.trim())
-          .filter(Boolean)
-          .join(', ')
-        const line7 = [answers.q7.answer].map((s) => s && s.trim()).filter(Boolean).join(', ')
-        const line8 = [answers.q8.link, answers.q8.summary].map((s) => s && s.trim()).filter(Boolean).join(', ')
-        const line9 = [
-          toLabel(answers.q9.needDiscussion),
-          answers.q9.posterLink,
-          answers.q9.reason,
-        ]
-          .map((s) => s && s.trim())
-          .filter(Boolean)
-          .join(', ')
+        const slidesStr = slidesParts.join(' / ')
+        const line3 =
+          (answers.s3.left && answers.s3.left.trim()) || slidesStr
+            ? joinPipe([
+                answers.s3.left && answers.s3.left.trim(),
+                slidesStr || null,
+              ])
+            : ''
+        const orderedIds = answers.s4.order.filter((n) => typeof n === 'number' && n > 0)
+        const orderStr = orderedIds.length ? orderedIds.join('-') : ''
+        const pairsByIdOrder = orderedIds
+          .map((id) => `${id} = ${(answers.s4.entries[id - 1] || '').trim()}`)
+          .join(' / ')
+        const line4 = joinPipe([orderStr || null, pairsByIdOrder || null])
+        const line5 = joinPipe([answers.q7.answer])
+        const line6 = joinPipe([answers.q10.involvement, answers.q10.tableInfo])
+        const line7 = joinPipe([answers.s7.a1, answers.s7.a2])
+        const line8 = joinPipe([answers.q8.link, answers.q8.summary])
+        const line9 = joinPipe([toLabel(answers.q9.needDiscussion), answers.q9.posterLink, answers.q9.reason])
         return [line1, line2, line3, line4, line5, line6, line7, line8, line9]
       },
     }

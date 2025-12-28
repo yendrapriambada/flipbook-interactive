@@ -14,7 +14,7 @@ const DigitalResourceRightPage = forwardRef(function DigitalResourceRightPage(pr
         <div className="instruction-card instruction-compact">
           <h3 className="instruction-title instruction-compact-title">
             Berdasarkan pilihan sumber daya digital yang disediakan, temukan 1 artikel/video/e-book
-            yang berisi informasi atau konten online tentang teknologi irigasi modern.
+            yang berisi informasi atau konten online tentang teknologi pendeteksi makanan boraks.
           </h3>
           <input
             type="url"

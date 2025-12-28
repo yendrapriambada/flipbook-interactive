@@ -23,7 +23,7 @@ const CoverPage = forwardRef(function CoverPage(props, ref) {
           </div>
           <div className="cover-board-inner">
             <h2 className="cover-title">
-              Environmentally Friendly Technology for Irrigation
+              Technological Innovation Detects Dangerous Food
             </h2>
             <div className="cover-image-wrapper">
               <div className="cover-image-frame">

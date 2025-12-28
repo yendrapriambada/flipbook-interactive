@@ -14,8 +14,8 @@ const ExpertSelectionPage = forwardRef(function ExpertSelectionPage(props, ref) 
         <div className="tech-impact-container">
           <div className="tech-impact-section">
             <label className="tech-impact-label">
-              Menurut pendapatmu, manakah pendapat ahli yang paling tepat untuk
-              memecahkan masalah kekurangan air dalam irigasi pertanian.
+              Menurut pendapatmu, manakah pendapat pakar yang paling tepat untuk
+              memecahkan masalah pada wacana tersebut! Mengapa?
             </label>
             <textarea
               className="tech-impact-input"

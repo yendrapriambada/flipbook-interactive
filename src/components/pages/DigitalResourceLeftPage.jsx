@@ -69,7 +69,7 @@ const DigitalResourceLeftPage = forwardRef(function DigitalResourceLeftPage(prop
           <div className="left-callout">
             <p>
               Carilah informasi dari penyedia sumber daya digital (artikel, video, e-book)
-              di internet tentang teknologi irigasi modern.
+              di internet tentang teknologi pendeteksi makanan boraks.
             </p>
           </div>
         </div>

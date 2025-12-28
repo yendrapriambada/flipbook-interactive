@@ -16,7 +16,7 @@ const AnswerReportPage = forwardRef(function AnswerReportPage(props, ref) {
     const header = '-------- Report --------'
     const lines = getReportLines()
     const text =
-      [header, ...lines.map((l, i) => `${i + 1}  ${l}${l ? ',' : ''}`)].join('\n')
+      [header, ...lines.map((l, i) => `${i + 1}  ${l}`)].join('\n')
     try {
       await navigator.clipboard.writeText(text)
       setSaved(true)
@@ -63,7 +63,7 @@ const AnswerReportPage = forwardRef(function AnswerReportPage(props, ref) {
           id_user: idUserNum,
           indikator_soal: indikatorMap[i],
           practice: practiceMap[i],
-          pertanyaan: `Flipbook 9 Soal - Baris #${i + 1}`,
+          pertanyaan: `Flipbook 9 Soal (Pendeteksi Boraks) - Baris #${i + 1}`,
           jawaban: lines[i],
           nilai: null,
           feedback: null,
@@ -78,7 +78,7 @@ const AnswerReportPage = forwardRef(function AnswerReportPage(props, ref) {
           try {
             const json = await res.clone().json()
             if (json && typeof json.message === 'string') msg = json.message
-          } catch {
+          } catch  {
             const txt = await res.text()
             msg = txt
           }
@@ -240,7 +240,7 @@ const AnswerReportPage = forwardRef(function AnswerReportPage(props, ref) {
               {lines.map((line, idx) => (
                 <div key={idx} className="report-row">
                   <span className="report-index">{idx + 1}</span>
-                  <span className="report-text">{line}{line ? ',' : ''}</span>
+                  <span className="report-text">{line}</span>
                   <span className={`report-status ${statuses[idx] === 'ok' ? 'report-status-ok' : statuses[idx] === 'err' ? 'report-status-err' : ''}`}>
                     {statuses[idx] === 'ok' ? '✓' : statuses[idx] === 'err' ? '!' : ''}
                   </span>

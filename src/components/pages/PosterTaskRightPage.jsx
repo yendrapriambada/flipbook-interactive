@@ -13,8 +13,7 @@ const PosterTaskRightPage = forwardRef(function PosterTaskRightPage(props, ref) 
       <div className="page-content presentation-instruction-page">
         <div className="evaluation-question-card">
           <h3 className="evaluation-question">
-            Buatlah 1 desain Poster untuk menjelaskan informasi teknologi irigasi
-            modern yang diperoleh kepada audiens! Tulis link hasil kerja desain
+            Buatlah 1 desain Poster untuk menjelaskan informasi teknologi pendeteksi makanan boraks yang diperoleh kepada audiens! Tulis link hasil kerja desain
             yang telah anda buat di bawah ini!
           </h3>
           <div className="evaluation-input-wrapper">

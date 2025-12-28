@@ -17,7 +17,7 @@ const TeacherTaskPage = forwardRef(function TeacherTaskPage(props, ref) {
             <div className="teacher-board-body">
               <div className="teacher-avatar-wrapper">
                 <img
-                  src="https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg"
+                  src="https://images.pexels.com/photos/8617771/pexels-photo-8617771.jpeg"
                   alt="Ilustrasi dosen yang memberikan penjelasan"
                   className="teacher-avatar-image"
                 />
@@ -26,30 +26,27 @@ const TeacherTaskPage = forwardRef(function TeacherTaskPage(props, ref) {
               <div className="teacher-text-panel">
                 <p className="teacher-text-intro">
                   Sebagai seorang Dosen, Bapak Hamka meminta mahasiswanya untuk
-                  menyelesaikan tugas terkait sistem irigasi pertanian Kota X.
-                  Beberapa poin yang akan dibahas di antaranya:
+                  membuat poster, eksperimen ilmiah atau simulasi sederhana terkait
+                  topik yang disarankan. Beberapa poin yang akan dibahas di antaranya:
                 </p>
 
                 <ul className="teacher-text-list">
                   <li>
                     <span className="teacher-list-number">(1)</span>
                     <span>
-                      Permasalahan: kondisi permasalahan yang ditemukan di
-                      lapangan.
+                      Permasalahan: kondisi permasalahan yang ditemukan.
                     </span>
                   </li>
                   <li>
                     <span className="teacher-list-number">(2)</span>
                     <span>
-                      Solusi: cara menyelesaikan persoalan berdasarkan data
-                      yang dikumpulkan.
+                      Solusi: cara menyelesaikan persoalan.
                     </span>
                   </li>
                   <li>
                     <span className="teacher-list-number">(3)</span>
                     <span>
-                      Konsekuensi: dampak dari solusi yang dikemukakan terhadap
-                      lingkungan dan masyarakat.
+                      Konsekuensi: dampak dari solusi yang dikemukakan.
                     </span>
                   </li>
                 </ul>
