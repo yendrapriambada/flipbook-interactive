@@ -28,7 +28,7 @@ const IntroImagePage = forwardRef(function IntroImagePage(props, ref) {
           <span className="indicator-dot" />
           <span className="indicator-dot" />
         </div>
-        <div className="page-number">— 2 —</div>
+        
       </div>
     </div>
   )

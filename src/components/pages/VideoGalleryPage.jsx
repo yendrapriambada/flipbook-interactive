@@ -1,5 +1,5 @@
 import { forwardRef, useCallback, useRef } from 'react'
-import { useAnswers } from '../../context/AnswersContext'
+import useAnswers from '../../context/useAnswers'
 
 const VideoGalleryPage = forwardRef(function VideoGalleryPage(props, ref) {
   const { answers, setS1Answer } = useAnswers()

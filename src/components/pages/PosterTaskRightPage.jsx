@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { useAnswers } from '../../context/AnswersContext'
+import useAnswers from '../../context/useAnswers'
 
 const PosterTaskRightPage = forwardRef(function PosterTaskRightPage(props, ref) {
   const { answers, setQ9PosterLink, setQ9NeedDiscussion, setQ9Reason } = useAnswers()
@@ -70,7 +70,7 @@ const PosterTaskRightPage = forwardRef(function PosterTaskRightPage(props, ref) 
           </div>
         </div>
 
-        <div className="page-number page-number-right">— Poster —</div>
+        
       </div>
     </div>
   )

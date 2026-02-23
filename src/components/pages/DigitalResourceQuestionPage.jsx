@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useState } from 'react'
-import { useAnswers } from '../../context/AnswersContext'
+import useAnswers from '../../context/useAnswers'
 
 const DigitalResourceQuestionPage = forwardRef(function DigitalResourceQuestionPage(props, ref) {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -14,12 +14,23 @@ const DigitalResourceQuestionPage = forwardRef(function DigitalResourceQuestionP
       setDisplayedText('')
       setIsCompleted(false)
       setIsPlaying(true)
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel()
+        const utter = new SpeechSynthesisUtterance(fullText.replace(/\n+/g, ' '))
+        utter.lang = 'id-ID'
+        utter.rate = 0.9
+        window.speechSynthesis.speak(utter)
+      }
     }
   }
 
   useEffect(() => {
     if (!isPlaying) return
     let index = 0
+    const words = fullText.trim().split(/\s+/).length
+    const rate = 0.9
+    const secs = (words * 60) / (160 * rate)
+    const perChar = Math.max(15, Math.min(80, (secs * 1000) / fullText.length))
     const intervalId = setInterval(() => {
       index += 1
       setDisplayedText(fullText.slice(0, index))
@@ -28,8 +39,11 @@ const DigitalResourceQuestionPage = forwardRef(function DigitalResourceQuestionP
         setIsPlaying(false)
         setIsCompleted(true)
       }
-    }, 35)
-    return () => clearInterval(intervalId)
+    }, perChar)
+    return () => {
+      clearInterval(intervalId)
+      if (window.speechSynthesis) window.speechSynthesis.cancel()
+    }
   }, [isPlaying, fullText])
 
   const stopFlipPropagation = (e) => {
@@ -39,6 +53,20 @@ const DigitalResourceQuestionPage = forwardRef(function DigitalResourceQuestionP
   return (
     <div className="page" ref={ref}>
       <div className="page-content answer-form-page">
+        <div className="speech-bubble">
+          <p>{displayedText || 'Klik ▶ Play untuk memutar teks'}</p>
+        </div>
+        {!isCompleted && (
+          <button
+            type="button"
+            className={`student-play-button ${isPlaying ? 'student-play-button-active' : ''}`}
+            onClick={handlePlayClick}
+            disabled={isPlaying}
+          >
+            {isPlaying ? 'Listening...' : '▶ Play'}
+          </button>
+        )}
+
         <div className="evaluation-question-card">
           <h3 className="evaluation-question">
             Berdasarkan informasi dari Newspaper di atas, bagaimana anda akan mendesain alat tersebut agar
@@ -88,8 +116,7 @@ const DigitalResourceQuestionPage = forwardRef(function DigitalResourceQuestionP
             />
           </div>
         </div>
-
-        <div className="page-number">— 1 —</div>
+        
       </div>
     </div>
   )

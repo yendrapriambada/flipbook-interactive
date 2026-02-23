@@ -71,7 +71,7 @@ const PosterAppsLeftPage = forwardRef(function PosterAppsLeftPage(props, ref) {
           </a>
         </div>
         <p className="app-note">*klik gambar untuk membuka website</p>
-        <div className="page-number">— Aplikasi —</div>
+        
       </div>
     </div>
   )

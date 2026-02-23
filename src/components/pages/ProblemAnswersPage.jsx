@@ -14,6 +14,13 @@ const ProblemAnswersPage = forwardRef(function ProblemAnswersPage(props, ref) {
       setDisplayedText('')
       setIsCompleted(false)
       setIsPlaying(true)
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel()
+        const utter = new SpeechSynthesisUtterance(fullText.replace(/\n+/g, ' '))
+        utter.lang = 'id-ID'
+        utter.rate = 0.9
+        window.speechSynthesis.speak(utter)
+      }
     }
   }
 
@@ -21,6 +28,10 @@ const ProblemAnswersPage = forwardRef(function ProblemAnswersPage(props, ref) {
     if (!isPlaying) return
 
     let index = 0
+    const words = fullText.trim().split(/\s+/).length
+    const rate = 0.9
+    const secs = (words * 60) / (160 * rate)
+    const perChar = Math.max(15, Math.min(80, (secs * 1000) / fullText.length))
     const intervalId = setInterval(() => {
       index += 1
       setDisplayedText(fullText.slice(0, index))
@@ -29,9 +40,12 @@ const ProblemAnswersPage = forwardRef(function ProblemAnswersPage(props, ref) {
         setIsPlaying(false)
         setIsCompleted(true)
       }
-    }, 35)
+    }, perChar)
 
-    return () => clearInterval(intervalId)
+    return () => {
+      clearInterval(intervalId)
+      if (window.speechSynthesis) window.speechSynthesis.cancel()
+    }
   }, [isPlaying, fullText])
 
   const handleAnswerChange = (i) => (e) => {
@@ -80,7 +94,7 @@ const ProblemAnswersPage = forwardRef(function ProblemAnswersPage(props, ref) {
           <span className="indicator-dot" />
           <span className="indicator-dot" />
         </div>
-        <div className="page-number">— 5 —</div>
+        
       </div>
     </div>
   )

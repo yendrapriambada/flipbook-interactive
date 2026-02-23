@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useState } from 'react'
-import { useAnswers } from '../../context/AnswersContext'
+import useAnswers from '../../context/useAnswers'
 
 const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(props, ref) {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -14,12 +14,23 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
       setDisplayedText('')
       setIsCompleted(false)
       setIsPlaying(true)
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel()
+        const utter = new SpeechSynthesisUtterance(fullText.replace(/\n+/g, ' '))
+        utter.lang = 'id-ID'
+        utter.rate = 0.9
+        window.speechSynthesis.speak(utter)
+      }
     }
   }
 
   useEffect(() => {
     if (!isPlaying) return
     let index = 0
+    const words = fullText.trim().split(/\s+/).length
+    const rate = 0.9
+    const secs = (words * 60) / (160 * rate)
+    const perChar = Math.max(15, Math.min(80, (secs * 1000) / fullText.length))
     const intervalId = setInterval(() => {
       index += 1
       setDisplayedText(fullText.slice(0, index))
@@ -28,8 +39,11 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
         setIsPlaying(false)
         setIsCompleted(true)
       }
-    }, 35)
-    return () => clearInterval(intervalId)
+    }, perChar)
+    return () => {
+      clearInterval(intervalId)
+      if (window.speechSynthesis) window.speechSynthesis.cancel()
+    }
   }, [isPlaying, fullText])
 
   const stopFlipPropagation = (e) => {
@@ -84,8 +98,7 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
             />
           </div>
         </div>
-
-        <div className="page-number">— 1 —</div>
+        
       </div>
     </div>
   )

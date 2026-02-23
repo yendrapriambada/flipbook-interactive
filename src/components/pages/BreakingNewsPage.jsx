@@ -36,9 +36,7 @@ const BreakingNewsPage = forwardRef((props, ref) => {
             }}
           />
         </div>
-        <div className="page-number" style={{ textAlign: 'center', flexShrink: 0 }}>
-          — Pemberitahuan —
-        </div>
+        
       </div>
     </div>
   );

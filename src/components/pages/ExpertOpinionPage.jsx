@@ -1,11 +1,11 @@
-import React, { forwardRef, useState, useEffect } from 'react';
+import React, { forwardRef, useState, useEffect, useMemo } from 'react';
 
 const ExpertOpinionPage = forwardRef((props, ref) => {
   const [playingIndex, setPlayingIndex] = useState(null);
   const [displayedText, setDisplayedText] = useState('');
   const [revealed, setRevealed] = useState([]);
 
-  const experts = [
+  const experts = useMemo(() => [
     {
       name: "",
       title: "Pakar Teknologi Pangan",
@@ -30,20 +30,15 @@ const ExpertOpinionPage = forwardRef((props, ref) => {
       quote: "Solusi jangka panjang untuk masalah borak dalam makanan adalah mengembangkan makanan yang lebih tahan lama melalui modifikasi genetik.",
       img: "https://i.pravatar.cc/150?img=45"
     }
-  ];
+  ], []);
 
   // Effect untuk menangani animasi teks
   useEffect(() => {
     if (playingIndex === null) {
-      setDisplayedText('');
       return;
     }
-
     const fullText = experts[playingIndex].quote;
     let index = 0;
-    // Set teks awal kosong
-    setDisplayedText('');
-    
     const intervalId = setInterval(() => {
       index += 1;
       setDisplayedText(fullText.slice(0, index));
@@ -53,10 +48,9 @@ const ExpertOpinionPage = forwardRef((props, ref) => {
           prev.includes(playingIndex) ? prev : [...prev, playingIndex]
         );
       }
-    }, 45); // Kecepatan animasi (45ms)
-
+    }, 45);
     return () => clearInterval(intervalId);
-  }, [playingIndex]);
+  }, [playingIndex, experts]);
 
   const handlePlay = (text, index) => {
     if (window.speechSynthesis) {
@@ -84,6 +78,7 @@ const ExpertOpinionPage = forwardRef((props, ref) => {
         setPlayingIndex(null);
       };
 
+      setDisplayedText('');
       setPlayingIndex(index);
       window.speechSynthesis.speak(utterance);
     } else {

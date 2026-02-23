@@ -1,5 +1,5 @@
 import { forwardRef, useState } from 'react'
-import { useAnswers } from '../../context/AnswersContext'
+import useAnswers from '../../context/useAnswers'
 import coverImage from '../../assets/coverimage.png'
 
 const CoverPage = forwardRef(function CoverPage(props, ref) {

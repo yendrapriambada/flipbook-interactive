@@ -1,5 +1,5 @@
 import { forwardRef, useMemo, useState } from 'react'
-import { useAnswers } from '../../context/AnswersContext'
+import useAnswers from '../../context/useAnswers'
 
 const AnswerReportPage = forwardRef(function AnswerReportPage(props, ref) {
   const { getReportLines, userId } = useAnswers()
@@ -21,7 +21,7 @@ const AnswerReportPage = forwardRef(function AnswerReportPage(props, ref) {
       await navigator.clipboard.writeText(text)
       setSaved(true)
       setTimeout(() => setSaved(false), 2000)
-    } catch (e) {
+    } catch {
       setSaved(false)
     }
     try {
@@ -56,7 +56,6 @@ const AnswerReportPage = forwardRef(function AnswerReportPage(props, ref) {
         'Jelaskan kepada audiens tertentu bagaimana sesuatu bekerja Memanfaatkan informasi digital untuk menjelaskan bagaimana teknologi pendeteksi makanan mengandung borak bekerja.',
       ]
       const toSend = lines.map((val, i) => ({ index: i, value: val }))
-      let successCount = 0
       for (let k = 0; k < toSend.length; k++) {
         const i = toSend[k].index
         const payload = {
@@ -104,7 +103,6 @@ const AnswerReportPage = forwardRef(function AnswerReportPage(props, ref) {
               next[i] = ''
               return next
             })
-            successCount += 1
           }
         } catch (e) {
           setStatuses((prev) => {
@@ -121,7 +119,8 @@ const AnswerReportPage = forwardRef(function AnswerReportPage(props, ref) {
         setProgress(i + 1)
         await new Promise((r) => setTimeout(r, 150))
       }
-      if (successCount === 9) {
+      const allOk = Array(9).fill(0).every((_, i) => statuses[i] === 'ok')
+      if (allOk) {
         setDone(true)
       } else {
         setError('Sebagian jawaban gagal. Silakan kirim ulang yang gagal.')
@@ -164,7 +163,6 @@ const AnswerReportPage = forwardRef(function AnswerReportPage(props, ref) {
       'Mencari media dan sumber daya digital. Menemukan sumber daya digital yang relevan terkait makanan mengandung borak.',
       'Jelaskan kepada audiens tertentu bagaimana sesuatu bekerja Memanfaatkan informasi digital untuk menjelaskan bagaimana teknologi pendeteksi makanan mengandung borak bekerja.',
     ]
-    let successCount = 0
     for (let i = 0; i < 9; i++) {
       if (statuses[i] !== 'err') continue
       const payload = {
@@ -201,7 +199,6 @@ const AnswerReportPage = forwardRef(function AnswerReportPage(props, ref) {
             next[i] = ''
             return next
           })
-          successCount += 1
         } else {
           setErrorDetails((prev) => {
             const next = [...prev]

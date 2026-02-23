@@ -3,7 +3,7 @@ import { forwardRef } from 'react'
 const VideoDiscoveryPage = forwardRef(function VideoDiscoveryPage(props, ref) {
   return (
     <div className="page" ref={ref}>
-      <div className="page-content">
+      <div className="page-content video-discovery-page">
         <div className="student-board">
           <div className="student-board-inner">
             <div className="cover-bunting student-board-bunting">
@@ -23,7 +23,7 @@ const VideoDiscoveryPage = forwardRef(function VideoDiscoveryPage(props, ref) {
                   src="https://images.pexels.com/photos/4065877/pexels-photo-4065877.jpeg"
                   alt="Mahasiswa menonton video edukasi di komputer"
                   className="hero-image"
-                  style={{ height: 170 }}
+                  style={{ height: 280, objectPosition: '50% 20%' }}
                 />
               </div>
 

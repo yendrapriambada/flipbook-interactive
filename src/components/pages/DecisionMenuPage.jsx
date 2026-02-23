@@ -88,7 +88,7 @@ const DecisionMenuPage = forwardRef(function DecisionMenuPage(props, ref) {
           </div>
         </div>
 
-        <div className="page-number">— 6 —</div>
+        
       </div>
     </div>
   )

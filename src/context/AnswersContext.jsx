@@ -1,6 +1,5 @@
-import { createContext, useContext, useMemo, useState } from 'react'
-
-const AnswersContext = createContext(null)
+import { useMemo, useState } from 'react'
+import { AnswersContext } from './ContextBase'
 
 export function AnswersProvider({ children }) {
   const [answers, setAnswers] = useState({
@@ -173,10 +172,4 @@ export function AnswersProvider({ children }) {
   }, [answers, userId])
 
   return <AnswersContext.Provider value={api}>{children}</AnswersContext.Provider>
-}
-
-export function useAnswers() {
-  const ctx = useContext(AnswersContext)
-  if (!ctx) throw new Error('useAnswers must be used within AnswersProvider')
-  return ctx
 }

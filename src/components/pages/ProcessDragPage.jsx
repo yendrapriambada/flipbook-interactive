@@ -1,5 +1,5 @@
 import React, { forwardRef, useMemo, useState } from 'react';
-import { useAnswers } from '../../context/AnswersContext';
+import useAnswers from '../../context/useAnswers';
 
 const COLORS = [
   { id: 1, label: '1', color: '#9aa0a6' },
@@ -10,7 +10,7 @@ const COLORS = [
   { id: 6, label: '6', color: '#f48fb1' },
 ];
 
-const ItemBox = ({ id, color, value, onChange, onDragStart, stopFlip, tagNumber }) => {
+const ItemBox = ({ id, color, value, onChange, onDragStart, stopFlip, tagNumber, onPick }) => {
   return (
     <div
       draggable
@@ -18,6 +18,7 @@ const ItemBox = ({ id, color, value, onChange, onDragStart, stopFlip, tagNumber 
       onPointerDownCapture={stopFlip}
       onMouseDownCapture={stopFlip}
       onTouchStartCapture={stopFlip}
+      onTouchEnd={() => onPick && onPick(id)}
       onClickCapture={stopFlip}
       style={{
         background: color,
@@ -74,6 +75,7 @@ const ItemBox = ({ id, color, value, onChange, onDragStart, stopFlip, tagNumber 
 const ProcessDragPage = forwardRef((props, ref) => {
   const { answers, setS4OrderAll, setS4EntryAt } = useAnswers();
   const [slots, setSlots] = useState(Array(6).fill(null));
+  const [selectedId, setSelectedId] = useState(null);
   const entries = answers.s4.entries;
 
   const availableItems = useMemo(() => COLORS, []);
@@ -107,6 +109,18 @@ const ProcessDragPage = forwardRef((props, ref) => {
     e.stopPropagation();
   };
 
+  const placeSelectedTo = (index) => {
+    if (!selectedId) return;
+    setSlots((prev) => {
+      const next = [...prev];
+      const currentIndex = next.findIndex((v) => v === selectedId);
+      if (currentIndex !== -1) next[currentIndex] = null;
+      next[index] = selectedId;
+      setS4OrderAll(next);
+      return next;
+    });
+  };
+
   return (
     <div className="page" ref={ref}>
       <div
@@ -135,7 +149,10 @@ const ProcessDragPage = forwardRef((props, ref) => {
           onMouseDownCapture={stopFlip}
           onMouseMoveCapture={stopFlip}
           onMouseUpCapture={stopFlip}
-          onTouchStartCapture={stopFlip}
+          onTouchStartCapture={(e) => {
+            stopFlip(e);
+            e.preventDefault(); // allow touch-dnd without scrolling
+          }}
           onTouchMoveCapture={stopFlip}
           onTouchEndCapture={stopFlip}
         >
@@ -161,6 +178,7 @@ const ProcessDragPage = forwardRef((props, ref) => {
                 key={idx}
                 onDragOver={onDragOver}
                 onDrop={(e) => onDrop(e, idx)}
+                onTouchEnd={() => placeSelectedTo(idx)}
                 onPointerDownCapture={stopFlip}
                 onMouseDownCapture={stopFlip}
                 onTouchStartCapture={stopFlip}
@@ -186,6 +204,7 @@ const ProcessDragPage = forwardRef((props, ref) => {
                     onChange={(v) => setS4EntryAt(val - 1, v)}
                     onDragStart={onDragStart}
                     stopFlip={stopFlip}
+                    onPick={(id) => setSelectedId(id)}
                   />
                 ) : (
                   <span
@@ -234,6 +253,7 @@ const ProcessDragPage = forwardRef((props, ref) => {
                     onChange={(v) => setS4EntryAt(item.id - 1, v)}
                     onDragStart={onDragStart}
                     stopFlip={stopFlip}
+                    onPick={(id) => setSelectedId(id)}
                   />
                 ));
             })()}

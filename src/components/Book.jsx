@@ -32,18 +32,17 @@ import AnswerReportPage from './pages/AnswerReportPage'
 import BackCoverPage from './pages/BackCoverPage'
 import BoraksSamplesPage from './pages/BoraksSamplesPage'
 import BoraksQuestionsPage from './pages/BoraksQuestionsPage'
-import { AnswersProvider } from '../context/AnswersContext'
+import useAnswers from '../context/useAnswers'
 
 function Book() {
   const bookRef = useRef(null)
-  const [story, setStory] = useState('')
-  const [inputMode, setInputMode] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
   const [pageSize, setPageSize] = useState({
     width: 450,
     height: 570,
   })
+  const { answers, userId } = useAnswers()
 
   useEffect(() => {
     const updateSize = () => {
@@ -53,11 +52,11 @@ function Book() {
       let width
 
       if (viewportWidth <= 640) {
-        width = Math.max(260, viewportWidth * 0.9)
+        width = Math.max(300, viewportWidth * 0.92)
       } else if (viewportWidth <= 1024) {
-        width = Math.min(Math.max(320, viewportWidth * 0.5), 480)
+        width = Math.min(Math.max(360, viewportWidth * 0.58), 560)
       } else {
-        width = Math.min(Math.max(360, viewportWidth * 0.35), 520)
+        width = Math.min(Math.max(420, viewportWidth * 0.46), 650)
       }
 
       const height = width * aspectRatio
@@ -88,6 +87,44 @@ function Book() {
     }
   }
 
+  const validatePage = (idx) => {
+    const trim = (s) => (typeof s === 'string' ? s.trim() : '')
+    switch (idx) {
+      case 0:
+        return !!trim(userId)
+      case 8:
+        return !!trim(answers.q5.choice) && !!trim(answers.q5.reason)
+      case 10:
+        return (
+          !!trim(answers.s3.left) &&
+          answers.s3.slides.every((s) => !!trim(s))
+        )
+      case 12: {
+        const allSlotsFilled = answers.s4.order.every((n) => typeof n === 'number' && n > 0)
+        const allEntries = answers.s4.entries.every((s) => !!trim(s))
+        return allSlotsFilled && allEntries
+      }
+      case 5:
+        return !!trim(answers.s1.answer)
+      case 14:
+        return !!trim(answers.q7.answer) && !!trim(answers.q8.features) && !!trim(answers.q9.benefits)
+      case 16:
+        return !!trim(answers.q10.involvement) && !!trim(answers.q10.tableInfo)
+      case 18:
+        return !!trim(answers.s7.a1) && !!trim(answers.s7.a2)
+      case 20:
+        return !!trim(answers.q8.link) && !!trim(answers.q8.summary)
+      case 22:
+        return (
+          !!trim(answers.q9.posterLink) &&
+          answers.q9.needDiscussion !== null &&
+          !!trim(answers.q9.reason)
+        )
+      default:
+        return true
+    }
+  }
+
   const handleNext = () => {
     if (bookRef.current) {
       const pageFlip = bookRef.current.pageFlip()
@@ -95,14 +132,15 @@ function Book() {
         const current = pageFlip.getCurrentPageIndex()
         const total = pageFlip.getPageCount()
         if (current < total - 1) {
+          const nextIdx = Math.min(current + 1, total - 1)
+          if (!validatePage(current) || !validatePage(nextIdx)) {
+            alert('Lengkapi semua kolom input sebelum lanjut ke halaman berikutnya.')
+            return
+          }
           pageFlip.flipNext()
         }
       }
     }
-  }
-
-  const handleStoryChange = (event) => {
-    setStory(event.target.value)
   }
 
   useEffect(() => {
@@ -120,25 +158,16 @@ function Book() {
 
   return (
     <div className="flipbook-layout">
-      <header className="flipbook-header">
-        <h1 className="flipbook-title">
-          <span>Interactive</span>{' '}
-          <span className="flipbook-title-accent">Flipbook</span>
-        </h1>
-        <p className="flipbook-subtitle">
-          Pengalaman membaca digital yang interaktif dengan berbagai jenis konten
-        </p>
-      </header>
+      
 
-      <AnswersProvider>
         <HTMLFlipBook
           ref={bookRef}
           width={pageSize.width}
           height={pageSize.height}
-          minWidth={280}
-          maxWidth={450}
-          minHeight={380}
-          maxHeight={600}
+          minWidth={320}
+          maxWidth={650}
+          minHeight={420}
+          maxHeight={820}
           size="stretch"
           maxShadowOpacity={0.7}
           flippingTime={400}
@@ -184,7 +213,6 @@ function Book() {
           <AnswerReportPage />
           <BackCoverPage />
         </HTMLFlipBook>
-      </AnswersProvider>
 
       <footer className="flipbook-footer">
         <div className="flipbook-nav">

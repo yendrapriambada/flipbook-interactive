@@ -27,7 +27,7 @@ const QuestionPage = forwardRef(function QuestionPage(props, ref) {
           </button>
         </div>
 
-        <div className="page-number page-number-right">— 4 —</div>
+        
       </div>
     </div>
   )

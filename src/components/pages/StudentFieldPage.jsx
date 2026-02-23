@@ -16,6 +16,13 @@ const StudentFieldPage = forwardRef(function StudentFieldPage(props, ref) {
       setDisplayedText('')
       setIsPlaying(true)
       setIsFinished(false)
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel()
+        const utter = new SpeechSynthesisUtterance(fullText.replace(/\n+/g, ' '))
+        utter.lang = 'id-ID'
+        utter.rate = 0.9
+        window.speechSynthesis.speak(utter)
+      }
     }
   }
 
@@ -26,6 +33,11 @@ const StudentFieldPage = forwardRef(function StudentFieldPage(props, ref) {
 
     let index = 0
 
+    const words = fullText.trim().split(/\s+/).length
+    const rate = 0.9
+    const secs = (words * 60) / (160 * rate)
+    const perChar = Math.max(15, Math.min(80, (secs * 1000) / fullText.length))
+
     const intervalId = setInterval(() => {
       index += 1
       setDisplayedText(fullText.slice(0, index))
@@ -33,13 +45,13 @@ const StudentFieldPage = forwardRef(function StudentFieldPage(props, ref) {
       if (index >= fullText.length) {
         clearInterval(intervalId)
         setIsFinished(true)
-        // Keep playing true or set false? If false, play button logic needs check.
-        // But we hide the button when isFinished is true.
+        setIsPlaying(false)
       }
-    }, 35)
+    }, perChar)
 
     return () => {
       clearInterval(intervalId)
+      if (window.speechSynthesis) window.speechSynthesis.cancel()
     }
   }, [isPlaying, fullText])
 

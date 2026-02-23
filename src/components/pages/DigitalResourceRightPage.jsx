@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { useAnswers } from '../../context/AnswersContext'
+import useAnswers from '../../context/useAnswers'
 
 const DigitalResourceRightPage = forwardRef(function DigitalResourceRightPage(props, ref) {
   const { answers, setQ8Link, setQ8Summary } = useAnswers()

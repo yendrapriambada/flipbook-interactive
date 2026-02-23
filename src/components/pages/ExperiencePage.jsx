@@ -36,7 +36,7 @@ const ExperiencePage = forwardRef(function ExperiencePage(props, ref) {
           </div>
         </div>
 
-        <div className="page-number">— 3 —</div>
+        
       </div>
     </div>
   )

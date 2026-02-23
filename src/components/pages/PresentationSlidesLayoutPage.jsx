@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { useAnswers } from '../../context/AnswersContext'
+import useAnswers from '../../context/useAnswers'
 
 const PresentationSlidesLayoutPage = forwardRef(function PresentationSlidesLayoutPage(props, ref) {
   const { answers, setS3Left, setS3SlideAt } = useAnswers()
@@ -59,7 +59,7 @@ const PresentationSlidesLayoutPage = forwardRef(function PresentationSlidesLayou
           <span className="indicator-dot" />
           <span className="indicator-dot" />
         </div>
-        <div className="page-number">— Presentasi —</div>
+        
       </div>
     </div>
   )
