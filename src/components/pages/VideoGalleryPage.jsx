@@ -22,7 +22,7 @@ const VideoGalleryPage = forwardRef(function VideoGalleryPage(props, ref) {
           <div className="video-wrapper">
             <iframe
               className="video-frame"
-              src="https://www.youtube.com/embed/zHK8wu5BcS4?si=RPghvehLdxAgxUDP"
+              src="https://www.youtube.com/embed/7bcBvFTq_rA?si=b9oKbJ16cMUY19Cm"
               title="Video Irigasi"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
@@ -42,7 +42,7 @@ const VideoGalleryPage = forwardRef(function VideoGalleryPage(props, ref) {
             onKeyDownCapture={stopFlipbookEvents}
           >
             <label className="video-question">
-              Menurut pendapatmu, apa kelebihan dan kekurangan teknologi pada video tersebut?
+              Berdasarkan informasi dalam video tersebut, identifikasilah kelebihan dan kekurangan teknologi yang ditampilkan.
             </label>
             <textarea
               className="video-answer"

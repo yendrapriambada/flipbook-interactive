@@ -217,7 +217,7 @@ const ProcessDragPage = forwardRef((props, ref) => {
                   fontSize: '13px',
                 }}
               >
-                Berdasarkan wacana di atas, tuliskan proses kerja Andi dalam memastikan bahwa makanan yang akan dibelinya bebas dari borak pada kolom di bawah ini. Drag kotak kiri ke kolom sebelah kanan.
+                Berdasarkan wacana di atas, susun secara berurutan alur proses kerja Andi dalam memastikan makanan bebas borak dengan cara menyeret (drag) kotak di sebelah kiri ke kotak alur di sebelah kanan!
               </div>
 
             {(() => {

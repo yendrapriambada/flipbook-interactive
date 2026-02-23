@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import breakingNewsImg from '../../assets/breaking_news.png';
+import breakingNewsImg from '../../assets/breaking_news2.png';
 
 const BreakingNewsPage = forwardRef((props, ref) => {
   return (

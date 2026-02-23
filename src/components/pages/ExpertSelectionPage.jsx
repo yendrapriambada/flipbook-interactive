@@ -14,8 +14,7 @@ const ExpertSelectionPage = forwardRef(function ExpertSelectionPage(props, ref) 
         <div className="tech-impact-container">
           <div className="tech-impact-section">
             <label className="tech-impact-label">
-              Menurut pendapatmu, manakah pendapat pakar yang paling tepat untuk
-              memecahkan masalah pada wacana tersebut! Mengapa?
+              Berdasarkan wacana, pendapat pakar mana yang paling tepat sebagai solusi teknologi untuk mengatasi masalah boraks dalam makanan? Jelaskan alasan pemilihan Anda dibandingkan alternatif lainnya.
             </label>
             <textarea
               className="tech-impact-input"

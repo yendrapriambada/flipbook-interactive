@@ -15,28 +15,28 @@ const NewsletterPage = forwardRef(function NewsletterPage(props, ref) {
 
         <div className="newsletter-banner">
           <h2 className="newsletter-title">
-            "Penerapan Teknologi Sensor Perubahan Warna dalam Pembelajaran IPA
-            untuk Deteksi Bahan Berbahaya dalam Makanan"
+            "Pemanfaatan Teknologi Deteksi Boraks dalam Pembalajaran IPA"
           </h2>
         </div>
 
         <div className="newsletter-body">
           <p>
             Seorang ilmuwan teknologi pangan telah merancang alat pendeteksi
-            bahan kimia berbahaya dalam makanan yang menggunakan sensor kimiawi
-            berbasis perubahan warna. Alat ini bekerja dengan meneteskan reagen
-            khusus ke sampel makanan, yang kemudian menunjukkan perubahan
-            warna jika bahan kimia berbahaya terdeteksi. Misalnya, jika
-            terdapat borak dalam makanan, warna sampel akan berubah menjadi
-            biru, sedangkan makanan yang aman akan tetap berwarna netral.
+            bahan kimia berbahaya dalam makanan yang bekerja menggunakan sensor kimia
+            berbasis perubahan warna. Alat ini digunakan dengan meneteskan reagen
+            khusus ke sampel makanan. Jika sampel mengandung boraks, warna akan berubah 
+            menjadi biru, sedangkan jika aman, warna akan tetap netral.
           </p>
           <p>
-            Seorang guru IPA berencana memanfaatkan teknologi ini dalam
-            kegiatan pembelajaran interaktif di kelas. Dengan menggunakan alat
-            tersebut, guru ingin mengajak siswa memahami pentingnya teknologi
-            deteksi bahan berbahaya dalam menjaga kesehatan konsumen. Untuk
-            mendukung pembelajaran, beberapa pilihan media digital disiapkan
-            untuk memaksimalkan pemahaman siswa:
+            Seorang guru IPA berencana memanfaatkan teknologi ini sebagai bagian
+            dari pembelajaran untuk membantu siswa memahami peran teknologi dalam menjaga
+            keamanan pangan dan kesehatan masyarakat. Guru tersebut tidak hanya ingin siswa mengetahui
+            hasil deteksi, tetapi juga memahami proses kerja alat, makna hasil pengujian, serta
+            implikasinya bagi kehidupan sehari-hari.
+          </p>
+          <p>
+            Untuk mendukung tujuan pembelajaran tersebut, guru mempertimbangkan beberapa media digital
+            yang memiliki karakteristik berbeda dalam hal visualisasi, interaktivitas, dan kedalaman materi, yaitu:
           </p>
           <ol className="newsletter-list">
             <li>Artikel ilmiah</li>
@@ -44,6 +44,10 @@ const NewsletterPage = forwardRef(function NewsletterPage(props, ref) {
             <li>Quiz Interaktif Online</li>
             <li>Virtual Lab</li>
           </ol>
+          <p>
+            Guru perlu memilih media yang paling sesuai dengan tujuan pembelajaran yang ingin
+            dicapai pada setiap kegiatan.
+          </p>
         </div>
 
         <div className="newsletter-footer">

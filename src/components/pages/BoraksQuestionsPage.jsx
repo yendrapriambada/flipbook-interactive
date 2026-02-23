@@ -15,7 +15,7 @@ const BoraksQuestionsPage = forwardRef(function BoraksQuestionsPage(props, ref) 
           <div className="question-block">
             <label className="analysis-question">
               Sebagai ketua kelompok, apakah anda melibatkan semua anggota kelompok
-              dalam menyusun dan mengelola data? mengapa?
+              dalam menyusun dan mengelola data? Jelaskan alasan Anda.
             </label>
             <textarea
               className="analysis-textarea"
@@ -31,9 +31,7 @@ const BoraksQuestionsPage = forwardRef(function BoraksQuestionsPage(props, ref) 
 
           <div className="question-block">
             <label className="analysis-question">
-              Buat tabel yang mengorganisasi data tersebut, sehingga diperoleh
-              informasi sampel yang mengandung boraks! (Silahkan tulis atau ketik
-              link pada kolom di bawah ini!)
+              Organisasikan data hasil deteksi borak dari beberapa sampel makanan ke dalam bentuk tabel yang sistematis sehingga dapat diidentifikasi sampel yang mengandung borak.
             </label>
             <textarea
               className="analysis-textarea"

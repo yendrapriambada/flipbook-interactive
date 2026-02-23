@@ -103,7 +103,7 @@ const ExpertOpinionPage = forwardRef((props, ref) => {
         {/* Header / Intro Text */}
         <div className="expert-intro-box">
           <p>
-            Setelah membaca teks pemberitahuan tersebut, seorang mahasiswa UGM berusaha membantu mencarikan solusi dari permasalahan yang ada pada pengumuman tersebut. Kemudian menemui para pakar untuk dimintakan pendapat solusi terkait permasalahan tersebut. Beberapa rencana solusi yang mungkin dilakukan dari empat orang pakar di bidangnya sebagai berikut:
+            Setelah membaca teks pemberitaan tersebut, seorang mahasiswa berusaha mencari solusi atas permasalahan boraks dalam makanan. Ia kemudian meminta pendapat dari beberapa pakar di bidang terkait mengenai solusi yang mungkin dilakukan.
           </p>
         </div>
 

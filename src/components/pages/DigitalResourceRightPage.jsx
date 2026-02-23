@@ -19,7 +19,7 @@ const DigitalResourceRightPage = forwardRef(function DigitalResourceRightPage(pr
           <input
             type="url"
             className="link-input input-compact"
-            placeholder="Tempelkan link di sini"
+            placeholder="Ketik link artikel/video/e-book yang anda temukan di sini!"
             value={answers.q8.link}
             onChange={(e) => setQ8Link(e.target.value)}
             onPointerDownCapture={stopFlipPropagation}

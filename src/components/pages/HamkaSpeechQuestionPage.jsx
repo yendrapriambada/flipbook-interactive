@@ -55,8 +55,7 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
 
         <div className="evaluation-question-card">
           <h3 className="evaluation-question">
-            Jika tujuan guru adalah memberikan pengalaman pembelajaran interaktif dan visual, media digital mana
-            yang paling tepat untuk digunakan? Jelaskan alasannya.
+            Berdasarkan karakteristik media digital yang disediakan pada wacana, media mana yang paling tepat untuk memberikan pengalaman pembelajaran interaktif dan visual? Jelaskan alasan Anda.
           </h3>
           <div className="evaluation-input-wrapper">
             <textarea
@@ -72,8 +71,7 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
 
         <div className="evaluation-question-card">
           <h3 className="evaluation-question">
-            Jika siswa diminta untuk mempelajari boraks secara mendalam dan menulis laporan ilmiah, media mana
-            yang paling tepat digunakan? Jelaskan mengapa?
+            Berdasarkan tujuan pembelajaran untuk memahami boraks secara mendalam dan menyusun laporan ilmiah, media digital mana yang paling tepat digunakan? Jelaskan alasan pemilihan Anda.
           </h3>
           <div className="evaluation-input-wrapper">
             <textarea
