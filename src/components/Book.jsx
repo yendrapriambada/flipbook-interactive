@@ -42,6 +42,7 @@ function Book() {
     width: 450,
     height: 570,
   })
+  const [isSinglePage, setIsSinglePage] = useState(false)
   const { answers, userId } = useAnswers()
 
   useEffect(() => {
@@ -65,6 +66,7 @@ function Book() {
         width,
         height,
       })
+      setIsSinglePage(viewportWidth <= 680)
     }
 
     updateSize()
@@ -132,10 +134,17 @@ function Book() {
         const current = pageFlip.getCurrentPageIndex()
         const total = pageFlip.getPageCount()
         if (current < total - 1) {
-          const nextIdx = Math.min(current + 1, total - 1)
-          if (!validatePage(current) || !validatePage(nextIdx)) {
+          if (!isSinglePage) {
+            const nextIdx = Math.min(current + 1, total - 1)
+            if (!validatePage(current) || !validatePage(nextIdx)) {
+              alert('Lengkapi semua kolom input sebelum lanjut ke halaman berikutnya.')
+              return
+            }
+          } else {
+            if (!validatePage(current)) {
             alert('Lengkapi semua kolom input sebelum lanjut ke halaman berikutnya.')
             return
+          }
           }
           pageFlip.flipNext()
         }
