@@ -45,6 +45,16 @@ function Book() {
   const [isSinglePage, setIsSinglePage] = useState(false)
   const { answers, userId } = useAnswers()
 
+  const answersRef = useRef(answers)
+  const userIdRef = useRef(userId)
+  const currentIndexRef = useRef(currentIndex)
+
+  useEffect(() => {
+    answersRef.current = answers
+    userIdRef.current = userId
+    currentIndexRef.current = currentIndex
+  }, [answers, userId, currentIndex])
+
   useEffect(() => {
     const updateSize = () => {
       const viewportWidth = window.innerWidth
@@ -91,36 +101,39 @@ function Book() {
 
   const validatePage = (idx) => {
     const trim = (s) => (typeof s === 'string' ? s.trim() : '')
+    const currentAnswers = answersRef.current
+    const currentUserId = userIdRef.current
     switch (idx) {
       case 0:
-        return !!trim(userId)
+        return !!trim(currentUserId)
       case 8:
-        return !!trim(answers.q5.choice) && !!trim(answers.q5.reason)
+        return !!trim(currentAnswers.q5.choice) && !!trim(currentAnswers.q5.reason)
       case 10:
         return (
-          !!trim(answers.s3.left) &&
-          answers.s3.slides.every((s) => !!trim(s))
+          !!trim(currentAnswers.s3.left) &&
+          currentAnswers.s3.slides.every((s) => !!trim(s))
         )
       case 12: {
-        const allSlotsFilled = answers.s4.order.every((n) => typeof n === 'number' && n > 0)
-        const allEntries = answers.s4.entries.every((s) => !!trim(s))
-        return allSlotsFilled && allEntries
+        const allSlotsFilled = currentAnswers.s4.order.every((n) => typeof n === 'number' && n > 0)
+        const allEntries = currentAnswers.s4.entries.every((s) => !!trim(s))
+        const hasExplanation = !!trim(currentAnswers.s4.explanation)
+        return allSlotsFilled && allEntries && hasExplanation
       }
       case 5:
-        return !!trim(answers.s1.answer)
+        return !!trim(currentAnswers.s1.answer)
       case 14:
-        return !!trim(answers.q7.answer) && !!trim(answers.q8.features) && !!trim(answers.q9.benefits)
+        return !!trim(currentAnswers.q7.answer) && !!trim(currentAnswers.q8.features) && !!trim(currentAnswers.q9.benefits)
       case 16:
-        return !!trim(answers.q10.involvement) && !!trim(answers.q10.tableInfo)
+        return !!trim(currentAnswers.q10.involvement) && !!trim(currentAnswers.q10.tableInfo)
       case 18:
-        return !!trim(answers.s7.a1) && !!trim(answers.s7.a2)
+        return !!trim(currentAnswers.s7.a1) && !!trim(currentAnswers.s7.a2)
       case 20:
-        return !!trim(answers.q8.link) && !!trim(answers.q8.summary)
+        return !!trim(currentAnswers.q8.link) && !!trim(currentAnswers.q8.summary)
       case 22:
         return (
-          !!trim(answers.q9.posterLink) &&
-          answers.q9.needDiscussion !== null &&
-          !!trim(answers.q9.reason)
+          !!trim(currentAnswers.q9.posterLink) &&
+          currentAnswers.q9.needDiscussion !== null &&
+          !!trim(currentAnswers.q9.reason)
         )
       default:
         return true
@@ -165,63 +178,87 @@ function Book() {
     return () => clearInterval(id)
   }, [])
 
-  return (
-    <div className="flipbook-layout">
-      
-
-        <HTMLFlipBook
-          ref={bookRef}
-          width={pageSize.width}
-          height={pageSize.height}
-          minWidth={320}
-          maxWidth={650}
-          minHeight={420}
-          maxHeight={820}
-          size="stretch"
-          maxShadowOpacity={0.7}
-          flippingTime={400}
-          drawShadow
-          showCover
-          showPageCorners
-          mobileScrollSupport
-          disableFlipByClick={true}
-          swipeDistance={80}
+  const flipbookElement = React.useMemo(() => {
+    return (
+      <HTMLFlipBook
+        ref={bookRef}
+        width={pageSize.width}
+        height={pageSize.height}
+        minWidth={320}
+        maxWidth={650}
+        minHeight={420}
+        maxHeight={820}
+        size="stretch"
+        maxShadowOpacity={0.7}
+        flippingTime={400}
+        drawShadow
+        showCover
+        showPageCorners
+        mobileScrollSupport
+        disableFlipByClick={true}
+        swipeDistance={80}
         useMouseEvents={true}
         className="flipbook-book"
-        onFlip={() => {
+        onFlip={(e) => {
           const pageFlip = bookRef.current?.pageFlip()
           if (pageFlip) {
-            setCurrentIndex(pageFlip.getCurrentPageIndex())
+            const newIndex = e.data;
+            const curIdx = currentIndexRef.current;
+            
+            // Validate if trying to move forward
+            if (newIndex > curIdx) {
+              const isValid = isSinglePage 
+                ? validatePage(curIdx) 
+                : (validatePage(curIdx) && validatePage(Math.min(curIdx + 1, pageFlip.getPageCount() - 1)));
+                
+              if (!isValid) {
+                setTimeout(() => {
+                  pageFlip.turnToPage(curIdx);
+                }, 10);
+                setTimeout(() => {
+                  alert('Lengkapi semua kolom input sebelum lanjut ke halaman berikutnya.');
+                }, 300);
+                return;
+              }
+            }
+            
+            setCurrentIndex(newIndex)
             setTotalPages(pageFlip.getPageCount())
           }
         }}
       >
-          <CoverPage />
-          <StudentFieldPage />
-          <TeacherTaskPage />
-          <ContextPage />
-          <VideoDiscoveryPage />
-          <VideoGalleryPage />
-          <BreakingNewsPage />
-          <ExpertOpinionPage />
-          <ExpertSelectionPage />
-          <PresentationTopicPage />
-          <PresentationSlidesLayoutPage />
-          <AnnouncementPage />
-          <ProcessDragPage />
-          <JournalPortraitPage />
-          <DigitalResourceQuestionPage />
-          <BoraksSamplesPage />
-          <BoraksQuestionsPage />
-          <NewsletterPage />
-          <HamkaSpeechQuestionPage />
-          <DigitalResourceLeftPage />
-          <DigitalResourceRightPage />
-          <PosterAppsLeftPage />
-          <PosterTaskRightPage />
-          <AnswerReportPage />
-          <BackCoverPage />
-        </HTMLFlipBook>
+        <CoverPage />
+        <StudentFieldPage />
+        <TeacherTaskPage />
+        <ContextPage />
+        <VideoDiscoveryPage />
+        <VideoGalleryPage />
+        <BreakingNewsPage />
+        <ExpertOpinionPage />
+        <ExpertSelectionPage />
+        <PresentationTopicPage />
+        <PresentationSlidesLayoutPage />
+        <AnnouncementPage />
+        <ProcessDragPage />
+        <JournalPortraitPage />
+        <DigitalResourceQuestionPage />
+        <BoraksSamplesPage />
+        <BoraksQuestionsPage />
+        <NewsletterPage />
+        <HamkaSpeechQuestionPage />
+        <DigitalResourceLeftPage />
+        <DigitalResourceRightPage />
+        <PosterAppsLeftPage />
+        <PosterTaskRightPage />
+        <AnswerReportPage />
+        <BackCoverPage />
+      </HTMLFlipBook>
+    )
+  }, [pageSize, isSinglePage])
+
+  return (
+    <div className="flipbook-layout">
+      {flipbookElement}
 
       <footer className="flipbook-footer">
         <div className="flipbook-nav">

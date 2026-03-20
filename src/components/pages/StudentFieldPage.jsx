@@ -20,7 +20,14 @@ const StudentFieldPage = forwardRef(function StudentFieldPage(props, ref) {
         window.speechSynthesis.cancel()
         const utter = new SpeechSynthesisUtterance(fullText.replace(/\n+/g, ' '))
         utter.lang = 'id-ID'
-        utter.rate = 0.9
+        utter.onend = () => {
+          setIsPlaying(false)
+          setIsFinished(true)
+        }
+        utter.onerror = () => {
+          setIsPlaying(false)
+          setIsFinished(true)
+        }
         window.speechSynthesis.speak(utter)
       }
     }
@@ -35,7 +42,7 @@ const StudentFieldPage = forwardRef(function StudentFieldPage(props, ref) {
 
     const words = fullText.trim().split(/\s+/).length
     const rate = 0.9
-    const secs = (words * 60) / (160 * rate)
+    const secs = (words * 60) / (130 * rate)
     const perChar = Math.max(15, Math.min(80, (secs * 1000) / fullText.length))
 
     const intervalId = setInterval(() => {
@@ -44,8 +51,10 @@ const StudentFieldPage = forwardRef(function StudentFieldPage(props, ref) {
 
       if (index >= fullText.length) {
         clearInterval(intervalId)
-        setIsFinished(true)
-        setIsPlaying(false)
+        if (!window.speechSynthesis) {
+          setIsFinished(true)
+          setIsPlaying(false)
+        }
       }
     }, perChar)
 
@@ -81,7 +90,6 @@ const StudentFieldPage = forwardRef(function StudentFieldPage(props, ref) {
                 className={`student-text-wrapper ${
                   isPlaying ? 'student-text-animate' : ''
                 }`}
-                style={isFinished ? { maxHeight: 'none', flex: 1 } : {}}
               >
                 <div className="student-text-inner">
                   {displayedText.split('\n\n').map((block, idx) => (

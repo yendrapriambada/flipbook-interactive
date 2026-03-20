@@ -73,7 +73,7 @@ const ItemBox = ({ id, color, value, onChange, onDragStart, stopFlip, tagNumber,
 };
 
 const ProcessDragPage = forwardRef((props, ref) => {
-  const { answers, setS4OrderAll, setS4EntryAt } = useAnswers();
+  const { answers, setS4OrderAll, setS4EntryAt, setS4Explanation } = useAnswers();
   const [slots, setSlots] = useState(Array(6).fill(null));
   const [selectedId, setSelectedId] = useState(null);
   const entries = answers.s4.entries;
@@ -141,7 +141,6 @@ const ProcessDragPage = forwardRef((props, ref) => {
             gridTemplateColumns: '1fr 1fr',
             gap: '20px',
             alignItems: 'start',
-            height: '100%',
           }}
           onPointerDownCapture={stopFlip}
           onPointerMoveCapture={stopFlip}
@@ -258,6 +257,55 @@ const ProcessDragPage = forwardRef((props, ref) => {
                 ));
             })()}
           </div>
+        </div>
+
+        {/* Pertanyaan tambahan */}
+        <div
+          style={{
+            background: '#f5f5f5',
+            borderRadius: '10px',
+            padding: '12px 14px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
+          }}
+          onPointerDownCapture={stopFlip}
+          onMouseDownCapture={stopFlip}
+          onTouchStartCapture={stopFlip}
+          onClickCapture={stopFlip}
+        >
+          <div
+            style={{
+              color: '#263238',
+              fontSize: '13px',
+              lineHeight: 1.5,
+            }}
+          >
+            Jelaskan fungsi salah satu komponen dalam sistem alat pendeteksi borak tersebut (misalnya sensor, layar, atau tombol daya).
+          </div>
+          <textarea
+            value={answers.s4.explanation}
+            onChange={(e) => setS4Explanation(e.target.value)}
+            onPointerDownCapture={stopFlip}
+            onMouseDownCapture={stopFlip}
+            onTouchStartCapture={stopFlip}
+            onClickCapture={stopFlip}
+            placeholder="Tulis jawaban di sini..."
+            style={{
+              width: '100%',
+              minHeight: '70px',
+              resize: 'none',
+              borderRadius: '8px',
+              border: 'none',
+              outline: 'none',
+              padding: '10px 12px',
+              fontSize: '13px',
+              lineHeight: 1.5,
+              color: '#0b2c28',
+              background: 'rgba(255,255,255,0.9)',
+              boxSizing: 'border-box',
+            }}
+          />
         </div>
       </div>
     </div>

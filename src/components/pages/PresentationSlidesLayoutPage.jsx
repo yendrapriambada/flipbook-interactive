@@ -17,7 +17,7 @@ const PresentationSlidesLayoutPage = forwardRef(function PresentationSlidesLayou
       <div className="page-content presentation-slides-page">
         <div className="evaluation-question-card">
           <h5 className="evaluation-question">
-            Sebagai ketua kelompok, perlukan Andi menyampaikan kepada semua anggota kelompok bahwasanya ada tugas yang diberikan dosen melalui pesan teks email tersebut? Berikan alasannya!
+            Sebagai ketua kelompok, perlukah Andi menyampaikan kepada semua anggota kelompok bahwasanya ada tugas yang diberikan dosen melalui pesan teks email tersebut? Berikan alasannya!
           </h5>
           <div className="evaluation-input-wrapper">
             <textarea
@@ -37,7 +37,7 @@ const PresentationSlidesLayoutPage = forwardRef(function PresentationSlidesLayou
           </h5>
           <div className="slides-grid">
             {[0, 1, 2, 3, 4].map((i) => (
-              <div key={i} className={`slide-card ${['slide-orange','slide-yellow','slide-green','slide-teal','slide-pink'][i]}`}>
+              <div key={i} className={`slide-card ${['slide-orange', 'slide-yellow', 'slide-green', 'slide-teal', 'slide-pink'][i]}`}>
                 <div className="slide-title">Slide {i + 1}</div>
                 <input
                   type="text"
@@ -59,7 +59,7 @@ const PresentationSlidesLayoutPage = forwardRef(function PresentationSlidesLayou
           <span className="indicator-dot" />
           <span className="indicator-dot" />
         </div>
-        
+
       </div>
     </div>
   )

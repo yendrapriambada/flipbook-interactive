@@ -39,16 +39,23 @@ const ExpertOpinionPage = forwardRef((props, ref) => {
     }
     const fullText = experts[playingIndex].quote;
     let index = 0;
+    const words = fullText.trim().split(/\s+/).length;
+    const rate = 0.9;
+    const secs = (words * 60) / (130 * rate);
+    const perChar = Math.max(15, Math.min(80, (secs * 1000) / fullText.length));
+
     const intervalId = setInterval(() => {
       index += 1;
       setDisplayedText(fullText.slice(0, index));
       if (index >= fullText.length) {
         clearInterval(intervalId);
-        setRevealed((prev) =>
-          prev.includes(playingIndex) ? prev : [...prev, playingIndex]
-        );
+        if (!window.speechSynthesis) {
+          setRevealed((prev) =>
+            prev.includes(playingIndex) ? prev : [...prev, playingIndex]
+          );
+        }
       }
-    }, 45);
+    }, perChar);
     return () => clearInterval(intervalId);
   }, [playingIndex, experts]);
 

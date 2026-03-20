@@ -18,7 +18,14 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
         window.speechSynthesis.cancel()
         const utter = new SpeechSynthesisUtterance(fullText.replace(/\n+/g, ' '))
         utter.lang = 'id-ID'
-        utter.rate = 0.9
+        utter.onend = () => {
+          setIsPlaying(false)
+          setIsCompleted(true)
+        }
+        utter.onerror = () => {
+          setIsPlaying(false)
+          setIsCompleted(true)
+        }
         window.speechSynthesis.speak(utter)
       }
     }
@@ -29,15 +36,17 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
     let index = 0
     const words = fullText.trim().split(/\s+/).length
     const rate = 0.9
-    const secs = (words * 60) / (160 * rate)
+    const secs = (words * 60) / (130 * rate)
     const perChar = Math.max(15, Math.min(80, (secs * 1000) / fullText.length))
     const intervalId = setInterval(() => {
       index += 1
       setDisplayedText(fullText.slice(0, index))
       if (index >= fullText.length) {
         clearInterval(intervalId)
-        setIsPlaying(false)
-        setIsCompleted(true)
+        if (!window.speechSynthesis) {
+          setIsPlaying(false)
+          setIsCompleted(true)
+        }
       }
     }, perChar)
     return () => {
@@ -66,6 +75,22 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
             {isPlaying ? 'Listening...' : '▶ Play'}
           </button>
         )}
+
+        <div className="character-section" style={{ marginTop: '0', marginBottom: '16px' }}>
+          <div className="avatar-ring">
+            <div className="avatar-ring-inner">
+              <img
+                src="https://images.pexels.com/photos/8617727/pexels-photo-8617727.jpeg"
+                alt="Karakter Dosen"
+                className="character-avatar"
+              />
+            </div>
+          </div>
+          <div className="character-info">
+            <h3 className="character-name">Bapak Hamka</h3>
+            <p className="character-role">Dosen</p>
+          </div>
+        </div>
 
         <div className="evaluation-question-card">
           <h3 className="evaluation-question">

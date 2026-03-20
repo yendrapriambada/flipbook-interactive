@@ -15,7 +15,7 @@ export function AnswersProvider({ children }) {
     q10: { involvement: '', tableInfo: '' },
     s1: { answer: '' },
     s3: { left: '', slides: Array(5).fill('') },
-    s4: { order: Array(6).fill(null), entries: Array(6).fill('') },
+    s4: { order: Array(6).fill(null), entries: Array(6).fill(''), explanation: '' },
     s7: { a1: '', a2: '' },
   })
   const [userId, setUserId] = useState('')
@@ -128,6 +128,9 @@ export function AnswersProvider({ children }) {
           return { ...prev, s4: { ...prev.s4, entries: nextEntries } }
         })
       },
+      setS4Explanation(val) {
+        setAnswers((prev) => ({ ...prev, s4: { ...prev.s4, explanation: val } }))
+      },
       setS7A1(val) {
         setAnswers((prev) => ({ ...prev, s7: { ...prev.s7, a1: val } }))
       },
@@ -160,8 +163,8 @@ export function AnswersProvider({ children }) {
         const pairsByIdOrder = orderedIds
           .map((id) => `${id} = ${(answers.s4.entries[id - 1] || '').trim()}`)
           .join(' / ')
-        const line4 = joinPipe([orderStr || null, pairsByIdOrder || null])
-        const line5 = joinPipe([answers.q7.answer])
+        const line4 = joinPipe([orderStr || null, pairsByIdOrder || null, answers.s4.explanation && answers.s4.explanation.trim() ? `Penjelasan komponen: ${answers.s4.explanation.trim()}` : null])
+        const line5 = joinPipe([answers.q7.answer, answers.q8.features, answers.q9.benefits])
         const line6 = joinPipe([answers.q10.involvement, answers.q10.tableInfo])
         const line7 = joinPipe([answers.s7.a1, answers.s7.a2])
         const line8 = joinPipe([answers.q8.link, answers.q8.summary])

@@ -17,7 +17,14 @@ const PresentationTopicPage = forwardRef(function PresentationTopicPage(props, r
         window.speechSynthesis.cancel()
         const utter = new SpeechSynthesisUtterance(fullText.replace(/\n+/g, ' '))
         utter.lang = 'id-ID'
-        utter.rate = 0.9
+        utter.onend = () => {
+          setIsPlaying(false)
+          setIsCompleted(true)
+        }
+        utter.onerror = () => {
+          setIsPlaying(false)
+          setIsCompleted(true)
+        }
         window.speechSynthesis.speak(utter)
       }
     }
@@ -29,15 +36,17 @@ const PresentationTopicPage = forwardRef(function PresentationTopicPage(props, r
     let index = 0
     const words = fullText.trim().split(/\s+/).length
     const rate = 0.9
-    const secs = (words * 60) / (160 * rate)
+    const secs = (words * 60) / (130 * rate)
     const perChar = Math.max(15, Math.min(80, (secs * 1000) / fullText.length))
     const intervalId = setInterval(() => {
       index += 1
       setDisplayedText(fullText.slice(0, index))
       if (index >= fullText.length) {
         clearInterval(intervalId)
-        setIsPlaying(false)
-        setIsCompleted(true)
+        if (!window.speechSynthesis) {
+          setIsPlaying(false)
+          setIsCompleted(true)
+        }
       }
     }, perChar)
 
