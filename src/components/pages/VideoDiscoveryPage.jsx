@@ -16,18 +16,18 @@ const VideoDiscoveryPage = forwardRef(function VideoDiscoveryPage(props, ref) {
 
             <div
               className="student-board-body"
-              style={{ flexDirection: 'column', gap: 12 }}
+              style={{ flexDirection: 'row', gap: 12 }}
             >
-              <div className="hero-image-frame" style={{ width: '100%' }}>
+              <div className="hero-image-frame" style={{ width: '42%', flexShrink: 0, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
                 <img
                   src="https://images.pexels.com/photos/4065877/pexels-photo-4065877.jpeg"
                   alt="Mahasiswa menonton video edukasi di komputer"
                   className="hero-image"
-                  style={{ height: 280, objectPosition: '50% 20%' }}
+                  style={{ flex: 1, height: 'auto', minHeight: 120, objectPosition: '50% 20%' }}
                 />
               </div>
 
-              <div className="teacher-text-panel">
+              <div className="teacher-text-panel" style={{ flex: 1, minWidth: 0 }}>
                 <p style={{ fontSize: '0.95rem', lineHeight: 1.6 }}>
                   Dalam proses pencarian informasi tersebut, seorang mahasiswa Program Studi Pendidikan IPA bernama Budi menemukan sebuah video pembelajaran tentang teknologi uji kertas kunyit.
                 </p>

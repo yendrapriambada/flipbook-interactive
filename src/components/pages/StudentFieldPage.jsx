@@ -21,12 +21,13 @@ const StudentFieldPage = forwardRef(function StudentFieldPage(props, ref) {
               <span className="cover-flag cover-flag-5" />
             </div>
 
-            <div className="student-board-body">
-              <div className="student-image-wrapper">
+            <div className="student-board-body" style={{ flexDirection: 'row', gap: 12 }}>
+              <div className="student-image-wrapper" style={{ width: '40%', flexShrink: 0, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
                 <img
                   src={studentImage}
                   alt="Mahasiswa belajar bersama di area persawahan"
                   className="student-image"
+                  style={{ flex: 1, height: 'auto', minHeight: 120 }}
                 />
               </div>
 
@@ -34,6 +35,7 @@ const StudentFieldPage = forwardRef(function StudentFieldPage(props, ref) {
                 className={`student-text-wrapper ${
                   isPlaying ? 'student-text-animate' : ''
                 }`}
+                style={{ flex: 1, minWidth: 0 }}
               >
                 <div className="student-text-inner">
                   {(displayedText || 'Klik play untuk memutar teks...').split('\n\n').map((block, idx) => (
