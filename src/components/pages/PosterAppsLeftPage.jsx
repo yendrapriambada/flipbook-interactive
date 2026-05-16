@@ -16,8 +16,8 @@ const PosterAppsLeftPage = forwardRef(function PosterAppsLeftPage(props, ref) {
   return (
     <div className="page" ref={ref}>
       <div className="page-content presentation-instruction-page poster-left-page">
-        <div className="callout-row" style={{ flexDirection: 'column', alignItems: 'center' }}>
-          <div className="character-section" style={{ marginTop: '0', marginBottom: '12px', justifyContent: 'center' }}>
+        <div className="hamka-chat-row">
+          <div className="character-section">
             <div className="avatar-ring">
               <div className="avatar-ring-inner">
                 <img
@@ -27,13 +27,10 @@ const PosterAppsLeftPage = forwardRef(function PosterAppsLeftPage(props, ref) {
                 />
               </div>
             </div>
-            <div className="character-info">
-              <h3 className="character-name">Bapak Hamka</h3>
-              <p className="character-role">Dosen</p>
-            </div>
+            <h3 className="character-name">Bapak Hamka</h3>
+            <p className="character-role">Dosen</p>
           </div>
-
-          <div className="speech-bubble" style={{ width: '100%', marginBottom: '16px' }}>
+          <div className="speech-bubble">
             <p>{displayedText || <span>Klik ▶ <i>Play</i> untuk memutar teks</span>}</p>
           </div>
           {!isFinished && (
@@ -42,7 +39,6 @@ const PosterAppsLeftPage = forwardRef(function PosterAppsLeftPage(props, ref) {
               className={`student-play-button ${isPlaying ? 'student-play-button-active' : ''}`}
               onClick={play}
               disabled={isPlaying}
-              style={{ width: 'fit-content', margin: '0 auto', display: 'flex' }}
             >
               {isPlaying ? 'Listening...' : '▶ Play'}
             </button>

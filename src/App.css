@@ -670,19 +670,70 @@ html {
   border-radius: 18px;
   background: #fdfcfb;
   box-shadow: 0 10px 25px rgba(122, 85, 60, 0.15);
-  border: 1px solid rgba(243, 201, 105, 0.6);
+  border: 2px solid #f3c969;
   position: relative;
+  margin-left: 14px;
 }
 
+/* Chat tail pointing LEFT toward the avatar (border layer) */
+.speech-bubble::before {
+  content: "";
+  position: absolute;
+  top: 26px;
+  left: -16px;
+  border-width: 11px 16px 11px 0;
+  border-style: solid;
+  border-color: transparent #f3c969 transparent transparent;
+}
+
+/* Chat tail pointing LEFT toward the avatar (fill layer) */
 .speech-bubble::after {
   content: "";
   position: absolute;
-  bottom: -18px;
-  left: 32px;
-  border-width: 10px 14px 0 0;
+  top: 28px;
+  left: -12px;
+  border-width: 9px 13px 9px 0;
   border-style: solid;
-  border-color: #fdfcfb transparent transparent transparent;
-  filter: drop-shadow(0 4px 6px rgba(122, 85, 60, 0.18));
+  border-color: transparent #fdfcfb transparent transparent;
+  filter: drop-shadow(-2px 0 3px rgba(122, 85, 60, 0.10));
+}
+
+/* Reusable side-by-side wrapper: avatar left, bubble right */
+.hamka-chat-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "character bubble"
+    "character button";
+  gap: 14px 20px;
+  align-items: start;
+  width: 100%;
+}
+
+.hamka-chat-row > .speech-bubble {
+  grid-area: bubble;
+}
+
+.hamka-chat-row > .character-section {
+  grid-area: character;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 0;
+  align-self: start;
+}
+
+.hamka-chat-row > .student-play-button {
+  grid-area: button;
+  justify-self: start;
+}
+
+.hamka-avatar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 4px;
 }
 
 .speech-bubble p {

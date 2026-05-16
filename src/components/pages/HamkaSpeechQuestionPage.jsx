@@ -16,34 +16,33 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
   return (
     <div className="page" ref={ref}>
       <div className="page-content answer-form-page">
-        <div className="speech-bubble answer-speech">
-          <p>{displayedText || <span>Klik ▶ <i>Play</i> untuk memutar teks</span>}</p>
-        </div>
-        {!isFinished && (
-          <button
-            type="button"
-            className={`student-play-button ${isPlaying ? 'student-play-button-active' : ''}`}
-            onClick={play}
-            disabled={isPlaying}
-          >
-            {isPlaying ? 'Listening...' : '▶ Play'}
-          </button>
-        )}
-
-        <div className="character-section" style={{ marginTop: '0', marginBottom: '16px' }}>
-          <div className="avatar-ring">
-            <div className="avatar-ring-inner">
-              <img
-                src="https://images.pexels.com/photos/8617727/pexels-photo-8617727.jpeg"
-                alt="Karakter Dosen"
-                className="character-avatar"
-              />
+        <div className="hamka-chat-row">
+          <div className="character-section">
+            <div className="avatar-ring">
+              <div className="avatar-ring-inner">
+                <img
+                  src="https://images.pexels.com/photos/8617727/pexels-photo-8617727.jpeg"
+                  alt="Karakter Dosen"
+                  className="character-avatar"
+                />
+              </div>
             </div>
-          </div>
-          <div className="character-info">
             <h3 className="character-name">Bapak Hamka</h3>
             <p className="character-role">Dosen</p>
           </div>
+          <div className="speech-bubble">
+            <p>{displayedText || <span>Klik ▶ <i>Play</i> untuk memutar teks</span>}</p>
+          </div>
+          {!isFinished && (
+            <button
+              type="button"
+              className={`student-play-button ${isPlaying ? 'student-play-button-active' : ''}`}
+              onClick={play}
+              disabled={isPlaying}
+            >
+              {isPlaying ? 'Listening...' : '▶ Play'}
+            </button>
+          )}
         </div>
 
         <div className="evaluation-question-card">

@@ -10,8 +10,8 @@ const ContextPage = forwardRef(function ContextPage(props, ref) {
   return (
     <div className="page" ref={ref}>
       <div className="page-content page-hero-right" style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ display: 'flex', flexDirection: 'row', gap: 16, alignItems: 'flex-start', width: '100%' }}>
-          <div>
+        <div className="hamka-chat-row">
+          <div className="character-section">
             <div className="avatar-ring">
               <div className="avatar-ring-inner">
                 <img
@@ -24,21 +24,20 @@ const ContextPage = forwardRef(function ContextPage(props, ref) {
             <h3 className="character-name">Bapak Hamka</h3>
             <p className="character-role">Dosen</p>
           </div>
-          <div className="speech-bubble" style={{ flex: 1 }}>
+          <div className="speech-bubble">
             <p>{displayedText || <span>Klik ▶ <i>Play</i> untuk memutar teks</span>}</p>
           </div>
+          {!isFinished && (
+            <button
+              type="button"
+              className={`student-play-button ${isPlaying ? 'student-play-button-active' : ''}`}
+              onClick={play}
+              disabled={isPlaying}
+            >
+              {isPlaying ? 'Listening...' : '▶ Play'}
+            </button>
+          )}
         </div>
-        {!isFinished && (
-          <button
-            type="button"
-            className={`student-play-button ${isPlaying ? 'student-play-button-active' : ''}`}
-            onClick={play}
-            disabled={isPlaying}
-            style={{ alignSelf: 'center', marginTop: 12 }}
-          >
-            {isPlaying ? 'Listening...' : '▶ Play'}
-          </button>
-        )}
       </div>
     </div>
   )

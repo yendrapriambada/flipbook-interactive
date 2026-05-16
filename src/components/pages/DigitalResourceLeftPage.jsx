@@ -88,8 +88,8 @@ const DigitalResourceLeftPage = forwardRef(function DigitalResourceLeftPage(prop
             src="https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg"
             alt="Ilustrasi mencari informasi sumber daya digital"
           />
-          <div className="left-callout">
-            <div className="character-section" style={{ marginTop: '0', marginBottom: '12px' }}>
+          <div className="hamka-chat-row">
+            <div className="character-section">
               <div className="avatar-ring">
                 <div className="avatar-ring-inner">
                   <img
@@ -99,13 +99,10 @@ const DigitalResourceLeftPage = forwardRef(function DigitalResourceLeftPage(prop
                   />
                 </div>
               </div>
-              <div className="character-info">
-                <h3 className="character-name">Bapak Hamka</h3>
-                <p className="character-role">Dosen</p>
-              </div>
+              <h3 className="character-name">Bapak Hamka</h3>
+              <p className="character-role">Dosen</p>
             </div>
-            
-            <div className="speech-bubble" style={{ marginBottom: '16px', marginTop: '16px' }}>
+            <div className="speech-bubble">
               <p>{displayedText || <span>Klik ▶ <i>Play</i> untuk memutar teks</span>}</p>
             </div>
             {!isFinished && (
@@ -114,12 +111,10 @@ const DigitalResourceLeftPage = forwardRef(function DigitalResourceLeftPage(prop
                 className={`student-play-button ${isPlaying ? 'student-play-button-active' : ''}`}
                 onClick={play}
                 disabled={isPlaying}
-                style={{ width: 'fit-content', margin: '0 auto', display: 'flex' }}
               >
                 {isPlaying ? 'Listening...' : '▶ Play'}
               </button>
             )}
-
           </div>
         </div>
 
