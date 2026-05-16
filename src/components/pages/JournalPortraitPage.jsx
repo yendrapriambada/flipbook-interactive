@@ -20,25 +20,27 @@ const JournalPortraitPage = forwardRef((props, ref) => {
             <div className="journal-article-meta">
               <h3 className="journal-article-title">Kesalahan sebuah rancangan teknologi</h3>
             </div>
-            <p className="journal-lead">
-              Boraks, bahan kimia yang sering kali disalahgunakan dalam makanan, telah menjadi
-              masalah serius bagi kesehatan masyarakat. Untuk membantu mendeteksi boraks dalam
-              makanan, sebuah tim ilmuwan merancang alat pendeteksi borak yang diharapkan dapat
-              digunakan oleh masyarakat umum, termasuk pedagang makanan di pasar tradisional.
-              Teknologi ini awalnya diharapkan menjadi solusi praktis untuk mengidentifikasi
-              keberadaan borak secara cepat dan mudah. Namun, setelah diuji di lapangan,
-              ditemukan sejumlah masalah yang membuat alat ini tidak efektif dan tidak efisien
-              digunakan oleh masyarakat umum.
-            </p>
-            <p className="journal-lead">
-              Teknologi tersebut memerlukan beberapa tahapan yang rumit untuk mendapatkan hasil
-              yang akurat, mulai dari pengambilan sampel yang presisi hingga pengoperasian alat
-              dengan prosedur teknis tertentu. Mayoritas pedagang pasar atau masyarakat umum tidak
-              memiliki latar belakang ilmu kimia atau keterampilan teknis yang memadai untuk
-              menjalankan alat ini dengan benar. Alat ini juga membutuhkan perawatan berkala dan
-              kalibrasi yang sulit dilakukan tanpa bantuan ahli, sehingga malah menjadi beban
-              tambahan bagi pengguna.
-            </p>
+            <div className="expert-intro-box">
+              <p className="journal-lead">
+                Boraks, bahan kimia yang sering kali disalahgunakan dalam makanan, telah menjadi
+                masalah serius bagi kesehatan masyarakat. Untuk membantu mendeteksi boraks dalam
+                makanan, sebuah tim ilmuwan merancang alat pendeteksi borak yang diharapkan dapat
+                digunakan oleh masyarakat umum, termasuk pedagang makanan di pasar tradisional.
+                Teknologi ini awalnya diharapkan menjadi solusi praktis untuk mengidentifikasi
+                keberadaan borak secara cepat dan mudah. Namun, setelah diuji di lapangan,
+                ditemukan sejumlah masalah yang membuat alat ini tidak efektif dan tidak efisien
+                digunakan oleh masyarakat umum.
+              </p>
+              <p className="journal-lead">
+                Teknologi tersebut memerlukan beberapa tahapan yang rumit untuk mendapatkan hasil
+                yang akurat, mulai dari pengambilan sampel yang presisi hingga pengoperasian alat
+                dengan prosedur teknis tertentu. Mayoritas pedagang pasar atau masyarakat umum tidak
+                memiliki latar belakang ilmu kimia atau keterampilan teknis yang memadai untuk
+                menjalankan alat ini dengan benar. Alat ini juga membutuhkan perawatan berkala dan
+                kalibrasi yang sulit dilakukan tanpa bantuan ahli, sehingga malah menjadi beban
+                tambahan bagi pengguna.
+              </p>
+            </div>
           </div>
 
           <div className="journal-right">

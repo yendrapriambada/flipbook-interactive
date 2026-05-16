@@ -88,15 +88,12 @@ function Book() {
   }, [])
 
   const handlePrev = () => {
-    if (bookRef.current) {
-      const pageFlip = bookRef.current.pageFlip()
-      if (pageFlip) {
-        const current = pageFlip.getCurrentPageIndex()
-        if (current > 0) {
-          pageFlip.flipPrev()
-        }
-      }
-    }
+    const pf = bookRef.current?.pageFlip()
+    if (!pf) return
+    const settings = pf.getSettings()
+    settings.disableFlipByClick = false
+    pf.flipPrev()
+    setTimeout(() => { settings.disableFlipByClick = true }, 500)
   }
 
   const validatePage = (idx) => {

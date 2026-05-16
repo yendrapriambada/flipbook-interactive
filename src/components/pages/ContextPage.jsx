@@ -9,9 +9,24 @@ const ContextPage = forwardRef(function ContextPage(props, ref) {
 
   return (
     <div className="page" ref={ref}>
-      <div className="page-content page-hero-right">
-        <div className="speech-bubble">
-          <p>{displayedText || 'Klik ▶ Play untuk memutar teks'}</p>
+      <div className="page-content page-hero-right" style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', gap: 16, alignItems: 'flex-start', width: '100%' }}>
+          <div>
+            <div className="avatar-ring">
+              <div className="avatar-ring-inner">
+                <img
+                  src="https://images.pexels.com/photos/8617727/pexels-photo-8617727.jpeg"
+                  alt="Karakter Dosen"
+                  className="character-avatar"
+                />
+              </div>
+            </div>
+            <h3 className="character-name">Bapak Hamka</h3>
+            <p className="character-role">Dosen</p>
+          </div>
+          <div className="speech-bubble" style={{ flex: 1 }}>
+            <p>{displayedText || <span>Klik ▶ <i>Play</i> untuk memutar teks</span>}</p>
+          </div>
         </div>
         {!isFinished && (
           <button
@@ -19,33 +34,11 @@ const ContextPage = forwardRef(function ContextPage(props, ref) {
             className={`student-play-button ${isPlaying ? 'student-play-button-active' : ''}`}
             onClick={play}
             disabled={isPlaying}
+            style={{ alignSelf: 'center', marginTop: 12 }}
           >
             {isPlaying ? 'Listening...' : '▶ Play'}
           </button>
         )}
-
-        <div className="character-section">
-          <div className="avatar-ring">
-            <div className="avatar-ring-inner">
-              <img
-                src="https://images.pexels.com/photos/8617727/pexels-photo-8617727.jpeg"
-                alt="Karakter Dosen"
-                className="character-avatar"
-              />
-            </div>
-          </div>
-          <div className="character-info">
-            <h3 className="character-name">Bapak Hamka</h3>
-            <p className="character-role">Dosen</p>
-          </div>
-        </div>
-
-        <div className="page-indicator page-indicator-right">
-          <span className="indicator-dot indicator-dot-active" />
-          <span className="indicator-dot" />
-          <span className="indicator-dot" />
-        </div>
-
       </div>
     </div>
   )

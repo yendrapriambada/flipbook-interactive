@@ -53,9 +53,11 @@ const VideoGalleryPage = forwardRef(function VideoGalleryPage(props, ref) {
             />
           </div>
 
-          <p className="video-gallery-note">
-            *tekan tombol play, video mungkin membutuhkan waktu untuk memunculkan gambar
-          </p>
+          <div className="expert-intro-box" style={{ padding: '6px 10px', marginBottom: 0 }}>
+            <p className="video-gallery-note" style={{ marginTop: 0, paddingTop: 0 }}>
+              *tekan tombol play, video mungkin membutuhkan waktu untuk memunculkan gambar
+            </p>
+          </div>
         </div>
       </div>
     </div>

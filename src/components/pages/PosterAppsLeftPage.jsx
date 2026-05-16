@@ -34,7 +34,7 @@ const PosterAppsLeftPage = forwardRef(function PosterAppsLeftPage(props, ref) {
           </div>
 
           <div className="speech-bubble" style={{ width: '100%', marginBottom: '16px' }}>
-            <p>{displayedText || 'Klik ▶ Play untuk memutar teks'}</p>
+            <p>{displayedText || <span>Klik ▶ <i>Play</i> untuk memutar teks</span>}</p>
           </div>
           {!isFinished && (
             <button
@@ -65,7 +65,7 @@ const PosterAppsLeftPage = forwardRef(function PosterAppsLeftPage(props, ref) {
             onTouchStartCapture={stopFlipPropagation}
           >
             <img className="app-logo" src={canvaLogo} alt="Canva" />
-            <span className="app-label">Canva</span>
+            <span className="app-label"><i>Canva</i></span>
           </a>
           <a
             href="https://www.microsoft.com/microsoft-365/publisher"
@@ -77,7 +77,7 @@ const PosterAppsLeftPage = forwardRef(function PosterAppsLeftPage(props, ref) {
             onTouchStartCapture={stopFlipPropagation}
           >
             <img className="app-logo" src={publisherLogo} alt="Microsoft Publisher" />
-            <span className="app-label">Publisher</span>
+            <span className="app-label"><i>Microsoft Publisher</i></span>
           </a>
           <a
             href="https://piktochart.com/"
@@ -89,10 +89,12 @@ const PosterAppsLeftPage = forwardRef(function PosterAppsLeftPage(props, ref) {
             onTouchStartCapture={stopFlipPropagation}
           >
             <img className="app-logo" src={piktochartLogo} alt="Piktochart" />
-            <span className="app-label">Piktochart</span>
+            <span className="app-label"><i>Piktochart</i></span>
           </a>
         </div>
-        <p className="app-note">*klik gambar untuk membuka website</p>
+        <div className="expert-intro-box" style={{ padding: '6px 10px', marginBottom: 0 }}>
+          <p className="app-note">*klik gambar untuk membuka website</p>
+        </div>
 
       </div>
     </div>

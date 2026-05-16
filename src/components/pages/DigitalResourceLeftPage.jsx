@@ -106,7 +106,7 @@ const DigitalResourceLeftPage = forwardRef(function DigitalResourceLeftPage(prop
             </div>
             
             <div className="speech-bubble" style={{ marginBottom: '16px', marginTop: '16px' }}>
-              <p>{displayedText || 'Klik ▶ Play untuk memutar teks'}</p>
+              <p>{displayedText || <span>Klik ▶ <i>Play</i> untuk memutar teks</span>}</p>
             </div>
             {!isFinished && (
               <button

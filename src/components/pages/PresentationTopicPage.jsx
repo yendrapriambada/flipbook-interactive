@@ -12,7 +12,7 @@ const PresentationTopicPage = forwardRef(function PresentationTopicPage(props, r
     <div className="page" ref={ref}>
       <div className="page-content page-hero-right">
         <div className="speech-bubble" style={{ fontSize: '1.05rem', padding: '14px 18px', minHeight: '72px' }}>
-          <p>{displayedText || 'Klik ▶ Play untuk memutar teks'}</p>
+          <p>{displayedText || <span>Klik ▶ <i>Play</i> untuk memutar teks</span>}</p>
         </div>
         <div className="hero-image-frame" style={{ width: '100%' }}>
           <img

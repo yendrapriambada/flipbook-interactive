@@ -17,7 +17,7 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
     <div className="page" ref={ref}>
       <div className="page-content answer-form-page">
         <div className="speech-bubble answer-speech">
-          <p>{displayedText || 'Klik ▶ Play untuk memutar teks'}</p>
+          <p>{displayedText || <span>Klik ▶ <i>Play</i> untuk memutar teks</span>}</p>
         </div>
         {!isFinished && (
           <button

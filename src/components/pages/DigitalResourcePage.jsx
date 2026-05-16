@@ -80,7 +80,7 @@ const DigitalResourcePage = forwardRef(function DigitalResourcePage(props, ref) 
                 </div>
                 <div className="speech-bubble">
                   <p>
-                    Carilah informasi dari penyedia sumber daya digital (artikel, video, e-book)
+                    Carilah informasi dari penyedia sumber daya digital (artikel, video, <i>e-book</i>)
                     di internet tentang teknologi irigasi modern.
                   </p>
                 </div>
@@ -109,7 +109,7 @@ const DigitalResourcePage = forwardRef(function DigitalResourcePage(props, ref) 
                 <div className="instruction-card">
                   <h3 className="instruction-title">
                     Berdasarkan pilihan sumber daya digital yang disediakan, temukan 1
-                    artikel/video/e-book yang berisi informasi atau konten online tentang
+                    artikel/video/<i>e-book</i> yang berisi informasi atau konten online tentang
                     teknologi irigasi modern.
                   </h3>
                   <input
@@ -127,7 +127,7 @@ const DigitalResourcePage = forwardRef(function DigitalResourcePage(props, ref) 
 
                 <div className="instruction-card">
                   <h3 className="instruction-title">
-                    Jelaskan apa yang dibahas dalam artikel/video/e-book yang anda temukan!
+                    Jelaskan apa yang dibahas dalam artikel/video/<i>e-book</i> yang anda temukan!
                   </h3>
                   <textarea
                     className="analysis-textarea"
