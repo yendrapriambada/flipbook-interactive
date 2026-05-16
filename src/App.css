@@ -24,7 +24,6 @@
 html, body, h1, h2, h3, h4, h5, h6, p, span, label, button, a, input, textarea, div {
   font-family: var(--font-body) !important;
   font-weight: 400 !important;
-  font-size: 16px !important;
 }
 
 body,
@@ -140,10 +139,12 @@ html {
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.page-content {
-  overflow: auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 }
 
 .page-content::-webkit-scrollbar {
@@ -2633,4 +2634,205 @@ html {
 .newsletter-mark {
   font-size: 0.6rem;
   color: rgba(123, 32, 48, 0.8);
+}
+
+/* ----------------------------------------
+   Mobile responsive overrides
+   ---------------------------------------- */
+
+/* Collapse the image-left/text-right rows to a column on small screens.
+   These inline styles in the page components set flexDirection:row; override
+   them here via the parent class. */
+@media (max-width: 680px) {
+  .student-board-body,
+  .teacher-board-body {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  .student-field-page .student-image-wrapper,
+  .teacher-task-page .teacher-avatar-wrapper,
+  .video-discovery-page .hero-image-frame {
+    width: 100% !important;
+  }
+  .teacher-avatar-image {
+    max-height: 30vh;
+  }
+  .student-board-inner {
+    padding: 22px 18px;
+  }
+}
+
+/* Tablet landscape */
+@media (max-width: 1024px) {
+  .video-layout,
+  .two-up-layout,
+  .resource-layout,
+  .journal-content,
+  .presentation-layout {
+    gap: 12px;
+  }
+}
+
+/* Small tablet / large phone */
+@media (max-width: 768px) {
+  .presentation-layout {
+    flex-direction: column;
+  }
+  .pump-gallery,
+  .site-grid,
+  .app-links-grid,
+  .sample-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .expert-img-wrapper {
+    width: 48px;
+    height: 48px;
+  }
+  .expert-content {
+    padding-right: 44px;
+  }
+  .character-section {
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .avatar-ring {
+    width: 60px;
+    height: 60px;
+  }
+  .avatar-ring-inner {
+    width: 52px;
+    height: 52px;
+  }
+  .character-avatar {
+    width: 46px;
+    height: 46px;
+  }
+  .teacher-text-intro,
+  .teacher-text-list,
+  .teacher-list-number {
+    font-size: 0.78rem;
+  }
+}
+
+/* Mobile portrait — fine-tuning */
+@media (max-width: 600px) {
+  .flipbook-layout {
+    gap: 14px;
+  }
+  .pump-gallery,
+  .site-grid,
+  .app-links-grid,
+  .sample-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pump-card img {
+    height: 70px;
+  }
+  .site-logo {
+    height: 28px;
+  }
+  .app-logo {
+    height: 48px;
+  }
+  .video-wrapper {
+    height: 200px;
+  }
+  .hero-image {
+    height: clamp(110px, 22vh, 170px);
+  }
+  .left-hero {
+    height: clamp(100px, 20vh, 140px);
+  }
+  .callout-image img {
+    height: clamp(100px, 20vh, 150px);
+  }
+  .expert-card {
+    gap: 8px;
+    padding: 8px;
+  }
+  .expert-name {
+    font-size: 0.78rem;
+  }
+  .expert-quote {
+    font-size: 0.72rem;
+  }
+  .evaluation-question-card {
+    padding: 12px;
+  }
+  .speech-bubble {
+    padding: 14px 14px 16px;
+  }
+  .speech-bubble p {
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+  .student-play-button {
+    padding: 8px 18px;
+    font-size: 0.85rem;
+  }
+  .character-name {
+    font-size: 1rem;
+  }
+  .character-role {
+    font-size: 0.74rem;
+  }
+  .teacher-text-intro,
+  .teacher-text-list,
+  .teacher-list-number {
+    font-size: 0.74rem;
+    line-height: 1.5;
+  }
+  .page-heading {
+    font-size: 1.15rem;
+  }
+  .drag-zone,
+  .drag-item,
+  .drop-slot {
+    font-size: 0.78rem;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 420px) {
+  .pump-gallery,
+  .site-grid,
+  .app-links-grid,
+  .sample-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .video-wrapper {
+    height: 180px;
+  }
+  .expert-img-wrapper {
+    width: 44px;
+    height: 44px;
+  }
+  .student-board-inner {
+    padding: 18px 14px;
+  }
+  .page-heading {
+    font-size: 1.05rem;
+  }
+  .speech-bubble p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Footer pinned to bottom on small screens for easy navigation */
+@media (max-width: 600px) {
+  .flipbook-footer {
+    position: sticky;
+    bottom: 0;
+    background: rgba(253, 243, 230, 0.92);
+    backdrop-filter: blur(6px);
+    padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+    width: 100%;
+    z-index: 50;
+  }
+  .flipbook-tip {
+    font-size: 0.72rem;
+    text-align: center;
+    padding: 0 12px;
+  }
 }
