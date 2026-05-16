@@ -137,6 +137,10 @@ function Book() {
     }
   }
 
+  // In single-page/mobile mode, pageflip's internal index can be one step
+  // ahead of the visible page number. Shift validation index accordingly.
+  const getSinglePageValidationIndex = (idx) => Math.max(0, idx - 1)
+
   const handleNext = () => {
     if (bookRef.current) {
       const pageFlip = bookRef.current.pageFlip()
@@ -151,10 +155,11 @@ function Book() {
               return
             }
           } else {
-            if (!validatePage(current)) {
-            alert('Lengkapi semua kolom input sebelum lanjut ke halaman berikutnya.')
-            return
-          }
+            const validationIdx = getSinglePageValidationIndex(current)
+            if (!validatePage(validationIdx)) {
+              alert('Lengkapi semua kolom input sebelum lanjut ke halaman berikutnya.')
+              return
+            }
           }
           pageFlip.flipNext()
         }
@@ -205,7 +210,7 @@ function Book() {
             // Validate if trying to move forward
             if (newIndex > curIdx) {
               const isValid = isSinglePage 
-                ? validatePage(curIdx) 
+                ? validatePage(getSinglePageValidationIndex(curIdx))
                 : (validatePage(curIdx) && validatePage(Math.min(curIdx + 1, pageFlip.getPageCount() - 1)));
                 
               if (!isValid) {

@@ -35,7 +35,6 @@ const PresentationSlidesLayoutPage = forwardRef(function PresentationSlidesLayou
           <h5 className="evaluation-question">
             Berdasarkan pesan teks email di atas, setelah bekerja dengan kelompok, poin utama apa saja yang tepat untuk disajikan oleh kelompok Andi pada tugas presentasi tersebut?
           </h5>
-          <p style={{ fontSize: '0.8rem', color: '#777', marginBottom: '6px' }}>Ketik jawaban di sini!</p>
           <div className="slides-grid">
             {[0, 1, 2, 3, 4].map((i) => (
               <div key={i} className={`slide-card ${['slide-orange', 'slide-yellow', 'slide-green', 'slide-teal', 'slide-pink'][i]}`}>

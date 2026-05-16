@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+.claude/worktrees/
+Brief/
 
 # Editor directories and files
 .vscode/*
@@ -21,5 +23,5 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *.sln
- *.sw?
+*.sw?
 .vercel

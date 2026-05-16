@@ -10,6 +10,7 @@ export function useSyncedSpeech(text) {
   const [displayedText, setDisplayedText] = useState('')
   const [isPlaying, setIsPlaying] = useState(false)
   const [isFinished, setIsFinished] = useState(false)
+  const [activeText, setActiveText] = useState(text)
 
   const utterRef = useRef(null)
   const startTimeRef = useRef(null)
@@ -26,6 +27,7 @@ export function useSyncedSpeech(text) {
   const play = useCallback(() => {
     if (isPlaying) return
     stopAll()
+    setActiveText(text)
     setDisplayedText('')
     setIsFinished(false)
     setIsPlaying(true)
@@ -92,10 +94,14 @@ export function useSyncedSpeech(text) {
   // Reset saat teks berubah
   useEffect(() => {
     stopAll()
-    setDisplayedText('')
-    setIsPlaying(false)
-    setIsFinished(false)
-  }, [text]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [text, stopAll])
 
-  return { displayedText, play, isPlaying, isFinished }
+  const isCurrentText = activeText === text
+
+  return {
+    displayedText: isCurrentText ? displayedText : '',
+    play,
+    isPlaying: isCurrentText ? isPlaying : false,
+    isFinished: isCurrentText ? isFinished : false,
+  }
 }

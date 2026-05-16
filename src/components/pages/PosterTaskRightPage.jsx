@@ -16,7 +16,6 @@ const PosterTaskRightPage = forwardRef(function PosterTaskRightPage(props, ref) 
             Buatlah satu desain poster yang menjelaskan teknologi pendeteksi boraks pada makanan kepada audiens, kemudian tuliskan tautan (link) hasil desain yang telah Anda buat pada bagian yang disediakan.
           </h3>
           <div className="evaluation-input-wrapper">
-            <label>Jawaban Anda</label>
             <textarea
               placeholder="Jawaban Anda..."
               value={answers.q9.posterLink}

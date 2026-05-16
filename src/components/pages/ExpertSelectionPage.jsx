@@ -14,7 +14,7 @@ const ExpertSelectionPage = forwardRef(function ExpertSelectionPage(props, ref) 
         <div className="tech-impact-container">
           <div className="tech-impact-section">
             <label className="tech-impact-label">
-              Berdasarkan wacana dan pendapat para pakar, jika kamu adalah mahasiswa tersebut, pilihlah solusi yang paling tepat untuk mengatasi penggunaan boraks dalam makanan. Jelaskan alasanmu dengan membandingkan kelebihan dan keterbatasan solusi tersebut dengan solusi lainnya!
+              Berdasarkan wacana dan pendapat para pakar, jika kamu adalah mahasiswa tersebut, pilihlah solusi yang paling tepat untuk mengatasi penggunaan boraks dalam makanan.
             </label>
             <textarea
               className="tech-impact-input"
@@ -29,7 +29,7 @@ const ExpertSelectionPage = forwardRef(function ExpertSelectionPage(props, ref) 
           </div>
 
           <div className="tech-impact-section">
-            <label className="tech-impact-label">Tuliskan alasanmu di bawah ini!</label>
+            <label className="tech-impact-label">Jelaskan alasanmu dengan membandingkan kelebihan dan keterbatasan solusi tersebut dengan solusi lainnya.</label>
             <textarea
               className="tech-impact-input"
               placeholder="Jawaban Anda..."
