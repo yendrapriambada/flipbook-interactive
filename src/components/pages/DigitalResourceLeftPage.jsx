@@ -1,5 +1,6 @@
-import { forwardRef, useState, useEffect } from 'react'
+import { forwardRef } from 'react'
 import googlebooksIcon from '../../assets/googlebooks.png'
+import { useSyncedSpeech } from '../../hooks/useSyncedSpeech'
 import springerIcon from '../../assets/springer.png'
 import pubmedIcon from '../../assets/pubmed.jpg'
 import sciencedirectIcon from '../../assets/sciencedirect.png'
@@ -69,60 +70,10 @@ const SITES = [
   },
 ]
 
+const DIGITAL_RESOURCE_TEXT = "Carilah informasi dari penyedia sumber daya digital (artikel, video, e-book) di internet tentang teknologi pendeteksi makanan boraks. Berikut ini beberapa situs penyedia sumber daya digital yang bisa anda pilih dan gunakan!"
+
 const DigitalResourceLeftPage = forwardRef(function DigitalResourceLeftPage(props, ref) {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isCompleted, setIsCompleted] = useState(false)
-  const fullText = "Carilah informasi dari penyedia sumber daya digital (artikel, video, e-book) di internet tentang teknologi pendeteksi makanan boraks."
-  const [displayedText, setDisplayedText] = useState('')
-
-  const handlePlayClick = () => {
-    if (!isPlaying) {
-      setDisplayedText('')
-      setIsCompleted(false)
-      setIsPlaying(true)
-      if (window.speechSynthesis) {
-        window.speechSynthesis.cancel()
-        const utter = new SpeechSynthesisUtterance(fullText.replace(/\n+/g, ' '))
-        utter.lang = 'id-ID'
-        utter.rate = 0.9
-        utter.onend = () => {
-          setIsPlaying(false)
-          setIsCompleted(true)
-        }
-        utter.onerror = () => {
-          setIsPlaying(false)
-          setIsCompleted(true)
-        }
-        window.speechSynthesis.speak(utter)
-      }
-    }
-  }
-
-  useEffect(() => {
-    if (!isPlaying) return
-
-    let index = 0
-    const words = fullText.trim().split(/\s+/).length
-    const rate = 0.9
-    const secs = (words * 60) / (130 * rate)
-    const perChar = Math.max(15, Math.min(80, (secs * 1000) / fullText.length))
-    const intervalId = setInterval(() => {
-      index += 1
-      setDisplayedText(fullText.slice(0, index))
-      if (index >= fullText.length) {
-        clearInterval(intervalId)
-        if (!window.speechSynthesis) {
-          setIsPlaying(false)
-          setIsCompleted(true)
-        }
-      }
-    }, perChar)
-
-    return () => {
-      clearInterval(intervalId)
-      if (window.speechSynthesis) window.speechSynthesis.cancel()
-    }
-  }, [isPlaying, fullText])
+  const { displayedText, play, isPlaying, isFinished } = useSyncedSpeech(DIGITAL_RESOURCE_TEXT)
 
   const stopFlipPropagation = (e) => {
     e.stopPropagation()
@@ -157,11 +108,11 @@ const DigitalResourceLeftPage = forwardRef(function DigitalResourceLeftPage(prop
             <div className="speech-bubble" style={{ marginBottom: '16px', marginTop: '16px' }}>
               <p>{displayedText || 'Klik ▶ Play untuk memutar teks'}</p>
             </div>
-            {!isCompleted && (
+            {!isFinished && (
               <button
                 type="button"
                 className={`student-play-button ${isPlaying ? 'student-play-button-active' : ''}`}
-                onClick={handlePlayClick}
+                onClick={play}
                 disabled={isPlaying}
                 style={{ width: 'fit-content', margin: '0 auto', display: 'flex' }}
               >

@@ -10,9 +10,11 @@ const BoraksSamplesPage = forwardRef(function BoraksSamplesPage(props, ref) {
               alt="Ilustrasi data hasil pengujian makanan Boraks"
             />
 
+        <p className="boraks-note" style={{ fontWeight: 600, marginBottom: '4px' }}>
+          Perhatikan dan bacalah Data Hasil Pengujian Boraks di bawah ini!
+        </p>
         <p className="boraks-note">
-          Sebuah kelompok diminta oleh Dosennya untuk mengorganisasikan data tersebut ke dalam Tabel, sehingga
-          dari data hasil pengujian tersebut diperoleh informasi terhadap sampel yang mengandung boraks.
+          Sebuah kelompok diminta oleh dosen untuk mengorganisasikan data tersebut ke dalam tabel sehingga diperoleh informasi mengenai sampel yang mengandung boraks sesuai peraturan keamanan pangan (BPOM RI).
         </p>
       </div>
     </div>

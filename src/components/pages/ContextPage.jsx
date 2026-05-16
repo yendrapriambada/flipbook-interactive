@@ -1,59 +1,11 @@
-import { forwardRef, useEffect, useState } from 'react'
+import { forwardRef } from 'react'
+import { useSyncedSpeech } from '../../hooks/useSyncedSpeech'
+
+const fullText =
+  'Pada tahap awal, mahasiswa diminta untuk mengeksplorasi dan mencari informasi dari berbagai sumber yang relevan dengan permasalahan yang dikaji.'
 
 const ContextPage = forwardRef(function ContextPage(props, ref) {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isCompleted, setIsCompleted] = useState(false)
-  const fullText =
-    '"Mahasiswa diminta untuk mengeksplorasi dan mencari informasi dari berbagai sumber terkait permasalahan."'
-  const [displayedText, setDisplayedText] = useState('')
-
-  const handlePlayClick = () => {
-    if (!isPlaying) {
-      setDisplayedText('')
-      setIsCompleted(false)
-      setIsPlaying(true)
-      if (window.speechSynthesis) {
-        window.speechSynthesis.cancel()
-        const utter = new SpeechSynthesisUtterance(fullText.replace(/\n+/g, ' '))
-        utter.lang = 'id-ID'
-        utter.onend = () => {
-          setIsPlaying(false)
-          setIsCompleted(true)
-        }
-        utter.onerror = () => {
-          setIsPlaying(false)
-          setIsCompleted(true)
-        }
-        window.speechSynthesis.speak(utter)
-      }
-    }
-  }
-
-  useEffect(() => {
-    if (!isPlaying) return
-
-    let index = 0
-    const words = fullText.trim().split(/\s+/).length
-    const rate = 0.9
-    const secs = (words * 60) / (130 * rate)
-    const perChar = Math.max(15, Math.min(80, (secs * 1000) / fullText.length))
-    const intervalId = setInterval(() => {
-      index += 1
-      setDisplayedText(fullText.slice(0, index))
-      if (index >= fullText.length) {
-        clearInterval(intervalId)
-        if (!window.speechSynthesis) {
-          setIsPlaying(false)
-          setIsCompleted(true)
-        }
-      }
-    }, perChar)
-
-    return () => {
-      clearInterval(intervalId)
-      if (window.speechSynthesis) window.speechSynthesis.cancel()
-    }
-  }, [isPlaying, fullText])
+  const { displayedText, play, isPlaying, isFinished } = useSyncedSpeech(fullText)
 
   return (
     <div className="page" ref={ref}>
@@ -61,11 +13,11 @@ const ContextPage = forwardRef(function ContextPage(props, ref) {
         <div className="speech-bubble">
           <p>{displayedText || 'Klik ▶ Play untuk memutar teks'}</p>
         </div>
-        {!isCompleted && (
+        {!isFinished && (
           <button
             type="button"
             className={`student-play-button ${isPlaying ? 'student-play-button-active' : ''}`}
-            onClick={handlePlayClick}
+            onClick={play}
             disabled={isPlaying}
           >
             {isPlaying ? 'Listening...' : '▶ Play'}
@@ -93,7 +45,7 @@ const ContextPage = forwardRef(function ContextPage(props, ref) {
           <span className="indicator-dot" />
           <span className="indicator-dot" />
         </div>
-        
+
       </div>
     </div>
   )

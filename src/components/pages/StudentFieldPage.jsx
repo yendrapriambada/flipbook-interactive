@@ -1,68 +1,12 @@
-import { forwardRef, useEffect, useState } from 'react'
+import { forwardRef } from 'react'
 import studentImage from '../../assets/penelitian.png'
+import { useSyncedSpeech } from '../../hooks/useSyncedSpeech'
+
+const fullText =
+  'Sebagai upaya meningkatkan kesadaran masyarakat terhadap bahaya penggunaan boraks dalam makanan, Program Studi Pendidikan IPA mengadakan pameran edukatif bertema "Inovasi Teknologi Mendeteksi Makanan Berbahaya". Dalam kegiatan tersebut, mahasiswa menyajikan poster, eksperimen ilmiah, dan simulasi sederhana untuk memperlihatkan cara mendeteksi kandungan boraks pada makanan, sekaligus memberikan edukasi tentang dampak negatifnya bagi kesehatan serta pentingnya memilih produk makanan yang aman.'
 
 const StudentFieldPage = forwardRef(function StudentFieldPage(props, ref) {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isFinished, setIsFinished] = useState(false)
-  const [displayedText, setDisplayedText] = useState('Klik play untuk memutar teks...')
-
-  const fullText =
-    'Program Studi Pendidikan IPA mengadakan sebuah pameran edukatif bertema "Inovasi teknologi mendeteksi makanan berbahaya".\n\n' +
-    'Pameran ini bertujuan untuk meningkatkan kesadaran masyarakat mengenai bahaya penggunaan boraks dalam makanan, terutama dalam konteks kesehatan. Mahasiswa prodi Pendidikan IPA menampilkan berbagai poster, eksperimen ilmiah, serta simulasi sederhana yang memperlihatkan cara mendeteksi kandungan boraks dalam makanan.\n\n' +
-    'Selain itu, pengunjung diberikan informasi tentang dampak negatif konsumsi boraks dan diajarkan cara memilih produk makanan yang aman.'
-
-  const handlePlayClick = () => {
-    if (!isPlaying) {
-      setDisplayedText('')
-      setIsPlaying(true)
-      setIsFinished(false)
-      if (window.speechSynthesis) {
-        window.speechSynthesis.cancel()
-        const utter = new SpeechSynthesisUtterance(fullText.replace(/\n+/g, ' '))
-        utter.lang = 'id-ID'
-        utter.onend = () => {
-          setIsPlaying(false)
-          setIsFinished(true)
-        }
-        utter.onerror = () => {
-          setIsPlaying(false)
-          setIsFinished(true)
-        }
-        window.speechSynthesis.speak(utter)
-      }
-    }
-  }
-
-  useEffect(() => {
-    if (!isPlaying) {
-      return
-    }
-
-    let index = 0
-
-    const words = fullText.trim().split(/\s+/).length
-    const rate = 0.9
-    const secs = (words * 60) / (130 * rate)
-    const perChar = Math.max(15, Math.min(80, (secs * 1000) / fullText.length))
-
-    const intervalId = setInterval(() => {
-      index += 1
-      setDisplayedText(fullText.slice(0, index))
-
-      if (index >= fullText.length) {
-        clearInterval(intervalId)
-        if (!window.speechSynthesis) {
-          setIsFinished(true)
-          setIsPlaying(false)
-        }
-      }
-    }, perChar)
-
-    return () => {
-      clearInterval(intervalId)
-      if (window.speechSynthesis) window.speechSynthesis.cancel()
-    }
-  }, [isPlaying, fullText])
+  const { displayedText, play, isPlaying, isFinished } = useSyncedSpeech(fullText)
 
   return (
     <div className="page" ref={ref}>
@@ -92,7 +36,7 @@ const StudentFieldPage = forwardRef(function StudentFieldPage(props, ref) {
                 }`}
               >
                 <div className="student-text-inner">
-                  {displayedText.split('\n\n').map((block, idx) => (
+                  {(displayedText || 'Klik play untuk memutar teks...').split('\n\n').map((block, idx) => (
                     <p key={idx}>{block}</p>
                   ))}
                 </div>
@@ -107,7 +51,7 @@ const StudentFieldPage = forwardRef(function StudentFieldPage(props, ref) {
             className={`student-play-button ${
               isPlaying ? 'student-play-button-active' : ''
             }`}
-            onClick={handlePlayClick}
+            onClick={play}
             disabled={isPlaying}
           >
             {isPlaying ? 'Listening...' : '▶ Play'}

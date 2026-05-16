@@ -1,62 +1,13 @@
-import { forwardRef, useState, useEffect } from 'react'
+import { forwardRef } from 'react'
 import canvaLogo from '../../assets/canva.png'
 import publisherLogo from '../../assets/microsoft_publisher.png'
 import piktochartLogo from '../../assets/piktochart.png'
+import { useSyncedSpeech } from '../../hooks/useSyncedSpeech'
+
+const POSTER_TEXT = "Gunakan informasi digital yang telah ditemukan dan dipilih sebelumnya untuk menjelaskan kepada audien. Anda dapat memanfaatkan salah satu aplikasi desain poster yang di sarankan."
 
 const PosterAppsLeftPage = forwardRef(function PosterAppsLeftPage(props, ref) {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isCompleted, setIsCompleted] = useState(false)
-  const fullText = "Gunakan informasi digital yang telah ditemukan dan dipilih sebelumnya untuk menjelaskan kepada audiens. Anda dapat memanfaatkan salah satu aplikasi desain poster yang disarankan."
-  const [displayedText, setDisplayedText] = useState('')
-
-  const handlePlayClick = () => {
-    if (!isPlaying) {
-      setDisplayedText('')
-      setIsCompleted(false)
-      setIsPlaying(true)
-      if (window.speechSynthesis) {
-        window.speechSynthesis.cancel()
-        const utter = new SpeechSynthesisUtterance(fullText.replace(/\n+/g, ' '))
-        utter.lang = 'id-ID'
-        utter.rate = 0.9
-        utter.onend = () => {
-          setIsPlaying(false)
-          setIsCompleted(true)
-        }
-        utter.onerror = () => {
-          setIsPlaying(false)
-          setIsCompleted(true)
-        }
-        window.speechSynthesis.speak(utter)
-      }
-    }
-  }
-
-  useEffect(() => {
-    if (!isPlaying) return
-
-    let index = 0
-    const words = fullText.trim().split(/\s+/).length
-    const rate = 0.9
-    const secs = (words * 60) / (130 * rate)
-    const perChar = Math.max(15, Math.min(80, (secs * 1000) / fullText.length))
-    const intervalId = setInterval(() => {
-      index += 1
-      setDisplayedText(fullText.slice(0, index))
-      if (index >= fullText.length) {
-        clearInterval(intervalId)
-        if (!window.speechSynthesis) {
-          setIsPlaying(false)
-          setIsCompleted(true)
-        }
-      }
-    }, perChar)
-
-    return () => {
-      clearInterval(intervalId)
-      if (window.speechSynthesis) window.speechSynthesis.cancel()
-    }
-  }, [isPlaying, fullText])
+  const { displayedText, play, isPlaying, isFinished } = useSyncedSpeech(POSTER_TEXT)
 
   const stopFlipPropagation = (e) => {
     e.stopPropagation()
@@ -81,15 +32,15 @@ const PosterAppsLeftPage = forwardRef(function PosterAppsLeftPage(props, ref) {
               <p className="character-role">Dosen</p>
             </div>
           </div>
-          
+
           <div className="speech-bubble" style={{ width: '100%', marginBottom: '16px' }}>
             <p>{displayedText || 'Klik ▶ Play untuk memutar teks'}</p>
           </div>
-          {!isCompleted && (
+          {!isFinished && (
             <button
               type="button"
               className={`student-play-button ${isPlaying ? 'student-play-button-active' : ''}`}
-              onClick={handlePlayClick}
+              onClick={play}
               disabled={isPlaying}
               style={{ width: 'fit-content', margin: '0 auto', display: 'flex' }}
             >
@@ -142,7 +93,7 @@ const PosterAppsLeftPage = forwardRef(function PosterAppsLeftPage(props, ref) {
           </a>
         </div>
         <p className="app-note">*klik gambar untuk membuka website</p>
-        
+
       </div>
     </div>
   )

@@ -29,11 +29,7 @@ const VideoDiscoveryPage = forwardRef(function VideoDiscoveryPage(props, ref) {
 
               <div className="teacher-text-panel">
                 <p style={{ fontSize: '0.95rem', lineHeight: 1.6 }}>
-                  Seorang mahasiswa prodi Pendidikan IPA bernama Budi menemukan sebuah
-                  video pembelajaran tentang Teknologi
-                </p>
-                <p style={{ fontSize: '1.05rem', fontWeight: 700, marginTop: 6 }}>
-                  “Teknologi Uji kertas Kunyit”
+                  Dalam proses pencarian informasi tersebut, seorang mahasiswa Program Studi Pendidikan IPA bernama Budi menemukan sebuah video pembelajaran tentang teknologi uji kertas kunyit.
                 </p>
               </div>
             </div>

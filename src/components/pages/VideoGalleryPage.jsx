@@ -16,7 +16,7 @@ const VideoGalleryPage = forwardRef(function VideoGalleryPage(props, ref) {
       <div className="page-content video-gallery-page">
         <div className="video-gallery-container">
           <h2 className="video-title">
-            Perhatikan teknologi yang disajikan dalam video di bawah ini
+            Perhatikan teknologi yang di sajikan dalam video di bawah ini!
           </h2>
 
           <div className="video-wrapper">
@@ -42,7 +42,7 @@ const VideoGalleryPage = forwardRef(function VideoGalleryPage(props, ref) {
             onKeyDownCapture={stopFlipbookEvents}
           >
             <label className="video-question">
-              Berdasarkan informasi dalam video tersebut, identifikasilah kelebihan dan kekurangan teknologi yang ditampilkan.
+              Berdasarkan informasi dalam video tersebut, identifikasilah kelebihan dan kekurangan teknologi yang ditampilkan!
             </label>
             <textarea
               className="video-answer"

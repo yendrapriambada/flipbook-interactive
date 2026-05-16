@@ -165,14 +165,16 @@ const ProcessDragPage = forwardRef((props, ref) => {
             <div
               style={{
                 color: '#e8f5e9',
-                fontSize: '14px',
+                fontSize: '13px',
                 lineHeight: 1.4,
                 marginBottom: '6px',
               }}
             >
-              Gambarkan secara urut alur proses kerja tersebut dengan cara mendrag pada masing-masing kolom di bawah ini
+              Berdasarkan wacana tersebut, tuliskan urutan langkah-langkah utama yang dilakukan Andi dalam menggunakan alat pendeteksi boraks! Seret (drag) kotak dari kanan ke kolom di bawah ini.
             </div>
-            {slots.map((val, idx) => (
+            {slots.map((val, idx) => {
+              const slotColor = COLORS[idx]?.color || '#cfd8dc';
+              return (
               <div
                 key={idx}
                 onDragOver={onDragOver}
@@ -184,10 +186,9 @@ const ProcessDragPage = forwardRef((props, ref) => {
                 onClickCapture={stopFlip}
                 style={{
                   minHeight: '44px',
-                  border: '2px dashed #e0e0e0',
+                  border: `2px dashed ${slotColor}`,
                   borderRadius: '10px',
-                  background:
-                    'repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 6px, rgba(0,0,0,0.04) 6px, rgba(0,0,0,0.04) 12px)',
+                  background: val ? 'transparent' : `${slotColor}22`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'flex-start',
@@ -216,7 +217,7 @@ const ProcessDragPage = forwardRef((props, ref) => {
                   </span>
                 )}
               </div>
-            ))}
+            )})}
             </div>
 
             <div
@@ -235,7 +236,7 @@ const ProcessDragPage = forwardRef((props, ref) => {
                   fontSize: '13px',
                 }}
               >
-                Berdasarkan wacana di atas, susun secara berurutan alur proses kerja Andi dalam memastikan makanan bebas borak dengan cara menyeret (drag) kotak di sebelah kiri ke kotak alur di sebelah kanan!
+                Seret (drag) kotak langkah di bawah ini ke kolom urutan di sebelah kiri!
               </div>
 
             {(() => {
@@ -281,7 +282,7 @@ const ProcessDragPage = forwardRef((props, ref) => {
               lineHeight: 1.5,
             }}
           >
-            Jelaskan fungsi salah satu komponen dalam sistem alat pendeteksi borak tersebut (misalnya sensor, layar, atau tombol daya).
+            Apa akibat yang mungkin terjadi jika langkah-langkah tersebut tidak dilakukan secara berurutan? Jelaskan!
           </div>
           <textarea
             value={answers.s4.explanation}

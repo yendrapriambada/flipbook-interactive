@@ -105,7 +105,10 @@ const ExpertOpinionPage = forwardRef((props, ref) => {
         {/* Header / Intro Text */}
         <div className="expert-intro-box">
           <p>
-            Setelah membaca teks pemberitaan tersebut, seorang mahasiswa berusaha mencari solusi atas permasalahan boraks dalam makanan. Ia kemudian meminta pendapat dari beberapa pakar di bidang terkait mengenai solusi yang mungkin dilakukan.
+            Setelah membaca pemberitahuan tersebut, seorang mahasiswa yang sedang melakukan penelitian tentang keamanan pangan tertarik untuk mencari solusi atas permasalahan penggunaan boraks dalam makanan. Untuk itu, ia mengumpulkan pendapat dari beberapa pakar sebagai bahan pertimbangan dalam menentukan solusi yang paling efektif.
+          </p>
+          <p style={{ marginTop: '6px', fontSize: '0.85rem', color: '#555' }}>
+            Klik ikon play untuk mendengarkan pendapat ahli, kemudian klik next.
           </p>
         </div>
 

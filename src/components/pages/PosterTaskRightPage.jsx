@@ -13,8 +13,7 @@ const PosterTaskRightPage = forwardRef(function PosterTaskRightPage(props, ref) 
       <div className="page-content presentation-instruction-page">
         <div className="evaluation-question-card">
           <h3 className="evaluation-question">
-            Buatlah 1 desain Poster untuk menjelaskan informasi teknologi pendeteksi makanan boraks yang diperoleh kepada audien! Tulis link hasil kerja desain
-            yang telah anda buat di bawah ini!
+            Buatlah satu desain poster yang menjelaskan teknologi pendeteksi boraks pada makanan kepada audiens, kemudian tuliskan tautan (link) hasil desain yang telah Anda buat pada bagian yang disediakan.
           </h3>
           <div className="evaluation-input-wrapper">
             <label>Jawaban Anda</label>
@@ -31,9 +30,7 @@ const PosterTaskRightPage = forwardRef(function PosterTaskRightPage(props, ref) 
 
         <div className="evaluation-question-card">
           <h3 className="evaluation-question">
-            Sebagai anggota kelompok, apakah anda memerlukan diskusi bersama
-            kelompok dalam memilih informasi yang sesuai untuk menyelesaikan tugas
-            Poster tersebut? mengapa?
+            Sebagai anggota kelompok, apakah Anda perlu melakukan diskusi bersama anggota kelompok dalam memilih informasi yang sesuai untuk menyelesaikan tugas pembuatan poster tersebut? Jelaskan alasan Anda.
           </h3>
           <div className="evaluation-choices">
             <button

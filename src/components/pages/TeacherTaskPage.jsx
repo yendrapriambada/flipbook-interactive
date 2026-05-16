@@ -25,31 +25,8 @@ const TeacherTaskPage = forwardRef(function TeacherTaskPage(props, ref) {
 
               <div className="teacher-text-panel">
                 <p className="teacher-text-intro">
-                  Sebagai seorang Dosen, Bapak Hamka meminta mahasiswanya untuk
-                  membuat poster, eksperimen ilmiah atau simulasi sederhana terkait
-                  topik yang disarankan. Beberapa poin yang akan dibahas di antaranya:
+                  Sebagai tindak lanjut dari kegiatan tersebut, Bapak Hamka selaku dosen meminta mahasiswa untuk mengembangkan media atau kegiatan edukatif sesuai topik yang telah ditentukan. Dalam tugas ini, mahasiswa diminta menguraikan permasalahan yang ditemukan, solusi yang ditawarkan, serta konsekuensi atau dampak dari solusi tersebut.
                 </p>
-
-                <ul className="teacher-text-list">
-                  <li>
-                    <span className="teacher-list-number">(1)</span>
-                    <span>
-                      Permasalahan: kondisi permasalahan yang ditemukan.
-                    </span>
-                  </li>
-                  <li>
-                    <span className="teacher-list-number">(2)</span>
-                    <span>
-                      Solusi: cara menyelesaikan persoalan.
-                    </span>
-                  </li>
-                  <li>
-                    <span className="teacher-list-number">(3)</span>
-                    <span>
-                      Konsekuensi: dampak dari solusi yang dikemukakan.
-                    </span>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>

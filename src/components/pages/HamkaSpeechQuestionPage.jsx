@@ -1,59 +1,13 @@
-import { forwardRef, useEffect, useState } from 'react'
+import { forwardRef } from 'react'
 import useAnswers from '../../context/useAnswers'
+import { useSyncedSpeech } from '../../hooks/useSyncedSpeech'
+
+const fullText =
+  'Selanjutnya, mahasiswa diminta menjawab pertanyaan berdasarkan wacana Classroom Newsletter yang telah disajikan sebelumnya.'
 
 const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(props, ref) {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isCompleted, setIsCompleted] = useState(false)
-  const fullText =
-    '"Mahasiswa diminta menjawab pertanyaan berdasarkan wacana Classroom Newsletter yang telah disajikan diatas."'
-  const [displayedText, setDisplayedText] = useState('')
+  const { displayedText, play, isPlaying, isFinished } = useSyncedSpeech(fullText)
   const { answers, setS7A1, setS7A2 } = useAnswers()
-
-  const handlePlayClick = () => {
-    if (!isPlaying) {
-      setDisplayedText('')
-      setIsCompleted(false)
-      setIsPlaying(true)
-      if (window.speechSynthesis) {
-        window.speechSynthesis.cancel()
-        const utter = new SpeechSynthesisUtterance(fullText.replace(/\n+/g, ' '))
-        utter.lang = 'id-ID'
-        utter.onend = () => {
-          setIsPlaying(false)
-          setIsCompleted(true)
-        }
-        utter.onerror = () => {
-          setIsPlaying(false)
-          setIsCompleted(true)
-        }
-        window.speechSynthesis.speak(utter)
-      }
-    }
-  }
-
-  useEffect(() => {
-    if (!isPlaying) return
-    let index = 0
-    const words = fullText.trim().split(/\s+/).length
-    const rate = 0.9
-    const secs = (words * 60) / (130 * rate)
-    const perChar = Math.max(15, Math.min(80, (secs * 1000) / fullText.length))
-    const intervalId = setInterval(() => {
-      index += 1
-      setDisplayedText(fullText.slice(0, index))
-      if (index >= fullText.length) {
-        clearInterval(intervalId)
-        if (!window.speechSynthesis) {
-          setIsPlaying(false)
-          setIsCompleted(true)
-        }
-      }
-    }, perChar)
-    return () => {
-      clearInterval(intervalId)
-      if (window.speechSynthesis) window.speechSynthesis.cancel()
-    }
-  }, [isPlaying, fullText])
 
   const stopFlipPropagation = (e) => {
     e.stopPropagation()
@@ -65,11 +19,11 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
         <div className="speech-bubble answer-speech">
           <p>{displayedText || 'Klik ▶ Play untuk memutar teks'}</p>
         </div>
-        {!isCompleted && (
+        {!isFinished && (
           <button
             type="button"
             className={`student-play-button ${isPlaying ? 'student-play-button-active' : ''}`}
-            onClick={handlePlayClick}
+            onClick={play}
             disabled={isPlaying}
           >
             {isPlaying ? 'Listening...' : '▶ Play'}
@@ -94,7 +48,7 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
 
         <div className="evaluation-question-card">
           <h3 className="evaluation-question">
-            Berdasarkan karakteristik media digital yang disediakan pada wacana, media mana yang paling tepat untuk memberikan pengalaman pembelajaran interaktif dan visual? Jelaskan alasan Anda.
+            Berdasarkan karakteristik media digital yang terdapat dalam wacana, media apa yang paling tepat digunakan untuk memberikan pengalaman pembelajaran interaktif dan visual? Sertakan alasan Anda.
           </h3>
           <div className="evaluation-input-wrapper">
             <textarea
@@ -110,7 +64,7 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
 
         <div className="evaluation-question-card">
           <h3 className="evaluation-question">
-            Berdasarkan tujuan pembelajaran untuk memahami boraks secara mendalam dan menyusun laporan ilmiah, media digital mana yang paling tepat digunakan? Jelaskan alasan pemilihan Anda.
+            Untuk mencapai tujuan pembelajaran dalam memahami boraks secara mendalam dan menyusun laporan ilmiah, media digital apa yang paling tepat digunakan? Jelaskan alasan Anda.
           </h3>
           <div className="evaluation-input-wrapper">
             <textarea
@@ -123,7 +77,7 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
             />
           </div>
         </div>
-        
+
       </div>
     </div>
   )

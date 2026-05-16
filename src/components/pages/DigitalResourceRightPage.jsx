@@ -13,13 +13,12 @@ const DigitalResourceRightPage = forwardRef(function DigitalResourceRightPage(pr
       <div className="page-content digital-right">
         <div className="instruction-card instruction-compact">
           <h3 className="instruction-title instruction-compact-title">
-            Berdasarkan pilihan sumber daya digital yang disediakan, temukan 1 artikel/video/e-book
-            yang berisi informasi atau konten online tentang teknologi pendeteksi makanan boraks.
+            Berdasarkan pilihan sumber daya digital yang disediakan, temukan 1 artikel/video/e-book yang berisi informasi atau konten online tentang teknologi pendeteksi makanan boraks.
           </h3>
           <input
             type="url"
             className="link-input input-compact"
-            placeholder="Ketik link artikel/video/e-book yang anda temukan di sini!"
+            placeholder="Salin link artikel/video/e-book yang anda temukan di sini!"
             value={answers.q8.link}
             onChange={(e) => setQ8Link(e.target.value)}
             onPointerDownCapture={stopFlipPropagation}
