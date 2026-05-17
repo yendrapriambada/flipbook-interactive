@@ -33,9 +33,9 @@ const ItemBox = ({ id, color, value, onChange, onDragStart, stopFlip, tagNumber,
         padding: '6px',
         display: 'grid',
         gridTemplateColumns: 'auto 1fr',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         width: '100%',
-        cursor: 'pointer',
+        cursor: 'grab',
       }}
     >
       <span
@@ -52,11 +52,14 @@ const ItemBox = ({ id, color, value, onChange, onDragStart, stopFlip, tagNumber,
           justifyContent: 'center',
           marginRight: '8px',
           padding: '0 6px',
+          marginTop: '4px',
+          flexShrink: 0,
         }}
       >
         {tagNumber}
       </span>
-      <input
+      <textarea
+        rows={3}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onPointerDownCapture={stopFlip}
@@ -64,14 +67,19 @@ const ItemBox = ({ id, color, value, onChange, onDragStart, stopFlip, tagNumber,
         onTouchStartCapture={stopFlip}
         onClickCapture={stopFlip}
         style={{
-          height: '32px',
           borderRadius: '8px',
           border: 'none',
           outline: 'none',
-          padding: '0 10px',
+          padding: '6px 10px',
           width: '100%',
           color: '#0b2c28',
           background: 'rgba(255,255,255,0.9)',
+          resize: 'none',
+          overflowY: 'auto',
+          fontSize: '12px',
+          lineHeight: 1.4,
+          boxSizing: 'border-box',
+          scrollbarWidth: 'thin',
         }}
         placeholder="Isi jawaban"
       />
@@ -79,11 +87,14 @@ const ItemBox = ({ id, color, value, onChange, onDragStart, stopFlip, tagNumber,
   );
 };
 
+const isTouch = () => window.matchMedia('(pointer: coarse)').matches;
+
 const ProcessDragPage = forwardRef((props, ref) => {
   const { answers, setS4OrderAll, setS4EntryAt, setS4Explanation } = useAnswers();
   const [slots, setSlots] = useState(Array(6).fill(null));
   const [selectedId, setSelectedId] = useState(null);
   const entries = answers.s4.entries;
+  const touchDevice = isTouch();
 
   const availableItems = useMemo(() => COLORS, []);
 
@@ -135,19 +146,27 @@ const ProcessDragPage = forwardRef((props, ref) => {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '12px',
-          padding: '24px',
+          gap: '10px',
+          padding: '16px',
           height: '100%',
           boxSizing: 'border-box',
           background: '#184c3f',
+          overflow: 'hidden',
         }}
       >
+        <div style={{ color: '#e8f5e9', fontSize: '11px', lineHeight: 1.4, flexShrink: 0 }}>
+          Berdasarkan wacana tersebut, tuliskan urutan langkah-langkah utama yang dilakukan Andi dalam menggunakan alat pendeteksi boraks!
+        </div>
+
         <div
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
-            gap: '20px',
-            alignItems: 'start',
+            gap: '12px',
+            alignItems: 'stretch',
+            flex: 1,
+            minHeight: 0,
+            overflow: 'hidden',
           }}
           onPointerDownCapture={stopFlip}
           onPointerMoveCapture={stopFlip}
@@ -156,35 +175,43 @@ const ProcessDragPage = forwardRef((props, ref) => {
           onMouseMoveCapture={stopFlip}
           onMouseUpCapture={stopFlip}
         >
+          {/* LEFT: drop slots */}
           <div
             style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: '10px',
+              gap: '8px',
+              height: '100%',
+              overflowY: 'auto',
+              scrollbarWidth: 'thin',
+              scrollbarColor: 'rgba(255,255,255,0.3) transparent',
+              paddingRight: '2px',
             }}
           >
             <div
               style={{
                 color: '#e8f5e9',
-                fontSize: '13px',
+                fontSize: '11px',
                 lineHeight: 1.4,
-                marginBottom: '2px',
+                flexShrink: 0,
               }}
             >
-              Berdasarkan wacana tersebut, tuliskan urutan langkah-langkah utama yang dilakukan Andi dalam menggunakan alat pendeteksi boraks! Seret (drag) kotak dari kanan ke kolom di bawah ini.
+              Urutan langkah-langkah Andi:
             </div>
             <div
               style={{
                 background: 'rgba(255,255,255,0.12)',
                 borderRadius: '8px',
-                padding: '6px 10px',
+                padding: '5px 8px',
                 color: '#ffe082',
-                fontSize: '11px',
+                fontSize: '10px',
                 lineHeight: 1.4,
-                marginBottom: '4px',
+                flexShrink: 0,
               }}
             >
-              💡 Sentuh kotak untuk memilih (warna menyala), lalu sentuh slot untuk menempatkan.
+              {touchDevice
+                ? '💡 Ketuk kotak (menyala) → ketuk slot'
+                : '🖱 Drag & Drop kotak ke slot yang sesuai'}
             </div>
             {slots.map((val, idx) => {
               const slotColor = COLORS[idx]?.color || '#cfd8dc';
@@ -237,23 +264,30 @@ const ProcessDragPage = forwardRef((props, ref) => {
             )})}
             </div>
 
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '12px',
-              }}
-            >
+          {/* RIGHT: source items */}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '8px',
+              height: '100%',
+              overflowY: 'auto',
+              scrollbarWidth: 'thin',
+              scrollbarColor: 'rgba(255,255,255,0.3) transparent',
+              paddingLeft: '2px',
+            }}
+          >
               <div
                 style={{
-                  background: '#f5f5f5',
+                  background: 'rgba(255,255,255,0.15)',
                   borderRadius: '6px',
-                  padding: '10px 12px',
-                  color: '#263238',
-                  fontSize: '13px',
+                  padding: '5px 8px',
+                  color: '#e8f5e9',
+                  fontSize: '10px',
+                  flexShrink: 0,
                 }}
               >
-                Seret (drag) kotak langkah di bawah ini ke kolom urutan di sebelah kiri!
+                {touchDevice ? '👆 Ketuk kotak untuk memilih' : '☰ Kotak langkah — seret ke kiri'}
               </div>
 
             {(() => {
