@@ -13,7 +13,7 @@ const PosterTaskRightPage = forwardRef(function PosterTaskRightPage(props, ref) 
       <div className="page-content presentation-instruction-page">
         <div className="evaluation-question-card">
           <h3 className="evaluation-question">
-            Buatlah satu desain poster yang menjelaskan teknologi pendeteksi boraks pada makanan kepada audiens, kemudian tuliskan tautan (link) hasil desain yang telah Anda buat pada bagian yang disediakan.
+            Buatlah satu desain poster yang menjelaskan teknologi pendeteksi boraks pada makanan kepada audiens, kemudian tuliskan tautan (<i>link</i>) hasil desain yang telah Anda buat pada bagian yang disediakan.
           </h3>
           <div className="evaluation-input-wrapper">
             <textarea

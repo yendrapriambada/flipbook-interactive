@@ -9,13 +9,13 @@ const NewsletterPage = forwardRef(function NewsletterPage(props, ref) {
     <div className="page" ref={ref}>
       <div className="page-content newsletter-page">
         <div className="newsletter-topbar">
-          <span className="newsletter-brand">Classroom Newsletter</span>
+          <span className="newsletter-brand"><i>Classroom Newsletter</i></span>
           <span className="newsletter-volume">Vol. 09</span>
         </div>
 
         <div className="newsletter-banner">
           <h2 className="newsletter-title">
-            "Pemanfaatan Teknologi Deteksi Boraks dalam Pembalajaran IPA"
+            "Pemanfaatan Teknologi Deteksi Boraks dalam Pembelajaran IPA"
           </h2>
         </div>
 

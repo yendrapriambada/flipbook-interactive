@@ -10,7 +10,7 @@ const PresentationTopicPage = forwardRef(function PresentationTopicPage(props, r
 
   return (
     <div className="page" ref={ref}>
-      <div className="page-content page-hero-right">
+      <div className="page-content page-hero-right presentation-topic-page">
         <div className="hamka-chat-row">
           <div className="character-section">
             <div className="avatar-ring">
@@ -40,11 +40,11 @@ const PresentationTopicPage = forwardRef(function PresentationTopicPage(props, r
           )}
         </div>
 
-        <div className="hero-image-frame" style={{ width: '100%' }}>
+        <div className="email-image-frame">
           <img
             src={emailImage}
             alt="Email tugas kelompok"
-            className="hero-image hero-image-contain"
+            className="email-image"
           />
         </div>
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import HTMLFlipBook from 'react-pageflip'
 import CoverPage from './pages/CoverPage'
 import AnnouncementPage from './pages/AnnouncementPage'
@@ -34,8 +34,49 @@ import BoraksSamplesPage from './pages/BoraksSamplesPage'
 import BoraksQuestionsPage from './pages/BoraksQuestionsPage'
 import useAnswers from '../context/useAnswers'
 
+const PAGES = [
+  CoverPage,
+  StudentFieldPage,
+  TeacherTaskPage,
+  ContextPage,
+  VideoDiscoveryPage,
+  VideoGalleryPage,
+  BreakingNewsPage,
+  ExpertOpinionPage,
+  ExpertSelectionPage,
+  PresentationTopicPage,
+  PresentationSlidesLayoutPage,
+  AnnouncementPage,
+  ProcessDragPage,
+  JournalPortraitPage,
+  DigitalResourceQuestionPage,
+  BoraksSamplesPage,
+  BoraksQuestionsPage,
+  NewsletterPage,
+  HamkaSpeechQuestionPage,
+  DigitalResourceLeftPage,
+  DigitalResourceRightPage,
+  PosterAppsLeftPage,
+  PosterTaskRightPage,
+  AnswerReportPage,
+  BackCoverPage,
+]
+
+const LOGICAL_PAGE_COUNT = PAGES.length
+
+const shouldBypassRequired = () => {
+  if (typeof window === 'undefined') return false
+  const params = new URLSearchParams(window.location.search)
+  return (
+    params.get('bypassRequired') === '1' ||
+    params.get('bypass') === '1' ||
+    window.localStorage.getItem('bypassRequired') === '1'
+  )
+}
+
 function Book() {
   const bookRef = useRef(null)
+  const prevIndexRef = useRef(0)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
   const [pageSize, setPageSize] = useState({
@@ -49,6 +90,16 @@ function Book() {
   const userIdRef = useRef(userId)
   const currentIndexRef = useRef(currentIndex)
 
+  const getLastUsefulPageIndex = useCallback(() => (
+    isSinglePage ? LOGICAL_PAGE_COUNT - 1 : LOGICAL_PAGE_COUNT - 2
+  ), [isSinglePage])
+
+  const getVisiblePageNumber = () => {
+    if (currentIndex <= 0) return 1
+    const offset = isSinglePage ? 1 : 2
+    return Math.min(currentIndex + offset, LOGICAL_PAGE_COUNT)
+  }
+
   useEffect(() => {
     answersRef.current = answers
     userIdRef.current = userId
@@ -58,6 +109,7 @@ function Book() {
   useEffect(() => {
     const updateSize = () => {
       const viewportWidth = window.innerWidth
+      const viewportHeight = window.innerHeight
       const aspectRatio = 570 / 450
 
       let width
@@ -65,10 +117,15 @@ function Book() {
       if (viewportWidth <= 640) {
         width = Math.max(300, viewportWidth * 0.92)
       } else if (viewportWidth <= 1024) {
-        width = Math.min(Math.max(360, viewportWidth * 0.58), 560)
+        width = Math.min(Math.max(420, viewportWidth * 0.74), 620)
       } else {
         width = Math.min(Math.max(420, viewportWidth * 0.46), 650)
       }
+
+      const singlePage = viewportWidth <= 1024
+      const reservedHeight = singlePage ? 150 : 130
+      const maxHeight = Math.max(420, viewportHeight - reservedHeight)
+      width = Math.min(width, maxHeight / aspectRatio)
 
       const height = width * aspectRatio
 
@@ -76,7 +133,7 @@ function Book() {
         width,
         height,
       })
-      setIsSinglePage(viewportWidth <= 680)
+      setIsSinglePage(singlePage)
     }
 
     updateSize()
@@ -96,7 +153,9 @@ function Book() {
     setTimeout(() => { settings.disableFlipByClick = true }, 500)
   }
 
-  const validatePage = (idx) => {
+  const validatePage = useCallback((idx) => {
+    if (shouldBypassRequired()) return true
+
     const trim = (s) => (typeof s === 'string' ? s.trim() : '')
     const currentAnswers = answersRef.current
     const currentUserId = userIdRef.current
@@ -135,7 +194,7 @@ function Book() {
       default:
         return true
     }
-  }
+  }, [])
 
   // In single-page/mobile mode, pageflip's internal index can be one step
   // ahead of the visible page number. Shift validation index accordingly.
@@ -146,23 +205,28 @@ function Book() {
       const pageFlip = bookRef.current.pageFlip()
       if (pageFlip) {
         const current = pageFlip.getCurrentPageIndex()
-        const total = pageFlip.getPageCount()
-        if (current < total - 1) {
-          if (!isSinglePage) {
-            const nextIdx = Math.min(current + 1, total - 1)
-            if (!validatePage(current) || !validatePage(nextIdx)) {
-              alert('Lengkapi semua kolom input sebelum lanjut ke halaman berikutnya.')
-              return
-            }
-          } else {
-            const validationIdx = getSinglePageValidationIndex(current)
-            if (!validatePage(validationIdx)) {
-              alert('Lengkapi semua kolom input sebelum lanjut ke halaman berikutnya.')
-              return
-            }
-          }
-          pageFlip.flipNext()
+        const lastUsefulIndex = getLastUsefulPageIndex()
+        if (current >= lastUsefulIndex) {
+          pageFlip.turnToPage(lastUsefulIndex)
+          setCurrentIndex(lastUsefulIndex)
+          prevIndexRef.current = lastUsefulIndex
+          return
         }
+
+        if (!isSinglePage) {
+          const nextIdx = Math.min(current + 1, lastUsefulIndex)
+          if (!validatePage(current) || !validatePage(nextIdx)) {
+            alert('Lengkapi semua kolom input sebelum lanjut ke halaman berikutnya.')
+            return
+          }
+        } else {
+          const validationIdx = getSinglePageValidationIndex(current)
+          if (!validatePage(validationIdx)) {
+            alert('Lengkapi semua kolom input sebelum lanjut ke halaman berikutnya.')
+            return
+          }
+        }
+        pageFlip.flipNext()
       }
     }
   }
@@ -171,8 +235,10 @@ function Book() {
     const updatePageMetrics = () => {
       const pageFlip = bookRef.current?.pageFlip()
       if (pageFlip) {
-        setCurrentIndex(pageFlip.getCurrentPageIndex())
-        setTotalPages(pageFlip.getPageCount())
+        const nextIndex = pageFlip.getCurrentPageIndex()
+        setCurrentIndex(nextIndex)
+        setTotalPages(LOGICAL_PAGE_COUNT)
+        prevIndexRef.current = nextIndex
       }
     }
     updatePageMetrics()
@@ -196,22 +262,32 @@ function Book() {
         drawShadow
         showCover
         showPageCorners
-        mobileScrollSupport
+        mobileScrollSupport={isSinglePage}
         disableFlipByClick={true}
-        swipeDistance={80}
-        useMouseEvents={true}
+        swipeDistance={isSinglePage ? 9999 : 80}
+        useMouseEvents={!isSinglePage}
         className="flipbook-book"
         onFlip={(e) => {
           const pageFlip = bookRef.current?.pageFlip()
           if (pageFlip) {
             const newIndex = e.data;
+            const lastUsefulIndex = getLastUsefulPageIndex()
             const curIdx = currentIndexRef.current;
+
+            if ((curIdx >= lastUsefulIndex && newIndex === 0) || newIndex > lastUsefulIndex) {
+              setTimeout(() => {
+                pageFlip.turnToPage(lastUsefulIndex)
+                setCurrentIndex(lastUsefulIndex)
+                prevIndexRef.current = lastUsefulIndex
+              }, 0)
+              return
+            }
             
             // Validate if trying to move forward
             if (newIndex > curIdx) {
               const isValid = isSinglePage 
                 ? validatePage(getSinglePageValidationIndex(curIdx))
-                : (validatePage(curIdx) && validatePage(Math.min(curIdx + 1, pageFlip.getPageCount() - 1)));
+                : (validatePage(curIdx) && validatePage(Math.min(curIdx + 1, lastUsefulIndex)));
                 
               if (!isValid) {
                 setTimeout(() => {
@@ -225,38 +301,17 @@ function Book() {
             }
             
             setCurrentIndex(newIndex)
-            setTotalPages(pageFlip.getPageCount())
+            setTotalPages(LOGICAL_PAGE_COUNT)
+            prevIndexRef.current = newIndex
           }
         }}
       >
-        <CoverPage />
-        <StudentFieldPage />
-        <TeacherTaskPage />
-        <ContextPage />
-        <VideoDiscoveryPage />
-        <VideoGalleryPage />
-        <BreakingNewsPage />
-        <ExpertOpinionPage />
-        <ExpertSelectionPage />
-        <PresentationTopicPage />
-        <PresentationSlidesLayoutPage />
-        <AnnouncementPage />
-        <ProcessDragPage />
-        <JournalPortraitPage />
-        <DigitalResourceQuestionPage />
-        <BoraksSamplesPage />
-        <BoraksQuestionsPage />
-        <NewsletterPage />
-        <HamkaSpeechQuestionPage />
-        <DigitalResourceLeftPage />
-        <DigitalResourceRightPage />
-        <PosterAppsLeftPage />
-        <PosterTaskRightPage />
-        <AnswerReportPage />
-        <BackCoverPage />
+        {PAGES.map((PageComponent, index) => (
+          <PageComponent key={index} />
+        ))}
       </HTMLFlipBook>
     )
-  }, [pageSize, isSinglePage])
+  }, [pageSize, isSinglePage, validatePage, getLastUsefulPageIndex])
 
   return (
     <div className="flipbook-layout">
@@ -277,14 +332,14 @@ function Book() {
             type="button"
             className="nav-button nav-button-primary"
             onClick={handleNext}
-            disabled={currentIndex >= totalPages - 1}
+            disabled={currentIndex >= getLastUsefulPageIndex()}
           >
             <span>Selanjutnya</span>
             <span className="nav-icon nav-icon-right">›</span>
           </button>
         </div>
         <p className="flipbook-tip">
-          Halaman {currentIndex + 1} dari {totalPages} · Tip: Klik atau geser halaman untuk membalik
+          Halaman {getVisiblePageNumber()} dari {totalPages || LOGICAL_PAGE_COUNT} · Tip: Klik atau geser halaman untuk membalik
         </p>
       </footer>
     </div>

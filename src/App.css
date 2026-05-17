@@ -1,8 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap");
 
 :root {
-  --font-title: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --font-body: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-title: "Playfair Display", serif;
+  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-size-global: 0.9rem;
   --color-cream: #fdf3e6;
   --color-cream-deep: #f4ddc0;
   --color-burgundy: #7b2030;
@@ -40,11 +42,21 @@ html {
 
 #root {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1200px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 32px 16px;
+}
+
+#root :where(p, span, div, li, label, h1, h2, h3, h4, h5, h6) {
+  text-align: justify !important;
+  text-justify: inter-word;
+}
+
+textarea {
+  overflow-y: auto;
+  resize: none;
 }
 
 .container {
@@ -409,14 +421,14 @@ html {
   min-height: 0;
 }
 
-/* Horizontal image-left / text-right layout for slides 2-4 */
+/* Image/text board pages read better top-to-bottom inside the flipbook. */
 .board-body-row {
-  flex-direction: row !important;
-  gap: 12px;
+  flex-direction: column !important;
+  gap: 14px;
 }
 
 .board-col-image {
-  width: 40%;
+  width: 100%;
   flex-shrink: 0;
   min-height: 0;
   display: flex;
@@ -424,7 +436,7 @@ html {
 }
 
 .board-col-image-wide {
-  width: 42%;
+  width: 100%;
   flex-shrink: 0;
   min-height: 0;
   display: flex;
@@ -440,14 +452,18 @@ html {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 14px 32px rgba(7, 29, 15, 0.7);
+  flex: 0 0 46%;
+  max-height: 46%;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .student-image {
   display: block;
   width: 100%;
-  height: clamp(100px, 20vh, 190px);
-  object-fit: cover;
-  object-position: 50% 15%;
+  height: 100% !important;
+  min-height: 0 !important;
+  object-fit: contain;
+  object-position: center;
 }
 
 .teacher-avatar-wrapper {
@@ -455,16 +471,37 @@ html {
   align-items: center;
   justify-content: center;
   min-height: 0;
+  flex: 0 0 46%;
+  max-height: 46%;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .teacher-avatar-image {
   display: block;
   width: 100%;
-  max-width: 270px;
-  height: 100%;
-  max-height: 25vh;
-  border-radius: 18px;
-  object-fit: cover;
+  max-width: none;
+  height: 100% !important;
+  max-height: none;
+  border-radius: 0;
+  object-fit: contain;
+}
+
+.board-col-image-wide.hero-image-frame {
+  flex: 0 0 46%;
+  max-height: 46%;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.board-col-image-wide .hero-image {
+  width: 100%;
+  height: 100% !important;
+  min-height: 0 !important;
+  object-fit: contain;
+  object-position: center !important;
 }
 
 .student-text-wrapper {
@@ -543,6 +580,7 @@ html {
   border: none;
   border-radius: 999px;
   padding: 9px 22px;
+  min-height: 44px;
   font-size: 0.9rem;
   font-weight: 600;
   background: #f7d9a3;
@@ -552,6 +590,7 @@ html {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  font-style: italic;
   transition: transform 0.12s ease, box-shadow 0.12s ease,
     background-color 0.12s ease, color 0.12s ease;
 }
@@ -656,6 +695,32 @@ html {
   display: block;
 }
 
+.presentation-topic-page {
+  gap: 12px;
+}
+
+.presentation-topic-page .hamka-chat-row {
+  flex: 0 0 auto;
+}
+
+.email-image-frame {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 14px;
+  border: 2px solid rgba(243, 201, 105, 0.95);
+  overflow: hidden;
+  background: transparent;
+}
+
+.email-image {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+  display: block;
+}
+
 .page-indicator {
   display: flex;
   gap: 6px;
@@ -692,12 +757,53 @@ html {
   justify-content: space-between;
 }
 
+.page-hero-right-centered {
+  justify-content: flex-start;
+}
+
+.page-hero-right-centered .speech-center-group {
+  flex: 1;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "character bubble"
+    "character button";
+  gap: 18px 22px;
+  align-items: start;
+  align-content: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+.page-hero-right-centered .speech-bubble {
+  grid-area: bubble;
+  align-self: start;
+  width: 100%;
+  max-width: 520px;
+}
+
+.page-hero-right-centered .character-section {
+  grid-area: character;
+  margin-top: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  align-self: center;
+}
+
+.page-hero-right-centered .student-play-button {
+  grid-area: button;
+  justify-self: start;
+}
+
 .speech-bubble {
   align-self: stretch;
-  padding: 18px 18px 20px;
-  border-radius: 18px;
+  padding: 18px 22px 20px;
+  border-radius: 20px;
   background: #fdfcfb;
-  box-shadow: 0 10px 25px rgba(122, 85, 60, 0.15);
+  box-shadow: 0 12px 28px rgba(122, 85, 60, 0.22);
   border: 2px solid #f3c969;
   position: relative;
   margin-left: 14px;
@@ -733,7 +839,7 @@ html {
   grid-template-areas:
     "character bubble"
     "character button";
-  gap: 14px 20px;
+  gap: 8px 20px;
   align-items: start;
   width: 100%;
 }
@@ -745,10 +851,11 @@ html {
 .hamka-chat-row > .character-section {
   grid-area: character;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
   margin-top: 0;
   align-self: start;
+  gap: 6px;
 }
 
 .hamka-chat-row > .student-play-button {
@@ -774,7 +881,7 @@ html {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-top: 26px;
+  margin-top: 12px;
 }
 
 .avatar-ring {
@@ -820,11 +927,18 @@ html {
 .character-name {
   font-family: var(--font-title);
   font-size: 1.1rem;
+  line-height: 1.15;
 }
 
 .character-role {
   font-size: 0.82rem;
   color: var(--color-text-muted);
+  line-height: 1.15;
+}
+
+.hamka-chat-row .character-name,
+.hamka-chat-row .character-role {
+  text-align: left !important;
 }
 
 .heading-icon {
@@ -1131,6 +1245,7 @@ html {
   box-shadow: 0 12px 28px rgba(122, 85, 60, 0.15);
   border: 1px solid rgba(243, 201, 105, 0.6);
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -1221,6 +1336,7 @@ html {
   font-size: 0.9rem;
   line-height: 1.5;
   color: var(--color-text-main);
+  min-height: 80px;
 }
 
 .evaluation-input-wrapper textarea::placeholder {
@@ -1309,8 +1425,14 @@ html {
 .question-block {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
   flex: 1;
+  min-height: 0;
+  background: #fdfcfb;
+  border-radius: 16px;
+  padding: 12px 14px;
+  border: 1px solid rgba(243, 201, 105, 0.6);
+  box-shadow: 0 8px 20px rgba(122, 85, 60, 0.12);
 }
 
 .analysis-question {
@@ -1332,7 +1454,7 @@ html {
   background: #ffffff;
   box-shadow: inset 0 0 0 1px rgba(243, 201, 105, 0.8),
     0 4px 10px rgba(122, 85, 60, 0.08);
-  min-height: 100px;
+  min-height: 80px;
   color: var(--color-text-main);
 }
 
@@ -1443,27 +1565,39 @@ html {
 .tech-impact-container {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  height: 100%;
-  padding-top: 20px;
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+  padding-top: 12px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .tech-impact-section {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
+  background: #fdfcfb;
+  border-radius: 16px;
+  padding: 12px 14px;
+  border: 1px solid rgba(243, 201, 105, 0.6);
+  box-shadow: 0 8px 20px rgba(12, 27, 22, 0.18);
+  flex: 1;
+  min-height: 0;
 }
 
 .tech-impact-label {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   line-height: 1.5;
-  font-weight: 500;
-  color: #ffffff;
+  font-weight: 600;
+  color: #13452f;
 }
 
 .tech-impact-input {
   width: 100%;
-  min-height: 120px;
+  flex: 1;
+  min-height: 80px;
   padding: 14px 16px;
   border-radius: 8px;
   border: none;
@@ -1993,6 +2127,24 @@ html {
   gap: 10px;
 }
 
+.digital-right {
+  height: 100%;
+  min-height: 0;
+}
+
+.digital-right .instruction-card {
+  min-height: 0;
+}
+
+.digital-right .instruction-card:last-child {
+  flex: 1 1 auto;
+}
+
+.digital-right .instruction-card:last-child .analysis-textarea {
+  flex: 1;
+  min-height: 0;
+}
+
 /* Answer Report Page */
 .report-page {
   padding: 0;
@@ -2024,6 +2176,7 @@ html {
   color: #fff;
   font-family: var(--font-title);
   letter-spacing: 0.08em;
+  font-style: italic;
 }
 .report-list {
   display: flex;
@@ -2203,6 +2356,7 @@ html {
   font-weight: 600;
   color: var(--color-text-muted);
   text-align: center;
+  font-style: italic;
 }
 
 .instruction-card {
@@ -2517,7 +2671,10 @@ html {
 .slides-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
   gap: 8px;
+  flex: 1;
+  min-height: 0;
 }
 .slides-grid .slide-card:last-child {
   grid-column: 1 / -1;
@@ -2531,14 +2688,18 @@ html {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-height: 0;
 }
 .slide-title {
   font-weight: 700;
   font-size: 0.76rem;
   color: #13452f;
+  font-style: italic;
 }
 .slide-input {
   width: 100%;
+  flex: 1;
+  min-height: 46px;
   padding: 8px 10px;
   border-radius: 10px;
   border: none;
@@ -2582,6 +2743,7 @@ html {
   }
   .slides-grid {
     grid-template-columns: 1fr;
+    grid-template-rows: none;
   }
 }
 
@@ -2590,6 +2752,13 @@ html {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+.boraks-page > img {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-height: 70%;
+  object-fit: contain;
 }
 .boraks-title {
   font-family: var(--font-title);
@@ -2948,5 +3117,470 @@ html {
     font-size: 0.72rem;
     text-align: center;
     padding: 0 12px;
+  }
+}
+
+/* Global readability layer copied from the reference project. */
+.page:not(.page-cover) * {
+  font-family: var(--font-body) !important;
+  font-size: var(--font-size-global) !important;
+}
+
+.page * {
+  font-weight: 400 !important;
+}
+
+strong,
+b {
+  font-weight: 400 !important;
+}
+
+.page .speech-bubble strong {
+  font-weight: 700 !important;
+}
+
+/* Keep instructional text inside white/gold containers across content pages. */
+.page-content > :where(p, h1, h2, h3, h4, h5, h6):not(.cover-title):not(.journal-title):not(.journal-subtitle),
+.page-body-text,
+.instruction-subtitle,
+.video-question,
+.boraks-title {
+  background: #fdfcfb;
+  border: 1px solid rgba(243, 201, 105, 0.6);
+  border-radius: 14px;
+  box-shadow: 0 8px 18px rgba(122, 85, 60, 0.12);
+  padding: 10px 12px;
+}
+
+.answer-form-page,
+.presentation-instruction-page,
+.presentation-slides-page,
+.boraks-questions-page,
+.technology-impact-page {
+  height: 100%;
+  min-height: 0;
+}
+
+.answer-form-page .evaluation-question-card,
+.presentation-instruction-page .evaluation-question-card,
+.presentation-slides-page .evaluation-question-card,
+.boraks-questions-page .question-block {
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.answer-form-page .evaluation-input-wrapper,
+.presentation-instruction-page .evaluation-input-wrapper,
+.presentation-slides-page .evaluation-input-wrapper {
+  min-height: 0;
+}
+
+.answer-form-page .evaluation-input-wrapper textarea,
+.presentation-instruction-page .evaluation-input-wrapper textarea,
+.presentation-slides-page .evaluation-input-wrapper textarea,
+.boraks-questions-page .analysis-textarea {
+  min-height: 0;
+}
+
+/* Page 11 must stay dense enough to fill the book without overlapping. */
+.presentation-slides-page {
+  overflow: hidden;
+}
+
+.presentation-slides-page .evaluation-question-card {
+  padding: 10px 12px !important;
+  gap: 8px;
+}
+
+.presentation-slides-page .evaluation-question-card:not(.slides-section) {
+  flex: 0 0 30%;
+  min-height: 0;
+}
+
+.presentation-slides-page .evaluation-question {
+  font-size: 0.72rem !important;
+  line-height: 1.32;
+}
+
+.presentation-slides-page .evaluation-input-wrapper textarea {
+  height: 52px;
+  min-height: 0 !important;
+  font-size: 0.76rem !important;
+}
+
+.presentation-slides-page .slides-section {
+  flex: 1 1 0;
+  overflow: hidden;
+}
+
+.presentation-slides-page .slides-grid {
+  height: 100%;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+}
+
+.presentation-slides-page .slide-card {
+  padding: 6px;
+  gap: 5px;
+}
+
+.presentation-slides-page .slide-title {
+  font-size: 0.74rem !important;
+  line-height: 1.1;
+}
+
+.presentation-slides-page .slide-input {
+  min-height: 30px;
+  font-size: 0.74rem !important;
+  padding: 6px 8px;
+}
+
+/* Small screens need flow layouts; justified text creates huge word gaps. */
+@media (max-width: 700px) {
+  #root :where(p, span, div, li, label, h1, h2, h3, h4, h5, h6) {
+    text-align: left !important;
+    text-justify: auto;
+  }
+
+  .flipbook-footer {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    padding: 6px 0 calc(6px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .flipbook-nav {
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  .flipbook-tip {
+    text-align: center !important;
+  }
+
+  .board-col-image,
+  .board-col-image-wide,
+  .student-image-wrapper,
+  .teacher-avatar-wrapper,
+  .board-col-image-wide.hero-image-frame {
+    flex: 0 0 auto;
+    max-height: none;
+  }
+
+  .board-col-image img,
+  .board-col-image-wide img,
+  .student-image,
+  .teacher-avatar-image,
+  .board-col-image-wide .hero-image {
+    height: clamp(120px, 30vh, 190px) !important;
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+
+  .presentation-slides-page {
+    overflow-y: auto;
+    gap: 10px;
+    padding-bottom: 18px;
+  }
+
+  .presentation-slides-page .evaluation-question-card,
+  .presentation-slides-page .evaluation-question-card:not(.slides-section),
+  .presentation-slides-page .slides-section {
+    flex: 0 0 auto;
+    overflow: visible;
+  }
+
+  .presentation-slides-page .evaluation-question {
+    font-size: 0.8rem !important;
+    line-height: 1.35;
+  }
+
+  .presentation-slides-page .evaluation-input-wrapper textarea {
+    height: 72px;
+    min-height: 72px !important;
+  }
+
+  .presentation-slides-page .slides-grid {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    gap: 10px;
+  }
+
+  .presentation-slides-page .slide-card {
+    flex: 0 0 auto;
+    padding: 8px;
+  }
+
+  .presentation-slides-page .slide-input {
+    height: 42px;
+    min-height: 42px;
+  }
+
+  .answer-form-page,
+  .presentation-instruction-page,
+  .boraks-questions-page,
+  .digital-left,
+  .digital-right {
+    overflow-y: auto;
+    padding-bottom: 18px;
+  }
+
+  .answer-form-page .evaluation-question-card,
+  .presentation-instruction-page .evaluation-question-card,
+  .boraks-questions-page .question-block,
+  .digital-right .instruction-card {
+    flex: 0 0 auto;
+  }
+
+  .answer-form-page .evaluation-input-wrapper textarea,
+  .presentation-instruction-page .evaluation-input-wrapper textarea,
+  .boraks-questions-page .analysis-textarea,
+  .digital-right .instruction-card:last-child .analysis-textarea {
+    min-height: 120px !important;
+  }
+
+  .hamka-chat-row {
+    grid-template-columns: 72px 1fr;
+    gap: 8px 14px;
+    align-items: start;
+  }
+
+  .hamka-chat-row > .character-section {
+    gap: 5px;
+  }
+
+  .hamka-chat-row .avatar-ring {
+    width: 58px;
+    height: 58px;
+  }
+
+  .hamka-chat-row .avatar-ring-inner {
+    width: 50px;
+    height: 50px;
+  }
+
+  .hamka-chat-row .character-avatar {
+    width: 44px;
+    height: 44px;
+  }
+
+  .hamka-chat-row .character-name {
+    font-size: 0.82rem !important;
+    line-height: 1.15;
+  }
+
+  .hamka-chat-row .character-role {
+    font-size: 0.74rem !important;
+    line-height: 1.15;
+  }
+
+  .speech-bubble {
+    padding: 12px 14px;
+  }
+
+  .speech-bubble p {
+    line-height: 1.45;
+  }
+
+  .student-play-button {
+    min-height: 38px;
+    padding: 8px 16px;
+  }
+
+  .left-hero {
+    height: clamp(90px, 20vh, 130px);
+  }
+
+  .site-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Tablet and mobile responsive QA pass: one page-level scroll, no inner card clipping. */
+@media (max-width: 1024px) {
+  #root :where(p, span, div, li, label, h1, h2, h3, h4, h5, h6) {
+    text-align: left !important;
+    text-justify: auto;
+  }
+
+  .page-content {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: clamp(16px, 4vw, 24px);
+    gap: 12px;
+  }
+
+  .student-field-page,
+  .teacher-task-page,
+  .video-discovery-page,
+  .answer-form-page,
+  .technology-impact-page,
+  .presentation-slides-page,
+  .boraks-questions-page,
+  .digital-left,
+  .digital-right,
+  .presentation-instruction-page {
+    justify-content: flex-start;
+    overflow-y: auto !important;
+  }
+
+  .student-board {
+    height: auto;
+    min-height: 100%;
+    flex: 0 0 auto;
+  }
+
+  .student-board-inner {
+    height: auto;
+    min-height: 100%;
+    overflow: visible !important;
+    padding: 30px clamp(14px, 4vw, 24px) 18px;
+  }
+
+  .student-board-body,
+  .teacher-board-body {
+    flex: 0 0 auto;
+    min-height: 0;
+    gap: 12px;
+  }
+
+  .student-image-wrapper,
+  .teacher-avatar-wrapper,
+  .board-col-image-wide.hero-image-frame {
+    flex: 0 0 auto;
+    max-height: none;
+  }
+
+  .student-image,
+  .teacher-avatar-image,
+  .board-col-image-wide .hero-image {
+    height: clamp(120px, 24vh, 190px) !important;
+    min-height: 0 !important;
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+
+  .student-text-wrapper,
+  .teacher-text-panel {
+    flex: 0 0 auto;
+    overflow: visible !important;
+    max-height: none;
+    margin-bottom: 0;
+  }
+
+  .evaluation-question-card,
+  .question-block,
+  .tech-impact-section,
+  .instruction-card {
+    flex: 0 0 auto !important;
+    min-height: 0;
+    overflow: visible !important;
+  }
+
+  .evaluation-input-wrapper {
+    flex: 0 0 auto;
+    min-height: 0;
+  }
+
+  .evaluation-input-wrapper textarea,
+  .analysis-textarea,
+  .tech-impact-input,
+  .textarea-compact,
+  .video-answer,
+  .qa-input,
+  .experience-textarea {
+    flex: 0 0 auto !important;
+    height: auto !important;
+    min-height: 96px !important;
+    max-height: none !important;
+    overflow-y: auto;
+  }
+
+  .link-input,
+  .slide-input,
+  .answer-input,
+  .bottom-input,
+  .cover-input {
+    min-height: 42px;
+  }
+
+  .tech-impact-container,
+  .analysis-container,
+  .group-data-container {
+    height: auto;
+    flex: 0 0 auto;
+    overflow: visible !important;
+  }
+
+  .presentation-slides-page {
+    overflow-y: auto !important;
+  }
+
+  .presentation-slides-page .evaluation-question-card,
+  .presentation-slides-page .evaluation-question-card:not(.slides-section),
+  .presentation-slides-page .slides-section {
+    flex: 0 0 auto !important;
+    overflow: visible !important;
+  }
+
+  .presentation-slides-page .slides-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    height: auto;
+    gap: 10px;
+  }
+
+  .presentation-slides-page .slides-grid .slide-card:last-child {
+    grid-column: auto;
+  }
+
+  .presentation-slides-page .slide-card {
+    min-height: 86px;
+  }
+
+  .presentation-slides-page .slide-input {
+    height: 42px;
+    min-height: 42px !important;
+  }
+
+  .digital-right .instruction-card:last-child .analysis-textarea {
+    min-height: 132px !important;
+  }
+
+  .poster-left-page,
+  .app-links-grid,
+  .site-grid,
+  .sample-grid {
+    min-height: 0;
+  }
+
+  .flipbook-footer {
+    background: transparent !important;
+    backdrop-filter: none !important;
+  }
+
+  .flipbook-tip {
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .student-image,
+  .teacher-avatar-image,
+  .board-col-image-wide .hero-image {
+    height: clamp(105px, 20vh, 150px) !important;
+  }
+
+  .evaluation-input-wrapper textarea,
+  .analysis-textarea,
+  .tech-impact-input,
+  .textarea-compact,
+  .video-answer,
+  .qa-input,
+  .experience-textarea {
+    min-height: 84px !important;
+  }
+
+  .presentation-slides-page .slide-card {
+    min-height: 78px;
   }
 }

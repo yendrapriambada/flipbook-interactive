@@ -23,13 +23,13 @@ const CoverPage = forwardRef(function CoverPage(props, ref) {
           </div>
           <div className="cover-board-inner">
             <h2 className="cover-title" style={{ fontStyle: 'italic' }}>
-              Technological Innovation Detects Dangerous Food
+              Technological innovation detects dangerous food
             </h2>
             <div className="cover-image-wrapper">
               <div className="cover-image-frame">
                 <img
                   src={coverImage}
-                  alt="Petani memeriksa lahan irigasi yang ramah lingkungan"
+                  alt="Aneka makanan dalam ilustrasi keamanan pangan"
                   className="cover-image"
                 />
               </div>

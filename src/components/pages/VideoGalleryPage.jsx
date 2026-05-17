@@ -23,7 +23,7 @@ const VideoGalleryPage = forwardRef(function VideoGalleryPage(props, ref) {
             <iframe
               className="video-frame"
               src="https://www.youtube.com/embed/7bcBvFTq_rA?si=b9oKbJ16cMUY19Cm"
-              title="Video Irigasi"
+              title="Video teknologi uji kertas kunyit"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />

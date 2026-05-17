@@ -19,6 +19,8 @@ const ItemBox = ({ id, color, value, onChange, onDragStart, stopFlip, tagNumber,
       onMouseDownCapture={stopFlip}
       onTouchStartCapture={stopFlip}
       onTouchEnd={() => onPick && onPick(id)}
+      onPointerUp={() => onPick && onPick(id)}
+      onClick={() => onPick && onPick(id)}
       onClickCapture={stopFlip}
       style={{
         background: color,
@@ -180,6 +182,8 @@ const ProcessDragPage = forwardRef((props, ref) => {
                 onDragOver={onDragOver}
                 onDrop={(e) => onDrop(e, idx)}
                 onTouchEnd={() => placeSelectedTo(idx)}
+                onPointerUp={() => placeSelectedTo(idx)}
+                onClick={() => placeSelectedTo(idx)}
                 onPointerDownCapture={stopFlip}
                 onMouseDownCapture={stopFlip}
                 onTouchStartCapture={stopFlip}

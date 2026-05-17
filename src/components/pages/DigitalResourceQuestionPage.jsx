@@ -14,7 +14,7 @@ const DigitalResourceQuestionPage = forwardRef(function DigitalResourceQuestionP
 
         <div className="evaluation-question-card">
           <h3 className="evaluation-question">
-            Berdasarkan informasi dari Newspaper di atas, bagaimana anda akan mendesain alat tersebut agar
+            Berdasarkan informasi dari <i>Newspaper</i> di atas, bagaimana anda akan mendesain alat tersebut agar
             lebih mudah digunakan oleh pedagang di pasar tradisional!
           </h3>
           <div className="evaluation-input-wrapper">
