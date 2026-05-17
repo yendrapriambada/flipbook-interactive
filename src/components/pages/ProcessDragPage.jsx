@@ -148,10 +148,10 @@ const ProcessDragPage = forwardRef((props, ref) => {
           flexDirection: 'column',
           gap: '10px',
           padding: '16px',
-          height: '100%',
           boxSizing: 'border-box',
           background: '#184c3f',
-          overflow: 'hidden',
+          overflowY: 'auto',
+          scrollbarWidth: 'thin',
         }}
       >
         <div style={{ color: '#e8f5e9', fontSize: '11px', lineHeight: 1.4, flexShrink: 0 }}>
@@ -163,10 +163,7 @@ const ProcessDragPage = forwardRef((props, ref) => {
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gap: '12px',
-            alignItems: 'stretch',
-            flex: 1,
-            minHeight: 0,
-            overflow: 'hidden',
+            alignItems: 'start',
           }}
           onPointerDownCapture={stopFlip}
           onPointerMoveCapture={stopFlip}
@@ -181,11 +178,6 @@ const ProcessDragPage = forwardRef((props, ref) => {
               display: 'flex',
               flexDirection: 'column',
               gap: '8px',
-              height: '100%',
-              overflowY: 'auto',
-              scrollbarWidth: 'thin',
-              scrollbarColor: 'rgba(255,255,255,0.3) transparent',
-              paddingRight: '2px',
             }}
           >
             <div
@@ -227,15 +219,16 @@ const ProcessDragPage = forwardRef((props, ref) => {
                 onTouchStart={(e) => e.stopPropagation()}
                 onTouchEnd={(e) => { e.stopPropagation(); placeSelectedTo(idx); }}
                 style={{
-                  minHeight: '44px',
+                  minHeight: '96px',
                   border: `2px dashed ${slotColor}`,
                   borderRadius: '10px',
                   background: val ? 'transparent' : `${slotColor}22`,
                   display: 'flex',
-                  alignItems: 'center',
+                  alignItems: 'stretch',
                   justifyContent: 'flex-start',
-                  padding: '0 12px',
+                  padding: '6px',
                   cursor: 'pointer',
+                  boxSizing: 'border-box',
                 }}
               >
                 {val ? (
@@ -270,11 +263,6 @@ const ProcessDragPage = forwardRef((props, ref) => {
               display: 'flex',
               flexDirection: 'column',
               gap: '8px',
-              height: '100%',
-              overflowY: 'auto',
-              scrollbarWidth: 'thin',
-              scrollbarColor: 'rgba(255,255,255,0.3) transparent',
-              paddingLeft: '2px',
             }}
           >
               <div

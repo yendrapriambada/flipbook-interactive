@@ -2782,13 +2782,13 @@ textarea {
 }
 .boraks-page > img {
   flex: 1 1 auto;
-  min-height: 260px;
+  min-height: 420px;
   width: 100%;
   object-fit: contain;
 }
 @media (min-width: 600px) {
   .boraks-page > img {
-    min-height: 340px;
+    min-height: 520px;
   }
 }
 .boraks-title {

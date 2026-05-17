@@ -8,7 +8,7 @@ const BoraksSamplesPage = forwardRef(function BoraksSamplesPage(props, ref) {
             <img
               src={dataSample}
               alt="Ilustrasi data hasil pengujian makanan Boraks"
-              style={{ minHeight: '200px', width: '100%', objectFit: 'contain' }}
+              style={{ minHeight: '420px', width: '100%', objectFit: 'contain' }}
             />
 
         <p className="boraks-note" style={{ fontWeight: 600, marginBottom: '4px' }}>
