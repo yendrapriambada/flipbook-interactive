@@ -112,8 +112,8 @@ const ExpertOpinionPage = forwardRef((props, ref) => {
           </p>
         </div>
 
-        {/* Expert Cards List */}
-        <div className="expert-list">
+        {/* Expert Cards List — no inner scroll; page-content scrolls */}
+        <div className="expert-list" style={{ overflowY: 'visible', flex: 'none', paddingBottom: 0 }}>
           {experts.map((expert, index) => (
             <div key={index} className="expert-card">
               <div className="expert-img-wrapper">

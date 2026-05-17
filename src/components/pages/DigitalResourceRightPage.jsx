@@ -15,16 +15,17 @@ const DigitalResourceRightPage = forwardRef(function DigitalResourceRightPage(pr
           <h3 className="instruction-title instruction-compact-title">
             Berdasarkan pilihan sumber daya digital yang disediakan, temukan 1 artikel/<i>video</i>/<i>e-book</i> yang berisi informasi atau konten <i>online</i> tentang teknologi pendeteksi makanan boraks.
           </h3>
-          <input
-            type="url"
+          <textarea
             className="link-input input-compact"
             placeholder="Salin link artikel/video/e-book yang anda temukan di sini!"
+            rows={3}
             value={answers.q8.link}
             onChange={(e) => setQ8Link(e.target.value)}
             onPointerDownCapture={stopFlipPropagation}
             onMouseDownCapture={stopFlipPropagation}
             onTouchStartCapture={stopFlipPropagation}
             autoComplete="off"
+            style={{ minHeight: '72px' }}
           />
         </div>
 
@@ -42,6 +43,7 @@ const DigitalResourceRightPage = forwardRef(function DigitalResourceRightPage(pr
             onMouseDownCapture={stopFlipPropagation}
             onTouchStartCapture={stopFlipPropagation}
             autoComplete="off"
+            style={{ minHeight: '72px' }}
           />
         </div>
       </div>

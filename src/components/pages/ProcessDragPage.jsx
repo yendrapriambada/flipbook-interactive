@@ -10,27 +10,32 @@ const COLORS = [
   { id: 6, label: '6', color: '#f48fb1' },
 ];
 
-const ItemBox = ({ id, color, value, onChange, onDragStart, stopFlip, tagNumber, onPick }) => {
+const ItemBox = ({ id, color, value, onChange, onDragStart, stopFlip, tagNumber, onPick, selectedId }) => {
+  const isSelected = selectedId === id;
   return (
     <div
       draggable
       onDragStart={(e) => onDragStart(e, id)}
       onPointerDownCapture={stopFlip}
       onMouseDownCapture={stopFlip}
-      onTouchStartCapture={stopFlip}
-      onTouchEnd={() => onPick && onPick(id)}
-      onPointerUp={() => onPick && onPick(id)}
-      onClick={() => onPick && onPick(id)}
       onClickCapture={stopFlip}
+      onClick={() => onPick && onPick(id)}
+      onPointerUp={() => onPick && onPick(id)}
+      onTouchStart={(e) => e.stopPropagation()}
+      onTouchEnd={(e) => { e.stopPropagation(); onPick && onPick(id); }}
       style={{
         background: color,
         borderRadius: '10px',
-        boxShadow: '0 2px 6px rgba(0,0,0,0.25)',
+        boxShadow: isSelected
+          ? '0 0 0 4px rgba(255,255,255,0.5)'
+          : '0 2px 6px rgba(0,0,0,0.25)',
+        outline: isSelected ? '3px solid #fff' : 'none',
         padding: '6px',
         display: 'grid',
         gridTemplateColumns: 'auto 1fr',
         alignItems: 'center',
         width: '100%',
+        cursor: 'pointer',
       }}
     >
       <span
@@ -150,12 +155,6 @@ const ProcessDragPage = forwardRef((props, ref) => {
           onMouseDownCapture={stopFlip}
           onMouseMoveCapture={stopFlip}
           onMouseUpCapture={stopFlip}
-          onTouchStartCapture={(e) => {
-            stopFlip(e);
-            e.preventDefault(); // allow touch-dnd without scrolling
-          }}
-          onTouchMoveCapture={stopFlip}
-          onTouchEndCapture={stopFlip}
         >
           <div
             style={{
@@ -169,10 +168,23 @@ const ProcessDragPage = forwardRef((props, ref) => {
                 color: '#e8f5e9',
                 fontSize: '13px',
                 lineHeight: 1.4,
-                marginBottom: '6px',
+                marginBottom: '2px',
               }}
             >
               Berdasarkan wacana tersebut, tuliskan urutan langkah-langkah utama yang dilakukan Andi dalam menggunakan alat pendeteksi boraks! Seret (drag) kotak dari kanan ke kolom di bawah ini.
+            </div>
+            <div
+              style={{
+                background: 'rgba(255,255,255,0.12)',
+                borderRadius: '8px',
+                padding: '6px 10px',
+                color: '#ffe082',
+                fontSize: '11px',
+                lineHeight: 1.4,
+                marginBottom: '4px',
+              }}
+            >
+              💡 Sentuh kotak untuk memilih (warna menyala), lalu sentuh slot untuk menempatkan.
             </div>
             {slots.map((val, idx) => {
               const slotColor = COLORS[idx]?.color || '#cfd8dc';
@@ -181,13 +193,12 @@ const ProcessDragPage = forwardRef((props, ref) => {
                 key={idx}
                 onDragOver={onDragOver}
                 onDrop={(e) => onDrop(e, idx)}
-                onTouchEnd={() => placeSelectedTo(idx)}
-                onPointerUp={() => placeSelectedTo(idx)}
                 onClick={() => placeSelectedTo(idx)}
+                onPointerUp={() => placeSelectedTo(idx)}
                 onPointerDownCapture={stopFlip}
                 onMouseDownCapture={stopFlip}
-                onTouchStartCapture={stopFlip}
-                onClickCapture={stopFlip}
+                onTouchStart={(e) => e.stopPropagation()}
+                onTouchEnd={(e) => { e.stopPropagation(); placeSelectedTo(idx); }}
                 style={{
                   minHeight: '44px',
                   border: `2px dashed ${slotColor}`,
@@ -197,6 +208,7 @@ const ProcessDragPage = forwardRef((props, ref) => {
                   alignItems: 'center',
                   justifyContent: 'flex-start',
                   padding: '0 12px',
+                  cursor: 'pointer',
                 }}
               >
                 {val ? (
@@ -209,6 +221,7 @@ const ProcessDragPage = forwardRef((props, ref) => {
                     onDragStart={onDragStart}
                     stopFlip={stopFlip}
                     onPick={(id) => setSelectedId(id)}
+                    selectedId={selectedId}
                   />
                 ) : (
                   <span
@@ -258,6 +271,7 @@ const ProcessDragPage = forwardRef((props, ref) => {
                     onDragStart={onDragStart}
                     stopFlip={stopFlip}
                     onPick={(id) => setSelectedId(id)}
+                    selectedId={selectedId}
                   />
                 ));
             })()}

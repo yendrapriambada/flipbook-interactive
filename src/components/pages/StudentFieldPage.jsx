@@ -43,21 +43,21 @@ const StudentFieldPage = forwardRef(function StudentFieldPage(props, ref) {
                 </div>
               </div>
             </div>
+
+            {!isFinished && (
+              <button
+                type="button"
+                className={`student-play-button ${
+                  isPlaying ? 'student-play-button-active' : ''
+                }`}
+                onClick={play}
+                disabled={isPlaying}
+              >
+                {isPlaying ? 'Listening...' : '▶ Play'}
+              </button>
+            )}
           </div>
         </div>
-
-        {!isFinished && (
-          <button
-            type="button"
-            className={`student-play-button ${
-              isPlaying ? 'student-play-button-active' : ''
-            }`}
-            onClick={play}
-            disabled={isPlaying}
-          >
-            {isPlaying ? 'Listening...' : '▶ Play'}
-          </button>
-        )}
       </div>
     </div>
   )
