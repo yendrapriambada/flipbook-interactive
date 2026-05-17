@@ -196,9 +196,26 @@ function Book() {
     }
   }, [])
 
-  // In single-page/mobile mode, pageflip's internal index can be one step
-  // ahead of the visible page number. Shift validation index accordingly.
-  const getSinglePageValidationIndex = (idx) => Math.max(0, idx - 1)
+  const getValidationIndexes = useCallback((pageFlip, pageIndex) => {
+    const lastUsefulIndex = getLastUsefulPageIndex()
+
+    const pageCollection = pageFlip?.getPageCollection?.()
+    const spreadIndex = pageCollection?.getSpreadIndexByPage?.(pageIndex)
+    const spreads = pageCollection?.getSpread?.()
+    const spread = Array.isArray(spreads) ? spreads[spreadIndex] : null
+    const indexes = Array.isArray(spread)
+      ? spread
+      : isSinglePage
+        ? [pageIndex]
+        : [pageIndex, pageIndex + 1]
+
+    return [...new Set(indexes)]
+      .filter((idx) => Number.isInteger(idx) && idx >= 0 && idx <= lastUsefulIndex)
+  }, [getLastUsefulPageIndex, isSinglePage])
+
+  const canLeavePage = useCallback((pageFlip, pageIndex) => (
+    getValidationIndexes(pageFlip, pageIndex).every((idx) => validatePage(idx))
+  ), [getValidationIndexes, validatePage])
 
   const handleNext = () => {
     if (bookRef.current) {
@@ -213,19 +230,11 @@ function Book() {
           return
         }
 
-        if (!isSinglePage) {
-          const nextIdx = Math.min(current + 1, lastUsefulIndex)
-          if (!validatePage(current) || !validatePage(nextIdx)) {
-            alert('Lengkapi semua kolom input sebelum lanjut ke halaman berikutnya.')
-            return
-          }
-        } else {
-          const validationIdx = getSinglePageValidationIndex(current)
-          if (!validatePage(validationIdx)) {
-            alert('Lengkapi semua kolom input sebelum lanjut ke halaman berikutnya.')
-            return
-          }
+        if (!canLeavePage(pageFlip, current)) {
+          alert('Lengkapi semua kolom input sebelum lanjut ke halaman berikutnya.')
+          return
         }
+
         pageFlip.flipNext()
       }
     }
@@ -285,9 +294,7 @@ function Book() {
             
             // Validate if trying to move forward
             if (newIndex > curIdx) {
-              const isValid = isSinglePage 
-                ? validatePage(getSinglePageValidationIndex(curIdx))
-                : (validatePage(curIdx) && validatePage(Math.min(curIdx + 1, lastUsefulIndex)));
+              const isValid = canLeavePage(pageFlip, curIdx);
                 
               if (!isValid) {
                 setTimeout(() => {
@@ -311,7 +318,7 @@ function Book() {
         ))}
       </HTMLFlipBook>
     )
-  }, [pageSize, isSinglePage, validatePage, getLastUsefulPageIndex])
+  }, [pageSize, isSinglePage, canLeavePage, getLastUsefulPageIndex])
 
   return (
     <div className="flipbook-layout">

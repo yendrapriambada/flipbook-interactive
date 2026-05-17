@@ -3708,3 +3708,24 @@ textarea {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* Page 5: fixed image height, full image visible at every viewport. */
+.video-discovery-page .hero-image-frame.board-col-image-wide {
+  width: 100% !important;
+  height: 33vh !important;
+  max-height: none !important;
+  flex: 0 0 33vh !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-discovery-page .hero-image-frame .hero-image,
+.video-discovery-page .board-col-image-wide .hero-image {
+  width: 100% !important;
+  height: 33vh !important;
+  min-height: 0 !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+}

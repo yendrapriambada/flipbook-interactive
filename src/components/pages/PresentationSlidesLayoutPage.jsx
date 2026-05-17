@@ -15,6 +15,23 @@ const PresentationSlidesLayoutPage = forwardRef(function PresentationSlidesLayou
   return (
     <div className="page" ref={ref}>
       <div className="page-content presentation-slides-page">
+        <div className="evaluation-question-card">
+          <h5 className="evaluation-question">
+            Sebagai ketua kelompok, perlukan Andi menyampaikan kepada semua anggota kelompok bahwasanya ada tugas yang diberikan dosen melalui pesan teks <i>email</i> tersebut? Berikan alasannya!
+          </h5>
+          <div className="evaluation-input-wrapper">
+            <textarea
+              placeholder="Jawaban Anda..."
+              rows={3}
+              value={answers.s3.left}
+              onChange={(e) => setS3Left(e.target.value)}
+              onPointerDownCapture={stopFlipPropagation}
+              onMouseDownCapture={stopFlipPropagation}
+              onTouchStartCapture={stopFlipPropagation}
+            />
+          </div>
+        </div>
+
         <div className="evaluation-question-card slides-section">
           <h5 className="evaluation-question">
             Berdasarkan pesan teks <i>email</i> di atas, setelah bekerja dengan kelompok, poin utama apa saja yang tepat untuk disajikan oleh kelompok Andi pada tugas presentasi tersebut?
@@ -35,23 +52,6 @@ const PresentationSlidesLayoutPage = forwardRef(function PresentationSlidesLayou
                 />
               </div>
             ))}
-          </div>
-        </div>
-
-        <div className="evaluation-question-card">
-          <h5 className="evaluation-question">
-            Sebagai ketua kelompok, perlukan Andi menyampaikan kepada semua anggota kelompok bahwasanya ada tugas yang diberikan dosen melalui pesan teks <i>email</i> tersebut? Berikan alasannya!
-          </h5>
-          <div className="evaluation-input-wrapper">
-            <textarea
-              placeholder="Jawaban Anda..."
-              rows={3}
-              value={answers.s3.left}
-              onChange={(e) => setS3Left(e.target.value)}
-              onPointerDownCapture={stopFlipPropagation}
-              onMouseDownCapture={stopFlipPropagation}
-              onTouchStartCapture={stopFlipPropagation}
-            />
           </div>
         </div>
 

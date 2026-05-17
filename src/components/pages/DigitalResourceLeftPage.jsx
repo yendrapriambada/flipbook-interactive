@@ -3,8 +3,67 @@ import googlebooksIcon from '../../assets/googlebooks.png'
 import { useSyncedSpeech } from '../../hooks/useSyncedSpeech'
 import springerIcon from '../../assets/springer.png'
 import sciencedirectIcon from '../../assets/sciencedirect.png'
-import wileyIcon from '../../assets/wiley_logo.png'
-import doajIcon from '../../assets/doaj_logo.png'
+
+const logoSvg = (body) =>
+  `data:image/svg+xml;utf8,${encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120">${body}</svg>`
+  )}`
+
+const ieeeLogo = logoSvg(`
+  <rect width="320" height="120" fill="white"/>
+  <text x="160" y="58" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700" fill="#00629b">IEEE</text>
+  <text x="160" y="84" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" font-style="italic" fill="#00629b">Advancing Technology</text>
+`)
+
+const wileyLogo = logoSvg(`
+  <rect width="320" height="120" fill="white"/>
+  <text x="160" y="58" text-anchor="middle" font-family="Georgia, serif" font-size="44" font-weight="700" fill="#111111">WILEY</text>
+  <text x="160" y="86" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#444444">Online Library</text>
+`)
+
+const googleScholarLogo = logoSvg(`
+  <rect width="320" height="120" fill="white"/>
+  <path d="M160 21 90 60l70 39 70-39-70-39Z" fill="#4285f4"/>
+  <circle cx="160" cy="78" r="24" fill="#a7c7ff"/>
+  <text x="160" y="112" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#555555">Google Scholar</text>
+`)
+
+const doajLogo = logoSvg(`
+  <rect width="320" height="120" fill="white"/>
+  <text x="160" y="50" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="40" fill="#f26a21">DOAJ</text>
+  <text x="160" y="75" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#333333">DIRECTORY OF</text>
+  <text x="160" y="96" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#333333">OPEN ACCESS JOURNALS</text>
+`)
+
+const youtubeLogo = logoSvg(`
+  <rect width="320" height="120" fill="white"/>
+  <rect x="105" y="32" width="110" height="70" rx="18" fill="#ff0000"/>
+  <path d="M149 50v34l32-17-32-17Z" fill="white"/>
+`)
+
+const courseraLogo = logoSvg(`
+  <rect width="320" height="120" fill="white"/>
+  <text x="160" y="77" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" fill="#0056d2">coursera</text>
+`)
+
+const tedLogo = logoSvg(`
+  <rect width="320" height="120" fill="white"/>
+  <text x="160" y="78" text-anchor="middle" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="56" font-weight="900" fill="#e62b1e">TED</text>
+`)
+
+const openLibraryLogo = logoSvg(`
+  <rect width="320" height="120" fill="white"/>
+  <text x="94" y="69" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#4d83b8">OPEN</text>
+  <text x="198" y="70" text-anchor="middle" font-family="Georgia, serif" font-size="34" fill="#111111">LIBRARY</text>
+  <line x1="52" y1="82" x2="268" y2="82" stroke="#d6c7a6" stroke-width="3"/>
+`)
+
+const amazonKindleLogo = logoSvg(`
+  <rect width="320" height="120" fill="white"/>
+  <text x="128" y="65" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#111111">amazon</text>
+  <text x="226" y="65" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#ff9900">kindle</text>
+  <path d="M76 79c44 21 96 22 143 1" fill="none" stroke="#ff9900" stroke-width="5" stroke-linecap="round"/>
+`)
 
 const SITES = [
   {
@@ -15,22 +74,22 @@ const SITES = [
   {
     name: 'IEEE Xplore',
     href: 'https://ieeexplore.ieee.org/Xplore/home.jsp',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/2/21/IEEE_logo.svg',
+    img: ieeeLogo,
   },
   {
     name: 'Wiley Online Library',
     href: 'https://onlinelibrary.wiley.com/',
-    img: wileyIcon,
+    img: wileyLogo,
   },
   {
     name: 'Google Scholar',
     href: 'https://scholar.google.com/',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg',
+    img: googleScholarLogo,
   },
   {
     name: 'DOAJ',
     href: 'https://doaj.org/',
-    img: doajIcon,
+    img: doajLogo,
   },
   {
     name: 'Springer',
@@ -40,27 +99,27 @@ const SITES = [
   {
     name: 'YouTube',
     href: 'https://www.youtube.com/',
-    img: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/youtube.svg',
+    img: youtubeLogo,
   },
   {
     name: 'Coursera',
     href: 'https://www.coursera.org/',
-    img: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/coursera.svg',
+    img: courseraLogo,
   },
   {
     name: 'TED Talks',
     href: 'https://www.ted.com/talks',
-    img: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/ted.svg',
+    img: tedLogo,
   },
   {
     name: 'Open Library',
     href: 'https://openlibrary.org/',
-    img: 'https://openlibrary.org/static/images/openlibrary-logo-tighter.svg',
+    img: openLibraryLogo,
   },
   {
     name: 'Amazon Kindle',
     href: 'https://www.amazon.com/Kindle-eBooks/b?ie=UTF8&node=154606011',
-    img: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/amazon.svg',
+    img: amazonKindleLogo,
   },
   {
     name: 'Google Books',

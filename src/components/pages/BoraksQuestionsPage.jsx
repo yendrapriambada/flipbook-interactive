@@ -14,14 +14,14 @@ const BoraksQuestionsPage = forwardRef(function BoraksQuestionsPage(props, ref) 
         <div className="analysis-container">
           <div className="question-block">
             <label className="analysis-question">
-              Sebagai ketua kelompok, jelaskan apakah Anda melibatkan seluruh anggota kelompok dalam menyusun dan mengelola data. Sertakan alasan Anda!
+              Susun data hasil pengujian ke dalam tabel yang sistematis, kemudian tentukan sampel yang mengandung boraks dan yang tidak mengandung boraks berdasarkan informasi tekstur, warna, dan daya tahan!
             </label>
             <textarea
               className="analysis-textarea"
               placeholder="Jawaban Anda..."
               rows={3}
-              value={answers.q10.tableInfo}
-              onChange={(e) => setQ10TableInfo(e.target.value)}
+              value={answers.q10.involvement}
+              onChange={(e) => setQ10Involvement(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}
               onMouseDownCapture={stopFlipPropagation}
               onTouchStartCapture={stopFlipPropagation}
@@ -31,14 +31,14 @@ const BoraksQuestionsPage = forwardRef(function BoraksQuestionsPage(props, ref) 
 
           <div className="question-block">
             <label className="analysis-question">
-              Susun data hasil pengujian ke dalam tabel yang sistematis, kemudian tentukan sampel yang mengandung boraks dan yang tidak mengandung boraks berdasarkan informasi tekstur, warna, dan daya tahan!
+              Sebagai ketua kelompok, jelaskan apakah Anda melibatkan seluruh anggota kelompok dalam menyusun dan mengelola data. Sertakan alasan Anda!
             </label>
             <textarea
               className="analysis-textarea"
               placeholder="Jawaban Anda..."
               rows={3}
-              value={answers.q10.involvement}
-              onChange={(e) => setQ10Involvement(e.target.value)}
+              value={answers.q10.tableInfo}
+              onChange={(e) => setQ10TableInfo(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}
               onMouseDownCapture={stopFlipPropagation}
               onTouchStartCapture={stopFlipPropagation}
