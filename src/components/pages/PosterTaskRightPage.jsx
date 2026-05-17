@@ -18,6 +18,7 @@ const PosterTaskRightPage = forwardRef(function PosterTaskRightPage(props, ref) 
           <div className="evaluation-input-wrapper">
             <textarea
               placeholder="Jawaban Anda..."
+              rows={3}
               value={answers.q9.posterLink}
               onChange={(e) => setQ9PosterLink(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}
@@ -57,6 +58,7 @@ const PosterTaskRightPage = forwardRef(function PosterTaskRightPage(props, ref) 
             <label>Tulis alasanmu di bawah ini!</label>
             <textarea
               placeholder="Jawaban Anda..."
+              rows={3}
               value={answers.q9.reason}
               onChange={(e) => setQ9Reason(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}

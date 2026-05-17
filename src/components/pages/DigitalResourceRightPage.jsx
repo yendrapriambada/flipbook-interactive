@@ -35,6 +35,7 @@ const DigitalResourceRightPage = forwardRef(function DigitalResourceRightPage(pr
           <textarea
             className="analysis-textarea textarea-compact"
             placeholder="Jawaban singkat Anda"
+            rows={3}
             value={answers.q8.summary}
             onChange={(e) => setQ8Summary(e.target.value)}
             onPointerDownCapture={stopFlipPropagation}

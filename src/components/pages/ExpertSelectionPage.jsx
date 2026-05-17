@@ -19,6 +19,7 @@ const ExpertSelectionPage = forwardRef(function ExpertSelectionPage(props, ref) 
             <textarea
               className="tech-impact-input"
               placeholder="Jawaban Anda..."
+              rows={3}
               value={answers.q5.choice}
               onChange={(e) => setQ5Choice(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}
@@ -33,6 +34,7 @@ const ExpertSelectionPage = forwardRef(function ExpertSelectionPage(props, ref) 
             <textarea
               className="tech-impact-input"
               placeholder="Jawaban Anda..."
+              rows={3}
               value={answers.q5.reason}
               onChange={(e) => setQ5Reason(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}

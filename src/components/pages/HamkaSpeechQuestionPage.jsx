@@ -52,6 +52,7 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
           <div className="evaluation-input-wrapper">
             <textarea
               placeholder="Jawaban Anda..."
+              rows={3}
               value={answers.s7.a1}
               onChange={(e) => setS7A1(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}
@@ -68,6 +69,7 @@ const HamkaSpeechQuestionPage = forwardRef(function HamkaSpeechQuestionPage(prop
           <div className="evaluation-input-wrapper">
             <textarea
               placeholder="Jawaban Anda..."
+              rows={3}
               value={answers.s7.a2}
               onChange={(e) => setS7A2(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}

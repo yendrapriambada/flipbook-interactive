@@ -20,6 +20,7 @@ const DigitalResourceQuestionPage = forwardRef(function DigitalResourceQuestionP
           <div className="evaluation-input-wrapper">
             <textarea
               placeholder="Jawaban Anda..."
+              rows={3}
               value={answers.q7.answer}
               onChange={(e) => setQ7Answer(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}
@@ -37,6 +38,7 @@ const DigitalResourceQuestionPage = forwardRef(function DigitalResourceQuestionP
           <div className="evaluation-input-wrapper">
             <textarea
               placeholder="Jawaban Anda..."
+              rows={3}
               value={answers.q8.features}
               onChange={(e) => setQ8Features(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}
@@ -53,6 +55,7 @@ const DigitalResourceQuestionPage = forwardRef(function DigitalResourceQuestionP
           <div className="evaluation-input-wrapper">
             <textarea
               placeholder="Jawaban Anda..."
+              rows={3}
               value={answers.q9.benefits}
               onChange={(e) => setQ9Benefits(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}

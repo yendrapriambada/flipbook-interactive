@@ -132,6 +132,7 @@ const DigitalResourcePage = forwardRef(function DigitalResourcePage(props, ref) 
                   <textarea
                     className="analysis-textarea"
                     placeholder="Jawaban Anda..."
+                    rows={3}
                     value={summary}
                     onChange={(e) => setSummary(e.target.value)}
                     onPointerDownCapture={stopFlipPropagation}

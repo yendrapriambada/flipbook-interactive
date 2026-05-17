@@ -26,6 +26,7 @@ const ExperiencePage = forwardRef(function ExperiencePage(props, ref) {
           <textarea
             className="experience-textarea"
             placeholder="Tuliskan cerita atau pengalamanmu di sini..."
+            rows={3}
             value={story}
             onChange={onStoryChange}
             maxLength={600}

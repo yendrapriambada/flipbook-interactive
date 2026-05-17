@@ -49,6 +49,7 @@ const VideoGalleryPage = forwardRef(function VideoGalleryPage(props, ref) {
               value={answers.s1.answer}
               onChange={(e) => setS1Answer(e.target.value)}
               placeholder="Tulis jawabanmu di sini..."
+              rows={3}
               ref={textareaRef}
             />
           </div>

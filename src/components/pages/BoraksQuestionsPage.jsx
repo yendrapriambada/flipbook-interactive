@@ -19,6 +19,7 @@ const BoraksQuestionsPage = forwardRef(function BoraksQuestionsPage(props, ref) 
             <textarea
               className="analysis-textarea"
               placeholder="Jawaban Anda..."
+              rows={3}
               value={answers.q10.tableInfo}
               onChange={(e) => setQ10TableInfo(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}
@@ -35,6 +36,7 @@ const BoraksQuestionsPage = forwardRef(function BoraksQuestionsPage(props, ref) 
             <textarea
               className="analysis-textarea"
               placeholder="Jawaban Anda..."
+              rows={3}
               value={answers.q10.involvement}
               onChange={(e) => setQ10Involvement(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}

@@ -86,6 +86,7 @@ const SolutionReviewPage = forwardRef(function SolutionReviewPage(props, ref) {
                     <textarea
                       className="qa-input"
                       placeholder="Jawaban Anda..."
+                      rows={3}
                       value={reason}
                       onChange={(e) => setReason(e.target.value)}
                       onPointerDown={stopFlipPropagation}

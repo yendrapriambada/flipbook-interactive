@@ -2620,9 +2620,13 @@ textarea {
   touch-action: manipulation;
 }
 
-/* Page 5: allow scroll inside green container */
+/* Page 5: scroll at page-content level, not inside the green board */
 .video-discovery-page .student-board-inner {
-  overflow: auto;
+  overflow: visible;
+}
+.video-discovery-page.page-content {
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 /* Presentation Slides Layout Page */
@@ -3582,5 +3586,97 @@ b {
 
   .presentation-slides-page .slide-card {
     min-height: 78px;
+  }
+}
+
+/* ===== GLOBAL RESPONSIVE FIXES ===== */
+
+/* All textareas: ensure they never overflow their container */
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+/* Answer form pages: scroll at page-content level, not card level */
+.answer-form-page {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(144, 108, 86, 0.5) transparent;
+}
+.answer-form-page .evaluation-question-card {
+  flex-shrink: 0;
+}
+.evaluation-input-wrapper textarea {
+  min-height: 72px; /* ~3 rows */
+}
+
+/* Evaluation question cards: min-width 0 to prevent overflow */
+.evaluation-question-card {
+  min-width: 0;
+}
+.evaluation-input-wrapper {
+  min-width: 0;
+}
+.evaluation-input-wrapper textarea {
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Small screen: image-left pages switch to column */
+@media (max-width: 520px) {
+  .student-board-body,
+  .teacher-board-body {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .student-image-wrapper,
+  .teacher-avatar-wrapper {
+    width: 100% !important;
+    flex: 0 0 auto !important;
+    max-height: 130px !important;
+    overflow: hidden;
+  }
+  .student-image,
+  .teacher-avatar-image {
+    width: 100%;
+    height: 130px !important;
+    object-fit: cover !important;
+  }
+  .hero-image-frame,
+  .board-col-image-wide.hero-image-frame {
+    width: 100% !important;
+    flex: 0 0 auto !important;
+    max-height: 130px !important;
+    overflow: hidden;
+  }
+  .hero-image,
+  .board-col-image-wide .hero-image {
+    height: 130px !important;
+    object-fit: cover !important;
+  }
+}
+
+/* Slides grid responsive */
+@media (max-width: 680px) {
+  .slides-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: none !important;
+  }
+  .slides-grid .slide-card:last-child {
+    grid-column: auto !important;
+  }
+  .slide-title {
+    font-size: 0.7rem;
+  }
+  .slide-input {
+    font-size: clamp(0.65rem, 1.8vw, 0.85rem);
+    min-height: 38px;
+  }
+}
+@media (max-width: 400px) {
+  .slides-grid {
+    grid-template-columns: 1fr !important;
   }
 }

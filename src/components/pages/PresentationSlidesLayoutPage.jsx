@@ -45,6 +45,7 @@ const PresentationSlidesLayoutPage = forwardRef(function PresentationSlidesLayou
           <div className="evaluation-input-wrapper">
             <textarea
               placeholder="Jawaban Anda..."
+              rows={3}
               value={answers.s3.left}
               onChange={(e) => setS3Left(e.target.value)}
               onPointerDownCapture={stopFlipPropagation}

@@ -296,6 +296,7 @@ const ProcessDragPage = forwardRef((props, ref) => {
             onTouchStartCapture={stopFlip}
             onClickCapture={stopFlip}
             placeholder="Tulis jawaban di sini..."
+            rows={3}
             style={{
               width: '100%',
               minHeight: '70px',
